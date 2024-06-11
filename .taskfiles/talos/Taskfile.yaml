@@ -1,0 +1,55 @@
+version: '3'
+
+vars:
+  CONTROL_PLANE_IP: 192.168.2.2
+  WORKER_IP: 192.168.2.2
+  TALOS_CONFIG: "talos/talosconfig.yaml"
+  CONTROL_PLANE_CONFIG: "talos/controlplane.yaml"
+  WORKER_CONFIG: "talos/worker.yaml"
+  
+tasks:
+  # generate_config:
+  #   desc: Generate configuration files
+  #   cmds:
+  #     - talosctl gen config homecluster "https://${CONTROL_PLANE_IP}:6443" --output-dir {{._out_dir}} --force
+
+  apply_controlplane_config:
+    desc: Apply configuration to control plane node
+    cmd: |
+      sops --decrypt "{{.WORKER_CONFIG}}" | \
+      - talosctl apply-config --insecure --nodes "{{.CONTROL_PLANE_IP}}" --file /dev/stdin
+
+  apply_worker_config:
+    desc: Apply configuration to worker node
+    cmd: |
+      sops --decrypt "{{.WORKER_CONFIG}}" | \
+      - talosctl apply-config --insecure --nodes "{{.WORKER_IP}}" --file /dev/stdin
+
+  # setup_talos_config:
+  #   desc: Set up Talos configuration
+  #   env:
+  #     TALOSCONFIG: '{{.talosconfig}}'
+  #   cmds:
+  #     - talosctl config endpoint "{{.CONTROL_PLANE_IP}}"
+  #     - talosctl config node "{{.CONTROL_PLANE_IP}}"
+  #     - talosctl --talosconfig "${TALOSCONFIG}" config endpoint "{{.CONTROL_PLANE_IP}}"
+  #     - talosctl --talosconfig "${TALOSCONFIG}" config node "{{.CONTROL_PLANE_IP}}"
+
+  bootstrap_talos:
+    desc: Bootstrap Talos
+    cmd: |
+      sops --decrypt "{{.TALOS_CONFIG}}" | \
+      talosctl --talosconfig /dev/stdin bootstrap 
+
+  get_kubeconfig:
+    desc: Get kubeconfig
+    cmd: |
+      sops --decrypt "{{.TALOS_CONFIG}}" | \
+      talosctl --talosconfig /dev/stdin kubeconfig
+
+  dash:
+    desc: Get dashboard
+    cmd: |
+      sops --decrypt "{{.TALOS_CONFIG}}" | \
+      talosctl --talosconfig /dev/stdin dashboard -n "{{.CONTROL_PLANE_IP}}" -e "{{.WORKER_IP}}"
+

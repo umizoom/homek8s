@@ -1,0 +1,12 @@
+version: '3'
+
+silent: true
+dotenv: ['.env']
+
+includes:
+  flux: .taskfiles/flux
+  talos: .taskfiles/talos
+  sops: .taskfiles/sops
+
+tasks:
+  default: task  --list-all

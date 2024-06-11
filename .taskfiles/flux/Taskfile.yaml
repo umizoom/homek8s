@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: '3'
+
+tasks:
+  sync-repo:
+    cmds:
+      - flux reconcile source git flux-system
+  sync-infra:
+    cmds:
+      - flux reconcile kustomization base-infrastrcture
+  sync-secrets:
+    cmds:
+      - flux reconcile kustomization my-secrets

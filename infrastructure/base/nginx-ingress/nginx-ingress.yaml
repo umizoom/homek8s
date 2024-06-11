@@ -1,0 +1,32 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nginx-ingress
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: nginx-ingress
+  namespace: nginx-ingress
+spec:
+  interval: 5m0s
+  url: https://helm.nginx.com/stable
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: nginx-ingress
+  namespace: nginx-ingress
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: nginx-ingress
+      version: "1.2.2"
+      sourceRef:
+        kind: HelmRepository
+        name: nginx-ingress
+        namespace: nginx-ingress
+      interval: 12h
+

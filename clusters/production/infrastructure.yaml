@@ -1,0 +1,76 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: my-secrets
+  namespace: flux-system
+spec:
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
+  force: false
+  interval: 2m
+  path: ./clusters/production/secrets
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infra-dependencies
+  namespace: flux-system
+spec:
+  interval: 5m
+  retryInterval: 1m
+  timeout: 4m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/dependencies
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: base-infrastrcture
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infra-dependencies
+  interval: 5m
+  retryInterval: 1m
+  timeout: 4m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/production
+  prune: true
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infra-configs
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name:  my-secrets
+    - name: base-infrastrcture
+  interval: 5m
+  retryInterval: 1m
+  timeout: 4m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/configs
+  prune: true
+  # patches:
+  #   - patch: |
+  #       - op: replace
+  #         path: /spec/acme/server
+  #         value: https://acme-v02.api.letsencrypt.org/directory
+  #     target:
+  #       kind: ClusterIssuer
+  #       name: letsencrypt
