@@ -1,21 +1,73 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: web-app
+  namespace: stateful
   labels:
-    app: nginx
+    app.kubernetes.io/name: web-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nginx
+      app.kubernetes.io/name: web-app
   template:
     metadata:
       labels:
-        app: nginx
+        app.kubernetes.io/name: web-app
     spec:
       containers:
-      - name: nginx
-        image: nginx:1.14.2
-        ports:
-        - containerPort: 80
+      - name: web-app 
+        image: nginx
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        command: 
+          - /bin/sh
+          - -c
+          - "echo 'welcome to my web app!' > /usr/share/nginx/html/index.html && nginx -g 'daemon off;'"
+        volumeMounts:
+          - name: local
+            mountPath: /usr/share/nginx/html
+      volumes:
+        - name: local
+          hostPath:
+            path: /var/mnt/nginx
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-app
+  labels:
+    app.kubernetes.io/name: web-app
+spec:
+  selector:
+    app.kubernetes.io/name: web-app
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  # type: LoadBalancer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web-app
+  annotations:
+    kubernetes.io/spec.ingressClassName: "nginx"
+spec:
+  rules:
+  - host: web-app.home-k8s.lab
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: web-app
+            port:
+              number: 80

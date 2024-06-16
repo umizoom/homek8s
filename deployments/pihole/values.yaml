@@ -1,0 +1,36 @@
+## Chart: https://github.com/MoJo2600/pihole-kubernetes/blob/main/charts/pihole/values.yaml
+
+serviceDns:
+  loadBalancerIP: 192.168.2.13
+  type: LoadBalancer
+  mixedService: true
+
+# enables cloudflare tunnel sidecar container
+# and sets upstream dns in pihole to leverage it
+doh:
+  enabled: true
+  pullPolicy: Always
+  envVars: {
+    DOH_UPSTREAM: "https://1.1.1.1/dns-query"
+  }
+
+# these values will  set our ingress proxy and allow us to point
+# pihole-k3s.mylocaldomain.org DNS record to 192.168.100
+
+# will create kubernees ingress
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  hosts:
+  - pihole.home-k8s.lab
+
+# will create kubernetes services
+# You can use the cluster IP here, no need to expose on the LB IP when using Ingress
+serviceWeb:
+  loadBalancerIP: 192.168.2.2
+  type: ClusterIP
+  
+  # will set your admin password for the web inteface
+  adminPassword: "Ssh2017!"
