@@ -1,5 +1,7 @@
 ## Chart: https://github.com/MoJo2600/pihole-kubernetes/blob/main/charts/pihole/values.yaml
 
+## Install: helm upgrade --install my-pihole mojo2600/pihole -f values.yaml
+
 serviceDns:
   loadBalancerIP: 192.168.2.13
   type: LoadBalancer
@@ -15,7 +17,7 @@ doh:
   }
 
 # these values will  set our ingress proxy and allow us to point
-# pihole-k3s.mylocaldomain.org DNS record to 192.168.100
+# pihole.home-k8s.lab DNS record to 192.168.2.2
 
 # will create kubernees ingress
 ingress:
@@ -31,6 +33,15 @@ ingress:
 serviceWeb:
   loadBalancerIP: 192.168.2.2
   type: ClusterIP
+
+# -- `spec.PersitentVolumeClaim` configuration
+persistentVolumeClaim:
+  enabled: true
+  storageClass: "local-path"
+
+dnsmasq:
+  customDnsEntries:
+    - address=/home-k8s.lab/192.168.2.12
   
-  # will set your admin password for the web inteface
-  adminPassword: "Ssh2017!"
+# will set your admin password for the web inteface
+adminPassword: "Ssh2017!"
