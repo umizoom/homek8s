@@ -14,17 +14,55 @@ metadata:
   name: pihole
   namespace: default
 spec:
+  releaseName: my-pihole
   interval: 5m
-  valuesFrom:
-    - kind: ConfigMap
-      name: values
-      valuesKey: values.yaml
   chart:
     spec:
       chart: pihole
       sourceRef:
         kind: HelmRepository
         name: pihole
-  releaseName: pihole
-  dependsOn:
-    - name: pihole
+  values:
+    serviceDns:
+      loadBalancerIP: 192.168.2.13
+      type: LoadBalancer
+      mixedService: true
+
+# enables cloudflare tunnel sidecar container
+# and sets upstream dns in pihole to leverage it
+    doh:
+      enabled: true
+      pullPolicy: Always
+      envVars: {
+        DOH_UPSTREAM: "https://1.1.1.1/dns-query"
+      }
+
+# these values will  set our ingress proxy and allow us to point
+# pihole.home-k8s.lab DNS record to 192.168.2.2
+
+# will create kubernees ingress
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        kubernetes.io/ingress.class: nginx
+      hosts:
+      - pihole.home-k8s.lab
+
+# will create kubernetes services
+# You can use the cluster IP here, no need to expose on the LB IP when using Ingress
+    serviceWeb:
+      loadBalancerIP: 192.168.2.2
+      type: ClusterIP
+
+# -- `spec.PersitentVolumeClaim` configuration
+    persistentVolumeClaim:
+      enabled: true
+      storageClass: "local-path"
+
+    dnsmasq:
+      customDnsEntries:
+        - address=/home-k8s.lab/192.168.2.12
+  
+    # will set your admin password for the web inteface
+    adminPassword: "Ssh2017!"
