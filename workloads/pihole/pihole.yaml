@@ -60,9 +60,9 @@ spec:
       enabled: true
       storageClass: "local-path"
 
-    dnsmasq:
-      customDnsEntries:
-        - address=/home-k8s.lab/192.168.2.12
+    # dnsmasq:
+    #   customDnsEntries:
+    #     - address=/home-k8s.lab/192.168.2.12
   
     # will set your admin password for the web inteface
     adminPassword: "Ssh2017!"
