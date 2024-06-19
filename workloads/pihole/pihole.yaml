@@ -14,9 +14,17 @@ metadata:
   name: my-pihole
   namespace: default
 spec:
+  interval: 5m
   valuesFrom:
     - kind: ConfigMap
       name: values
       valuesKey: values.yaml
+  chart:
+    spec:
+      chart: my-pihole
+      sourceRef:
+        kind: HelmRepository
+        name: pihole
+  releaseName: my-pihole
   dependsOn:
     - name: pihole
