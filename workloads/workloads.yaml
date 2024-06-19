@@ -1,3 +1,13 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: github-pat
+  namespace: default
+type: Opaque
+stringData:
+  password: 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
+  username: git
+---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
@@ -8,6 +18,8 @@ spec:
   url: https://github.com/umizoom/homek8s.git
   ref:
     branch: main
+  secretRef:
+    name: github-pat
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
