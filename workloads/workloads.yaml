@@ -1,0 +1,25 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: workloads
+  namespace: default
+spec:
+  interval: 5m
+  url: https://github.com/umizoom/homek8s.git
+  ref:
+    branch: main
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: workloads
+  namespace: default
+spec:
+  interval: 10m
+  targetNamespace: default
+  sourceRef:
+    kind: GitRepository
+    name: podinfo
+  path: "./workloads/orbital-sync"
+  prune: true
+  timeout: 1m
