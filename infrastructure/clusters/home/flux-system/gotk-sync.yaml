@@ -34,7 +34,7 @@ metadata:
   namespace: default
 spec:
   interval: 1m0s
-  path: ./workloads/orbital-sync/
+  path: ./workloads/orbital-sync
   prune: true
   sourceRef:
     kind: GitRepository
