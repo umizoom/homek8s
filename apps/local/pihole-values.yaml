@@ -13,7 +13,7 @@ spec:
     adminPassword: "umaid!"
     ingress:
       hosts:
-        - pihole.lab
-          # paths:
+        - pihole1.lab
+          # paths:  
           #   - path: /
           #     pathType: ImplementationSpecific
