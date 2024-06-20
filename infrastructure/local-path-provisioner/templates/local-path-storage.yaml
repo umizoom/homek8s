@@ -6,6 +6,10 @@ metadata:
     pod-security.kubernetes.io/enforce: privileged
     pod-security.kubernetes.io/warn: privileged
     pod-security.kubernetes.io/enforce-version: latest
+    app.kubernetes.io/managed-by: Helm
+  annotations: 
+    meta.helm.sh/release-namespace: local-path-storage
+    meta.helm.sh/release-name: local-path-storage
   
 
 ---
@@ -14,6 +18,12 @@ kind: ServiceAccount
 metadata:
   name: local-path-provisioner-service-account
   namespace: local-path-storage
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  annotations: 
+    meta.helm.sh/release-namespace: local-path-storage
+    meta.helm.sh/release-name: local-path-storage
+  
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -21,6 +31,11 @@ kind: Role
 metadata:
   name: local-path-provisioner-role
   namespace: local-path-storage
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  annotations: 
+    meta.helm.sh/release-namespace: local-path-storage
+    meta.helm.sh/release-name: local-path-storage
 rules:
   - apiGroups: [""]
     resources: ["pods"]
@@ -31,6 +46,11 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: local-path-provisioner-role
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  annotations: 
+    meta.helm.sh/release-namespace: local-path-storage
+    meta.helm.sh/release-name: local-path-storage
 rules:
   - apiGroups: [""]
     resources: ["nodes", "persistentvolumeclaims", "configmaps", "pods", "pods/log"]
@@ -51,6 +71,11 @@ kind: RoleBinding
 metadata:
   name: local-path-provisioner-bind
   namespace: local-path-storage
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  annotations: 
+    meta.helm.sh/release-namespace: local-path-storage
+    meta.helm.sh/release-name: local-path-storage
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -65,6 +90,11 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: local-path-provisioner-bind
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  annotations: 
+    meta.helm.sh/release-namespace: local-path-storage
+    meta.helm.sh/release-name: local-path-storage
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -80,6 +110,11 @@ kind: Deployment
 metadata:
   name: local-path-provisioner
   namespace: local-path-storage
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  annotations: 
+    meta.helm.sh/release-namespace: local-path-storage
+    meta.helm.sh/release-name: local-path-storage
 spec:
   replicas: 1
   selector:
@@ -89,6 +124,7 @@ spec:
     metadata:
       labels:
         app: local-path-provisioner
+        app.kubernetes.io/managed-by: Helm
     spec:
       serviceAccountName: local-path-provisioner-service-account
       containers:
@@ -121,6 +157,11 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: local-path
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  annotations: 
+    meta.helm.sh/release-namespace: local-path-storage
+    meta.helm.sh/release-name: local-path-storage
 provisioner: rancher.io/local-path
 volumeBindingMode: WaitForFirstConsumer
 reclaimPolicy: Delete
@@ -131,6 +172,11 @@ apiVersion: v1
 metadata:
   name: local-path-config
   namespace: local-path-storage
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  annotations: 
+    meta.helm.sh/release-namespace: local-path-storage
+    meta.helm.sh/release-name: local-path-storage
 data:
   config.json: |-
     {

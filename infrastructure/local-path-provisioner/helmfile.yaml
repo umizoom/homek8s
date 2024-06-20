@@ -1,0 +1,4 @@
+releases:
+  - name: local-path-storage
+    namespace: local-path-storage
+    chart: .

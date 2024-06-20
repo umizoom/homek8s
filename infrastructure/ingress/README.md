@@ -1,10 +1,7 @@
 
 # Install NGINX Ingress Controller with Helm
 ```
-$ helm pull oci://ghcr.io/nginxinc/charts/nginx-ingress --untar --version 1.2.2
-$ cd nginx-ingress
-$ kubectl apply -f crds
-$ helm install nginx-ingress oci://ghcr.io/nginxinc/charts/nginx-ingress --version 1.2.2
+helmfile apply
 ```
 
 ### Verify NGINX Ingress Installation
