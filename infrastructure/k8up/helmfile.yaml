@@ -7,6 +7,3 @@ releases:
     namespace: default
     chart: k8up-io/k8up
     version: 4.7.0
-    hooks:
-      - events: ["presync"]
-        command: cert-manager-crds.sh
