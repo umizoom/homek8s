@@ -11,6 +11,9 @@ spec:
     enable: false
   values:
     adminPassword: "umaid!"
+    dnsmasq:
+      customDnsEntries:
+        - address=/kind-k8s.lab/192.168.3.2
     ingress:
       hosts:
         - pihole.lab
