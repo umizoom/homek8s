@@ -6,11 +6,11 @@ metadata:
 spec:
   chart:
     spec:
-      version: "2.24.1"
+      version: "2.24.0"
   test:
     enable: false
   values:
-    adminPassword: "Ssh2017!"
+    adminPassword: "umaid!"
     ingress:
       hosts:
         - pihole.lab
