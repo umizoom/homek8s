@@ -13,6 +13,6 @@ spec:
     ingress:
       hosts:
         - host: pihole.staging
-          paths:
-            - path: /
-              pathType: ImplementationSpecific
+          # paths:
+          #   - path: /
+          #     pathType: ImplementationSpecific
