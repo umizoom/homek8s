@@ -7,3 +7,5 @@ releases:
     namespace: nginx-ingress
     chart: ingress-nginx/ingress-nginx
     version: 4.10.1
+    values:
+      - values.yaml
