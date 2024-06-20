@@ -7,7 +7,7 @@ spec:
   releaseName: pihole
   chart:
     spec:
-      chart: mojo2600/pihole
+      chart: pihole
       sourceRef:
         kind: HelmRepository
         name: pihole
