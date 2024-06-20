@@ -1,18 +1,16 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: podinfo
-  namespace: podinfo
+  name: pihole
+  namespace: default
 spec:
   chart:
     spec:
-      version: ">=1.0.0-alpha"
-  test:
-    enable: false
+      version: "2.24.0"
   values:
     ingress:
       hosts:
-        - host: podinfo.staging
+        - host: pihole.production
           paths:
             - path: /
               pathType: ImplementationSpecific
