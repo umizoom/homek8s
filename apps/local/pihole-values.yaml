@@ -10,7 +10,7 @@ spec:
   test:
     enable: false
   values:
-    adminPassword: "umaid"
+    adminPassword: "Ssh2017!"
     ingress:
       hosts:
         - pihole.lab
