@@ -12,7 +12,7 @@ spec:
   values:
     ingress:
       hosts:
-        - host: pihole
+        - host: pihole.lab
           # paths:
           #   - path: /
           #     pathType: ImplementationSpecific
