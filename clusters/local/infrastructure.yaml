@@ -2,9 +2,34 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: infra-dependencies
+  namespace: flux-system
+spec:
+  interval: 5m
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/dependencies
+  prune: true
+  # patches:
+  #   - patch: |
+  #       - op: replace
+  #         path: /spec/acme/server
+  #         value: https://acme-staging-v02.api.letsencrypt.org/directory
+  #     target:
+  #       kind: ClusterIssuer
+  #       name: letsencrypt
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: infra-controllers
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: infra-dependencies
   interval: 1h
   retryInterval: 1m
   timeout: 5m
@@ -23,7 +48,7 @@ metadata:
 spec:
   dependsOn:
     - name: infra-controllers
-  interval: 1h
+  interval: 5m
   retryInterval: 1m
   timeout: 5m
   sourceRef:
