@@ -20,7 +20,7 @@ spec:
   values:
     # enables cloudflare tunnel sidecar container
     # and sets upstream dns in pihole to leverage it
-    adminPassword: "Ssh2017!"
+    adminPassword: "umaid"
     doh:
       enabled: true
       pullPolicy: Always
