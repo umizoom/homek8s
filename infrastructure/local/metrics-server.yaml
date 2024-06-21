@@ -17,4 +17,5 @@ spec:
       containers:
         - args:
             - --kubelet-insecure-tls
+            - --cert-dir=/tmp
           name: metrics-server
