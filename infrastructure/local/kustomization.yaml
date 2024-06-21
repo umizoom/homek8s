@@ -4,6 +4,12 @@ namespace: kube-system
 resources:
   - ../base/metrics-server
 patches:
-  - path: metrics-server.yaml
-    target:
-      kind: Deployment
+#   - path: metrics-server.yaml
+#     target:
+#       kind: Deployment
+    - patch: |-
+        - op: add
+          path: /spec/template/spec/containers/0/args/-
+          value: --kubelet-insecure-tls
+      target:
+        kind: Deployment
