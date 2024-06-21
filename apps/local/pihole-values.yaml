@@ -10,7 +10,7 @@ spec:
   test:
     enable: false
   values:
-    adminPassword: "umaid!"
+    adminPassword: "Ssh2017!"
     dnsmasq:
       customDnsEntries:
         - address=/kind-k8s.lab/192.168.3.2

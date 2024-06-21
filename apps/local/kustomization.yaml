@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: default
 resources:
   - ../base/pihole
+  - ../base/orbital-sync
 patches:
   - path: pihole-values.yaml
     target:
