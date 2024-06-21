@@ -29,11 +29,5 @@ spec:
         name: metrics-server
         namespace: kube-system
       interval: 12h
-      values:
-        spec:
-          template:
-            spec:
-              conatiners:
-                args:
-                  - --kubelet-insecure-tls
+
 
