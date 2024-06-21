@@ -10,7 +10,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/base/meterics-server/standalone.yaml
+  path: ./infrastructure/base/metrics-server/standalone.yaml
   prune: true
   patches:
     - patch: |
