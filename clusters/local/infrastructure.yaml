@@ -64,3 +64,21 @@ spec:
       target:
         kind: ClusterIssuer
         name: letsencrypt
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infra-controllers-local
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infra-dependencies
+  interval: 5m
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/local
+  prune: true
+  wait: true

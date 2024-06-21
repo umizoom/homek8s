@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - cert-manager.yaml
   - ingress-nginx.yaml
-  - metrics-server.yaml
+  # - metrics-server.yaml

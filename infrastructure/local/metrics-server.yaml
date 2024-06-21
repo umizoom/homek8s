@@ -1,0 +1,18 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: metrics-server
+  namespace: kube-system
+spec:
+  interval: 5m
+  retryInterval: 1m
+  timeout: 5m
+  path: ../base/meterics-server/standalone.yaml
+  prune: true
+  patches:
+    - patch: |
+        - op: add
+          path: /spec/template/spec/containers/0/args/-
+          value: --kubelet-insecure-tls
+      target:
+        kind: Deployment
