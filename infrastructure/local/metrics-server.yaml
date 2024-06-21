@@ -2,15 +2,14 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: metrics-server
-  namespace: kube-system
+  namespace: flux-system
 spec:
   interval: 5m
   retryInterval: 1m
   timeout: 5m
   sourceRef:
     kind: GitRepository
-    name: kube-system
-    namespace: flux-system
+    name: flux-system
   path: ../base/meterics-server/standalone.yaml
   prune: true
   patches:
