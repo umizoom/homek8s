@@ -13,14 +13,6 @@ spec:
     name: flux-system
   path: ./infrastructure/dependencies
   prune: true
-  # patches:
-  #   - patch: |
-  #       - op: replace
-  #         path: /spec/acme/server
-  #         value: https://acme-staging-v02.api.letsencrypt.org/directory
-  #     target:
-  #       kind: ClusterIssuer
-  #       name: letsencrypt
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -30,9 +22,9 @@ metadata:
 spec:
   dependsOn:
     - name: infra-dependencies
-  interval: 1h
+  interval: 5m
   retryInterval: 1m
-  timeout: 5m
+  timeout: 4m
   sourceRef:
     kind: GitRepository
     name: flux-system

@@ -2,40 +2,75 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: infra-controllers
+  name: infra-dependencies
   namespace: flux-system
 spec:
-  interval: 1h
+  interval: 5m
   retryInterval: 1m
-  timeout: 5m
+  timeout: 4m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/controllers
+  path: ./infrastructure/dependencies
   prune: true
-  wait: true
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: infra-controllers
+#   namespace: flux-system
+# spec:
+#   dependsOn:
+#     - name: infra-dependencies
+#   interval: 5m
+#   retryInterval: 1m
+#   timeout: 4m
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#   path: ./infrastructure/controllers
+#   prune: true
+#   wait: true
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: infra-configs
+#   namespace: flux-system
+# spec:
+#   dependsOn:
+#     - name: infra-controllers
+#   interval: 5m
+#   retryInterval: 1m
+#   timeout: 4m
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#   path: ./infrastructure/configs
+#   prune: true
+#   patches:
+#     - patch: |
+#         - op: replace
+#           path: /spec/acme/server
+#           value: https://acme-v02.api.letsencrypt.org/directory
+#       target:
+#         kind: ClusterIssuer
+#         name: letsencrypt
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: infra-configs
+  name: infra-controllers-production
   namespace: flux-system
 spec:
   dependsOn:
-    - name: infra-controllers
-  interval: 1h
+    - name: infra-dependencies
+  interval: 5m
   retryInterval: 1m
-  timeout: 5m
+  timeout: 4m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/configs
+  path: ./infrastructure/production
   prune: true
-  patches:
-    - patch: |
-        - op: replace
-          path: /spec/acme/server
-          value: https://acme-v02.api.letsencrypt.org/directory
-      target:
-        kind: ClusterIssuer
-        name: letsencrypt
+  wait: true

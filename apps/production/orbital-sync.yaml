@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.34.0 (HEAD)
+  labels:
+    io.kompose.service: orbital-sync
+  name: orbital-sync
+spec:
+  selector:
+    matchLabels:
+      io.kompose.service: orbital-sync
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.34.0 (HEAD)
+      labels:
+        io.kompose.service: orbital-sync
+    spec:
+      containers:
+        - env:
+            - name: SECONDARY_HOSTS_1_BASE_URL
+              value: http://pihole.home-k8s.lab
+            - name: SECONDARY_HOSTS_1_PASSWORD
+              value: Ssh2017!
+          name: orbital-sync

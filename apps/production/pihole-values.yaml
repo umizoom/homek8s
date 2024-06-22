@@ -8,9 +8,25 @@ spec:
     spec:
       version: "2.24.0"
   values:
+    adminPassword: "Ssh2017!"
+    serviceDns:
+      loadBalancerIP: 192.168.2.13
+      type: LoadBalancer
+      mixedService: true
+    serviceWeb:
+      loadBalancerIP: 192.168.2.2
+      type: ClusterIP
+    persistentVolumeClaim:
+      enabled: true
+      storageClass: "local-path"
+    dnsmasq:
+      customDnsEntries:
+        - address=/kind-k8s.lab/192.168.2.11
     ingress:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        kubernetes.io/ingress.class: nginx
       hosts:
-        - host: pihole.production
-          paths:
-            - path: /
-              pathType: ImplementationSpecific
+        - host: pihole.home-k8s.lab
+
