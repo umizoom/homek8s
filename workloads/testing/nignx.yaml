@@ -53,21 +53,21 @@ spec:
     targetPort: 80
   # type: LoadBalancer
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: web-app
-  annotations:
-    kubernetes.io/spec.ingressClassName: "nginx"
-spec:
-  rules:
-  - host: web-app.home-k8s.lab
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: web-app
-            port:
-              number: 80
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: web-app
+#   annotations:
+#     kubernetes.io/spec.ingressClassName: "nginx"
+# spec:
+#   rules:
+#   - host: web-app.home-k8s.lab
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: web-app
+#             port:
+#               number: 80
