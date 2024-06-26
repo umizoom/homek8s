@@ -11,13 +11,14 @@
 * Helm
 * Kustomize
 * [Task](https://taskfile.dev/usage)
+* [Sops](https://github.com/getsops/sops)
 
 ## Talos Linux
 
 Dashboard
 
 ```
-talosctl dashboard -n 192.168.2.2 -e 192.168.2.2"
+task talos:dash"
 ```
 
 Scale up cluster
@@ -85,7 +86,7 @@ https://fluxcd.io/flux/guides/mozilla-sops/
 Encrypting secrets
 
 ```sh
-sops --encrypt --in-place secrets.yaml 
+task sops:encrypt
 ```
 
 bootstrapping
@@ -97,16 +98,5 @@ flux create kustomization my-secrets \
 --interval=10m \
 --decryption-provider=sops \
 --decryption-secret=sops-gpg
-
 ```
 
-
-```sh
-cat <<EOF > ./clusters/production/.sops.yaml
-creation_rules:
-  - path_regex: .*.yaml
-    encrypted_regex: ^(data|stringData)$
-    pgp: ${KEY_FP}
-EOF
-
-```
