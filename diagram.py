@@ -18,7 +18,7 @@ with Diagram("Home Network Overview", show=True):
     one_gb_switch = Internet("1G Switch Lan k8")
     with Cluster("k8s"):
         k8s = [
-            Master("Control 2"),
+            Master("Control 1"),
             Master("Control 2"),
             Node("Worker 1"),
             Node("Worker 2"),
@@ -28,3 +28,4 @@ with Diagram("Home Network Overview", show=True):
 
     dmz_ingress >> opnsense >> multi_gig_switch >> unraid
     dmz_ingress >> opnsense >> one_gb_switch >> k8s
+    dmz_ingress << unraid[0]
