@@ -100,3 +100,6 @@ flux create kustomization my-secrets \
 --decryption-secret=sops-gpg
 ```
 
+## Diagram
+
+![Home Network](./home_network_overview.png)
