@@ -11,11 +11,6 @@ spec:
     admin:
         existingSecret: pihole-password
         passwordKey: password
-    # adminPassword: 
-    #   valueFrom:
-    #     secretKeyRef:
-    #       name: pihole-password
-    #       key: password
     serviceDns:
       loadBalancerIP: 192.168.2.13
       type: LoadBalancer

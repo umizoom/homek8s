@@ -10,3 +10,6 @@ includes:
 
 tasks:
   default: task  --list-all
+  diagram:
+    cmds:
+      - pipenv run python diagram.py 
