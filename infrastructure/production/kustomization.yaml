@@ -13,6 +13,6 @@ resources:
 patches:
   - path: nfs-subdir-external.yaml
     target:
-      kind: HelmRelease
+      namespace: nfs-provisioner
 
 
