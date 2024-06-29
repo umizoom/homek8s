@@ -14,5 +14,6 @@ patches:
   - path: nfs-subdir-external.yaml
     target:
       namespace: nfs-provisioner
+      kind: HelmRelease
 
 
