@@ -9,5 +9,6 @@ resources:
   # - cert-manager.yaml 
   - local-path-provisioner.yaml
   - k8up.yaml
+  - nfs-subdir-external-provisioner.yaml
 
 
