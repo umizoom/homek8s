@@ -5,9 +5,6 @@ metadata:
   name: nfs-provisioner
   namespace: nfs-provisioner
 spec:
-  chart:
-    spec:
-      version: "4.0.18"
   values:
     nfs:
       server: 192.168.1.27
