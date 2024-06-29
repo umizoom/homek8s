@@ -8,4 +8,4 @@ spec:
   values:
     nfs:
       server: 192.168.1.27
-      path: /home-cluster-nfs
+      path: /mnt/user/home-cluster-nfs
