@@ -10,11 +10,11 @@ spec:
       server: 192.168.1.27
       path: /mnt/user/home-cluster-nfs
       reclaimPolicy: Retain
-  storageClass:
-    create: true
-    defaultClass: true
-    name: nfs-client
-    allowVolumeExpansion: true
-    reclaimPolicy: Delete
-    archiveOnDelete: true
-    pathPattern: "${.PVC.namespace}-${.PVC.name}"
+    storageClass:
+      create: true
+      defaultClass: true
+      name: nfs-client
+      allowVolumeExpansion: true
+      reclaimPolicy: Delete
+      archiveOnDelete: true
+      pathPattern: "${.PVC.namespace}-${.PVC.name}"
