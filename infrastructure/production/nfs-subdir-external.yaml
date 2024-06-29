@@ -12,7 +12,7 @@ spec:
       reclaimPolicy: Retain
     storageClass:
       create: true
-      defaultClass: true
+      # defaultClass: true
       name: nfs-client
       allowVolumeExpansion: true
       reclaimPolicy: Delete
