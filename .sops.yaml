@@ -3,6 +3,6 @@ creation_rules:
     encrypted_regex: ^(data|stringData)$
     pgp: BAFBAF486E2E489700A8639C2B75A847B165ECC2
   
-  - path_regex: talos/.*.yaml
+  - path_regex: talos/.*.*
     encrypted_regex: (ca|cert|key|secret|token)$
     pgp: BAFBAF486E2E489700A8639C2B75A847B165ECC2

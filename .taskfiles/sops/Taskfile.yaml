@@ -1,9 +1,9 @@
 version: '3'
 
 tasks:
-  encrypt:
-    cmds:
-      - sops --e --in-place clusters/production/secrets/secrets.yaml
   dencrypt:
     cmds:
-      - sops --d --in-place clusters/production/secrets/secrets.yaml
+       - sops --d --in-place {{.CLI_ARGS}}
+  encrypt:
+    cmds:
+       - sops --e --in-place {{.CLI_ARGS}}
