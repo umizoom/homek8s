@@ -29,6 +29,7 @@ spec:
       ingressClassName: nginx
       annotations:
         kubernetes.io/ingress.class: nginx
+        kubernetes.io/ingress.class/rewrite-target: /admin
       hosts:
         - pihole.home-k8s.lab
 
