@@ -1,3 +1,4 @@
+# https://docs.nginx.com/nginx-ingress-controller/
 ---
 apiVersion: v1
 kind: Namespace
