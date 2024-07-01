@@ -30,5 +30,6 @@ spec:
         namespace: nginx-ingress
       interval: 12h
   values:
-     enableSnippets: true
+    controller:
+      enableSnippets: true
 
