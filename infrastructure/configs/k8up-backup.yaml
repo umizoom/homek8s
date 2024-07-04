@@ -22,6 +22,7 @@ spec:
     schedule: '5 4 * * *'
     failedJobsHistoryLimit: 2
     successfulJobsHistoryLimit: 2
+    promURL: http://192.168.1.22:9090
   check:
     schedule: '0 1 * * 1'
   prune:
