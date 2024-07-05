@@ -20,7 +20,7 @@ spec:
       type: ClusterIP
     persistentVolumeClaim:
       enabled: true
-      storageClass: "local-path"
+      storageClass: "nfs-client"
     dnsmasq:
       customDnsEntries:
         - address=/kind-k8s.lab/192.168.2.11
