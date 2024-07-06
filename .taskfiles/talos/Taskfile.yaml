@@ -56,7 +56,7 @@ tasks:
   den:
     cmds:
        - sops --decrypt --output-type yaml "{{.TALOS_CONFIG}}" > /tmp/talosconfig.yaml
-       - sops --decrypt --output-type yaml "{{.CONTROL_PLANE_CONFIG}}" > /tmp/controlplane.yaml
-       - sops --decrypt --output-type yaml "{{.WORKER_CONFIG}}" > /tmp/worker.yaml
+      #  - sops --decrypt --output-type yaml "{{.CONTROL_PLANE_CONFIG}}" > /tmp/controlplane.yaml
+      #  - sops --decrypt --output-type yaml "{{.WORKER_CONFIG}}" > /tmp/worker.yaml
 
 
