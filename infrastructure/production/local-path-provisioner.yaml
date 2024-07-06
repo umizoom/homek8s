@@ -116,7 +116,7 @@ metadata:
     meta.helm.sh/release-namespace: local-path-storage
     meta.helm.sh/release-name: local-path-storage
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: local-path-provisioner
