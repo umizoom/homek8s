@@ -24,7 +24,7 @@ spec:
       storageClass: "local-path"
     dnsmasq:
       customDnsEntries:
-        - address=/kind-k8s.lab/192.168.2.11
+        - address=/home-k8s.lab/192.168.2.11
     ingress:
       enabled: true
       ingressClassName: nginx
