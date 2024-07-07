@@ -17,8 +17,8 @@ spec:
       type: LoadBalancer
       mixedService: true
     serviceWeb:
-      loadBalancerIP: 192.168.2.2
-      type: ClusterIP
+      loadBalancerIP: 192.168.2.11
+      type: Ingress
     persistentVolumeClaim:
       enabled: true
       storageClass: "local-path"
