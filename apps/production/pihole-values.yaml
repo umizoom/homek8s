@@ -8,7 +8,7 @@ spec:
     spec:
       version: "2.24.0"
   values:
-    replicaCount: 2
+    replicaCount: 1
     admin:
         existingSecret: pihole-password
         passwordKey: password
@@ -17,7 +17,7 @@ spec:
       type: LoadBalancer
       mixedService: true
     serviceWeb:
-      loadBalancerIP: 10.109.115.49
+      loadBalancerIP: 192.168.2.2
       type: ClusterIP
     persistentVolumeClaim:
       enabled: true
