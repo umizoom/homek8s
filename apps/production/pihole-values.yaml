@@ -17,8 +17,8 @@ spec:
       type: LoadBalancer
       mixedService: true
     serviceWeb:
-      loadBalancerIP: 192.168.2.14
-      type: LoadBalancer
+      loadBalancerIP: 192.168.2.13
+      type: ClusterIP
     persistentVolumeClaim:
       enabled: true
       storageClass: "local-path"
