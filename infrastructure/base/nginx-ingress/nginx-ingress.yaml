@@ -33,6 +33,6 @@ spec:
   values:
     controller:
       enableSnippets: true
-      replicaCount: 1
+      replicaCount: 2
       # kind: daemonset
 
