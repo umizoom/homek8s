@@ -8,7 +8,7 @@ spec:
     spec:
       version: "2.24.0"
   values:
-    replicaCount: 1
+    replicaCount: 2
     admin:
         existingSecret: pihole-password
         passwordKey: password
@@ -19,9 +19,9 @@ spec:
     serviceWeb:
       loadBalancerIP: 192.168.2.11
       type: ClusterIP
-    persistentVolumeClaim:
-      enabled: true
-      storageClass: "local-path"
+    # persistentVolumeClaim:
+    #   enabled: true
+    #   storageClass: "local-path"
     dnsmasq:
       customDnsEntries:
         - address=/home-k8s.lab/192.168.2.11
