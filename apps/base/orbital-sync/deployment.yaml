@@ -32,7 +32,7 @@ spec:
                   name: pihole-password
                   key: password
             - name: SECONDARY_HOSTS_1_BASE_URL
-              value: pihole-web.default.svc.cluster.local
+              value: http://pihole-web.default.svc.cluster.local
             - name: SECONDARY_HOSTS_1_PASSWORD
               valueFrom:
                 secretKeyRef:
