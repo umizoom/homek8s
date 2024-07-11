@@ -8,6 +8,7 @@ resources:
   - ../base/metrics-server
   # - cert-manager.yaml 
   - ../base/rook-ceph
+  - ceph-cluster.yaml
   - local-path-provisioner.yaml
   - k8up.yaml
   # - ../base/nfs-subdir-external
