@@ -24,7 +24,7 @@ spec:
   releaseName: angi-helloworld
   chart:
     spec:
-      chart: porkbun-webhook/
+      chart: deploy/porkbun-webhook/
       sourceRef:
         kind: GitRepository
         name: porkbun-webhook
