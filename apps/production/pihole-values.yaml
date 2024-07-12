@@ -24,17 +24,22 @@ spec:
     #   storageClass: "local-path"
     dnsmasq:
       customDnsEntries:
-        - address=/home-k8s.lab/192.168.2.11
+        - address=/basingse.ca/192.168.2.11
     ingress:
       enabled: true
       ingressClassName: nginx
       path: /admin
       annotations:
         kubernetes.io/ingress.class: nginx 
+        cert-manager.io/cluster-issuer: letsencrypt
         nginx.org/server-snippets: |
           location / {
             return 302 /admin;
           }  
       hosts:
-        - pihole.home-k8s.lab
+        - pihole.basingse.ca
+      tls:
+      - hosts:
+        - pihole.basingse.ca
+        secretName: pihole-tls-secret
 
