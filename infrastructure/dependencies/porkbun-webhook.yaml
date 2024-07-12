@@ -30,3 +30,29 @@ spec:
         name: porkbun-webhook
   values:
     groupName: basingse.ca 
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: umaidabbasi@gmail.com
+    privateKeySecretRef:
+      name: letsencrypt-key
+    solvers:
+      - selector:
+          dnsZones:
+            - basingse.ca 
+        dns01:
+          webhook:
+            groupName: basingse.ca
+            solverName: porkbun
+            config:
+              apiKeySecretRef:
+                name: porkbun-api-keys
+                key: api-key
+              secretKeySecretRef:
+                name: porkbun-api-keys
+                key: secret-key
