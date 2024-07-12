@@ -54,6 +54,7 @@ tasks:
       talosctl --talosconfig /dev/stdin dashboard -n "{{.CONTROL_PLANE_IP}}" -e "{{.WORKER_IP}}"
   
   den:
+    desc: Decrypt config, place into /tmp
     cmds:
        - sops --decrypt --output-type yaml "{{.TALOS_CONFIG}}" > /tmp/talosconfig.yaml
       #  - sops --decrypt --output-type yaml "{{.CONTROL_PLANE_CONFIG}}" > /tmp/controlplane.yaml
