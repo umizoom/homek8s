@@ -21,7 +21,7 @@ metadata:
   namespace: cert-manager
 spec:
   interval: 1m
-  releaseName: angi-helloworld
+  releaseName: porkbun-basingse
   chart:
     spec:
       chart: deploy/porkbun-webhook/
