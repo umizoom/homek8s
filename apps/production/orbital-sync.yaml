@@ -31,7 +31,7 @@ spec:
                   name: pihole-password
                   key: password
             - name: SECONDARY_HOSTS_1_BASE_URL
-              value: http://pihole.home-k8s.lab
+              value: https://pihole.basingse.ca
             - name: SECONDARY_HOSTS_1_PASSWORD
               valueFrom:
                 secretKeyRef:
