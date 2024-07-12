@@ -22,6 +22,10 @@ metadata:
   name: infra-dependencies
   namespace: flux-system
 spec:
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
   interval: 5m
   retryInterval: 1m
   timeout: 4m
@@ -37,6 +41,10 @@ metadata:
   name: base-infrastrcture
   namespace: flux-system
 spec:
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
   dependsOn:
     - name: infra-dependencies
   interval: 5m
