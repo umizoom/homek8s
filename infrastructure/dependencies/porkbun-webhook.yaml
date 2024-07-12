@@ -22,7 +22,7 @@ roleRef:
 subjects:
   - apiGroup: ""
     kind: ServiceAccount
-    name: porkbun-webhook
+    name: porkbun-basingse-porkbun-webhook
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: GitRepository
