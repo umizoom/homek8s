@@ -6,7 +6,7 @@ resources:
   - l2-advertisement.yaml
   - ../base/nginx-ingress
   - ../base/metrics-server
-  # - cert-manager.yaml 
+  - cert-manager.yaml 
   - ../base/rook-ceph
   # - ceph-cluster.yaml
   - local-path-provisioner.yaml
