@@ -8,11 +8,7 @@ resources:
   - ./rook-ceph
   - local-path-provisioner.yaml
   - k8up.yaml
-  # - ../base/nfs-subdir-external
-# patches:
-#   - path: nfs-subdir-external.yaml
-#     target:
-#       namespace: nfs-provisioner
-#       kind: HelmRelease
+  # - ./nfs-subdir-external
+
 
 
