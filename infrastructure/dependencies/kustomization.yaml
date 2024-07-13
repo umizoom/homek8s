@@ -4,6 +4,5 @@ resources:
   - namespaces.yaml
   - kubelet-serving-cert-approver/standalone-install.yaml
   - k8up-crds.yaml
-  - porkbun-webhook.yaml
-  - porkbun-api-secret.yaml
+  - ./porkbun-webhook
 
