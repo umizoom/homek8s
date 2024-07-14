@@ -23,7 +23,3 @@ spec:
         name: openebs
         namespace: openebs
       interval: 1m
-  values:
-    crds:
-      enabled: true
-    enableDiscoveryDaemon: true
