@@ -1,11 +1,18 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: HelmRepository
+kind: GitRepository
 metadata:
   name: openebs
   namespace: openebs
 spec:
-  interval: 5m0s
-  url: https://openebs.github.io/jiva-operator
+  interval: 5m
+  url: https://github.com/openebs-archive/jiva-operator
+  ref:
+    branch: main
+  ignore: |-
+    # exclude all
+    /*
+    # include charts directory
+    !deploy/
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
@@ -16,10 +23,7 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: jiva
-      version: "3.6.0"
+      chart: deploy/helm/charts
       sourceRef:
-        kind: HelmRepository
+        kind: GitRepository
         name: openebs
-        namespace: openebs
-      interval: 1m
