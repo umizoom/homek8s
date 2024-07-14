@@ -16,7 +16,7 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: openebs-jiva/jiva
+      chart: openebs-jiva
       version: "3.6.0"
       sourceRef:
         kind: HelmRepository
