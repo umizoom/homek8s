@@ -7,6 +7,9 @@ patches:
   - path: patch.yaml
     target:
       namespace: openebs
+  - path: configmap.yaml
+    target:
+      namespace: openebs
 
 
 
