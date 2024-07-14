@@ -7,7 +7,7 @@ resources:
   - cert-manager.yaml 
   # - ./rook-ceph
   # - local-path-provisioner.yaml
-  - k8up.yaml
+  # - k8up.yaml
   - ./openebs-jiva
   # - ./nfs-subdir-external
 
