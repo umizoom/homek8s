@@ -29,25 +29,26 @@ spec:
         name: openebs
   # Required: Must enable hostPID for JIVA to work on Talos
   # https://www.talos.dev/v1.2/kubernetes-guides/configuration/replicated-local-storage-with-openebs-jiva/
-  # postRenderers:
-  #   - kustomize:
-  #       patchesJson6902:
-  #         - target:
-  #             version: v1
-  #             kind: DaemonSet
-  #             name: openebs-jiva-csi-node
-  #           patch:
-  #             - op: add
-  #               path: /spec/template/spec/hostPID
-  #               value: true
-  #         - target:
-  #             kind: ConfigMap
-  #             name: openebs-jiva-csi-iscsiadm
-  #           patch:
-  #             - op: replace
-  #               path: /data/iscsiadm
-  #               value: |
-  #                 #!/bin/sh
-  #                 iscsid_pid=$(pgrep iscsid)
-
-  #                 nsenter --mount="/proc/${iscsid_pid}/ns/mnt" --net="/proc/${iscsid_pid}/ns/net" -- /usr/local/sbin/iscsiadm "$@"
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              group: apps
+              version: v1
+              kind: DaemonSet
+              name: '.*-csi-node'
+            patch: |
+              - op: replace
+                path: /spec/template/spec/hostPID
+                value: true
+          - target:
+              version: v1
+              kind: ConfigMap
+              name: '.*-csi-iscsiadm'
+            patch: |
+              - op: replace
+                path: /data/iscsiadm
+                value: |
+                  #!/bin/sh
+                  iscsid_pid=$(pgrep iscsid)
+                  nsenter --mount="/proc/${iscsid_pid}/ns/mnt" --net="/proc/${iscsid_pid}/ns/net" -- /usr/local/sbin/iscsiadm "$@"
