@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - ./metallb
   - ../base/nginx-ingress
-  # - ../base/metrics-server
+  - ../base/metrics-server
   - cert-manager.yaml 
   # - ./rook-ceph
   # - local-path-provisioner.yaml
