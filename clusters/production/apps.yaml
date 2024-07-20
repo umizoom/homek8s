@@ -9,7 +9,7 @@ spec:
   interval: 5m
   dependsOn:
     - name:  my-secrets
-    - name: infra-configs
+    - name: base-infrastrcture
   sourceRef:
     kind: GitRepository
     name: flux-system
