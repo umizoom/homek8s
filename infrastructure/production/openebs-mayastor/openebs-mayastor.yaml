@@ -17,7 +17,7 @@ spec:
   chart:
     spec:
       chart: openebs/openebs
-      version: "4.1.x"
+      version: "4.1.0"
       sourceRef:
         kind: HelmRepository
         name: openebs
