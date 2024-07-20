@@ -24,41 +24,26 @@ spec:
         namespace: openebs
       interval: 1m
   values:
-    # Refer to https://github.com/openebs/zfs-localpv/blob/HEAD/deploy/helm/charts/values.yaml for complete set of values.
+    localpv-provisioner:
+      localpv:
+        image:
+          registry: quay.io/
+      hostpathClass:
+        name: openebs-hostpath
+      helperPod:
+        image:
+          registry: quay.io/
+    openebs-crds:
+      csi:
+        volumeSnapshots:
+          enabled: false
+          keep: false
     zfs-localpv:
       enabled: false
-      crds:
-        zfsLocalPv:
-          enabled: false
-        csi:
-          volumeSnapshots:
-            enabled: false
-      
-    # Refer to https://github.com/openebs/lvm-localpv/blob/HEAD/deploy/helm/charts/values.yaml for complete set of values.
     lvm-localpv:
       enabled: false
-      crds:
-        lvmLocalPv:
-          enabled: false
-        csi:
-          volumeSnapshots:
-            enabled: false
-
-    # Refer to https://github.com/openebs/mayastor-extensions/blob/v2.7.0/chart/values.yaml for complete set of values.
     mayastor:
-      enabled: true
-      csi:
-        node:
-          initContainers:
-            enabled: true
-      etcd:
-        # -- Kubernetes Cluster Domain
-        clusterDomain: cluster.local
-      localpv-provisioner:
-        enabled: false
-      crds:
-        enabled: false
-
+      enabled: false
     engines:
       local:
         lvm:
@@ -67,4 +52,4 @@ spec:
           enabled: false
       replicated:
         mayastor:
-          enabled: true
+          enabled: false
