@@ -24,5 +24,6 @@ spec:
         namespace: openebs
       interval: 1m
   values:
-    zfsNode:
+    zfs-localpv:
+      zfsNode:
         encrKeysDir: "/var/openebs/keys"
