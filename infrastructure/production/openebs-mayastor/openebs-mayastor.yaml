@@ -27,3 +27,12 @@ spec:
     zfs-localpv:
       zfsNode:
         encrKeysDir: "/var/openebs/keys"
+    engines:
+    local:
+      lvm:
+        enabled: false
+      zfs:
+        enabled: false
+    replicated:
+      mayastor:
+        enabled: true
