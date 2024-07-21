@@ -9,4 +9,4 @@ patches:
       kind: HelmRelease
   - path: orbital-sync.yaml
     target:
-      kind: HelmRelease
+      kind: Deployment
