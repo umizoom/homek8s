@@ -44,6 +44,10 @@ spec:
       enabled: false
     mayastor:
       enabled: true
+      csi:
+        node:
+          initContainers:
+            enabled: false
     engines:
       local:
         lvm:
