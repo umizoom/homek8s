@@ -48,6 +48,8 @@ spec:
         node:
           initContainers:
             enabled: false
+        io_engine:
+          envcontext: "iova-mode=pa"
     engines:
       local:
         lvm:
