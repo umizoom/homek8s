@@ -21,7 +21,8 @@ spec:
       type: ClusterIP
     persistentVolumeClaim:
       enabled: true
-      storageClass: "openebs-jiva-csi-default"
+      storageClass: "replicated-storage"
+      # storageClass: "openebs-jiva-csi-default"
     dnsmasq:
       customDnsEntries:
         - address=/basingse.ca/192.168.2.11
