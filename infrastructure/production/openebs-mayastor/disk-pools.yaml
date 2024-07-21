@@ -1,0 +1,26 @@
+apiVersion: "openebs.io/v1beta2"
+kind: DiskPool
+metadata:
+  name: control-1-pool
+  namespace: openebs
+spec:
+  node: control-1
+  disks: ["/dev/nvme0n1"]
+---
+apiVersion: "openebs.io/v1beta2"
+kind: DiskPool
+metadata:
+  name: control-2-pool
+  namespace: openebs
+spec:
+  node: control-2
+  disks: ["/dev/nvme1n1"]
+---
+apiVersion: "openebs.io/v1beta2"
+kind: DiskPool
+metadata:
+  name: control-3-pool
+  namespace: openebs
+spec:
+  node: control-3
+  disks: ["/dev/nvme0n1"]

@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - openebs-mayastor.yaml
+  - disk-pools.yaml
 
 
 
