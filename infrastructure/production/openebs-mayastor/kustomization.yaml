@@ -4,7 +4,7 @@ resources:
   - namespace.yaml
   - openebs-mayastor.yaml
   - disk-pools.yaml
-  - storage-class.yaml
+  # - storage-class.yaml
 
 
 
