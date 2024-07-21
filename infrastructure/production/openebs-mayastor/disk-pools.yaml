@@ -23,4 +23,4 @@ metadata:
   namespace: openebs
 spec:
   node: control-3
-  disks: ["/dev/nvme0n1"]
+  disks: ["/dev/disk/by-id/nvme-eui.1848068070620001001b448b448c669e"]
