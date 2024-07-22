@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - ../base/pihole
   - ../base/orbital-sync
+  # - ./grafana
 patches:
   - path: pihole-values.yaml
     target:
