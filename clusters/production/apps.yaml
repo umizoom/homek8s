@@ -6,6 +6,10 @@ metadata:
   name: apps
   namespace: flux-system
 spec:
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
   interval: 5m
   dependsOn:
     - name:  my-secrets

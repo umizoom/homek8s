@@ -3,11 +3,12 @@ kind: Kustomization
 resources:
   - ../base/pihole
   - ../base/orbital-sync
-  # - ./grafana
+  - ./grafana
 patches:
   - path: pihole-values.yaml
     target:
       kind: HelmRelease
+      name: pihole
   - path: orbital-sync.yaml
     target:
       kind: Deployment

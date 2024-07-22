@@ -10,3 +10,7 @@ creation_rules:
   - path_regex: infrastructure/dependencies/.*.*
     encrypted_regex: ^(data|stringData)$
     pgp: BAFBAF486E2E489700A8639C2B75A847B165ECC2
+
+  - path_regex: apps/production/.*.*
+    encrypted_regex: ^(data|stringData)$
+    pgp: BAFBAF486E2E489700A8639C2B75A847B165ECC2

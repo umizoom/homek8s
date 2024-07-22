@@ -3,6 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: grafana
+  namespace: default
 spec:
   interval: 30m
   chart:
@@ -24,8 +25,8 @@ spec:
   values:
     deploymentStrategy:
       type: Recreate
-    admin:
-      existingSecret: grafana-admin-secret
+    # admin:
+    #   existingSecret: grafana-admin-secret
     env:
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       GF_EXPLORE_ENABLED: true
@@ -37,18 +38,18 @@ spec:
         check_for_updates: false
         check_for_plugin_updates: false
         reporting_enabled: false
-      auth.anonymous:
-        enabled: true
-        org_id: 1
-        org_name: Main Org.
-        org_role: Viewer
+      # auth.anonymous:
+      #   enabled: true
+      #   org_id: 1
+      #   org_name: Main Org.
+      #   org_role: Viewer
       news:
         news_feed_enabled: false
     datasources:
       datasources.yaml:
         apiVersion: 1
         deleteDatasources:
-          - { name: Prometheus, orgId: 1 }
+          - { name: Loki }
         datasources:
           - name: Prometheus
             type: prometheus
@@ -57,14 +58,7 @@ spec:
             url: http://192.168.1.22:9090
             jsonData:
               timeInterval: 1m
-            isDefault: true
-          # - name: Loki
-          #   type: loki
-          #   uid: loki
-          #   access: proxy
-          #   url: http://loki-headless.observability.svc.cluster.local:3100
-          #   jsonData:
-          #     maxLines: 250
+            # isDefault: true
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
@@ -79,61 +73,67 @@ spec:
               path: /var/lib/grafana/dashboards/default
     dashboards:
       default:
+        unraid:
+          url: https://raw.githubusercontent.com/umizoom/homek8s/main/apps/production/grafana/unraid-dashboard.json
+          datasource: Prometheus
         unraid-docker:
-          url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/control-plane.json
+          url: https://raw.githubusercontent.com/umizoom/homek8s/main/apps/production/grafana/unraid-docker-dashboard.json
           datasource: Prometheus
-        flux-control-plane:
-          url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/control-plane.json
+        opnsense:
+          url: https://raw.githubusercontent.com/umizoom/homek8s/main/apps/production/grafana/opnsense-dashboard.json
           datasource: Prometheus
-        kubernetes-api-server:
-          # renovate: depName="Kubernetes / System / API Server"
-          gnetId: 15761
-          revision: 17
-          datasource: Prometheus
-        kubernetes-coredns:
-          # renovate: depName="Kubernetes / System / CoreDNS"
-          gnetId: 15762
-          revision: 18
-          datasource: Prometheus
-        kubernetes-global:
-          # renovate: depName="Kubernetes / Views / Global"
-          gnetId: 15757
-          revision: 37
-          datasource: Prometheus
-        kubernetes-namespaces:
-          # renovate: depName="Kubernetes / Views / Namespaces"
-          gnetId: 15758
-          revision: 34
-          datasource: Prometheus
-        kubernetes-nodes:
-          # renovate: depName="Kubernetes / Views / Nodes"
-          gnetId: 15759
-          revision: 29
-          datasource: Prometheus
-        kubernetes-pods:
-          # renovate: depName="Kubernetes / Views / Pods"
-          gnetId: 15760
-          revision: 28
-          datasource: Prometheus
-        kubernetes-volumes:
-          # renovate: depName="K8s / Storage / Volumes / Cluster"
-          gnetId: 11454
-          revision: 14
-          datasource: Prometheus
+        # flux-control-plane:
+        #   url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/control-plane.json
+        #   datasource: Prometheus
+        # kubernetes-api-server:
+        #   # renovate: depName="Kubernetes / System / API Server"
+        #   gnetId: 15761
+        #   revision: 17
+        #   datasource: Prometheus
+        # kubernetes-coredns:
+        #   # renovate: depName="Kubernetes / System / CoreDNS"
+        #   gnetId: 15762
+        #   revision: 18
+        #   datasource: Prometheus
+        # kubernetes-global:
+        #   # renovate: depName="Kubernetes / Views / Global"
+        #   gnetId: 15757
+        #   revision: 37
+        #   datasource: Prometheus
+        # kubernetes-namespaces:
+        #   # renovate: depName="Kubernetes / Views / Namespaces"
+        #   gnetId: 15758
+        #   revision: 34
+        #   datasource: Prometheus
+        # kubernetes-nodes:
+        #   # renovate: depName="Kubernetes / Views / Nodes"
+        #   gnetId: 15759
+        #   revision: 29
+        #   datasource: Prometheus
+        # kubernetes-pods:
+        #   # renovate: depName="Kubernetes / Views / Pods"
+        #   gnetId: 15760
+        #   revision: 28
+        #   datasource: Prometheus
+        # kubernetes-volumes:
+        #   # renovate: depName="K8s / Storage / Volumes / Cluster"
+        #   gnetId: 11454
+        #   revision: 14
+        #   datasource: Prometheus
         # nginx:
         #   url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
         #   datasource: Prometheus
         # nginx-request-handling-performance:
         #   url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
         #   datasource: Prometheus
-        node-exporter-full:
-          # renovate: depName="Node Exporter Full"
-          gnetId: 1860
-          revision: 37
-          datasource: Prometheus
-        node-feature-discovery:
-          url: https://raw.githubusercontent.com/kubernetes-sigs/node-feature-discovery/master/examples/grafana-dashboard.json
-          datasource: Prometheus
+        # node-exporter-full:
+        #   # renovate: depName="Node Exporter Full"
+        #   gnetId: 1860
+        #   revision: 37
+        #   datasource: Prometheus
+        # node-feature-discovery:
+        #   url: https://raw.githubusercontent.com/kubernetes-sigs/node-feature-discovery/master/examples/grafana-dashboard.json
+        #   datasource: Prometheus
         # prometheus:
         #   # renovate: depName="Prometheus"
         #   gnetId: 19105
@@ -172,19 +172,17 @@ spec:
       - natel-discrete-panel
       - pr0ps-trackmap-panel
       - vonage-status-panel
-    serviceMonitor:
-      enabled: true
     ingress:
       enabled: true
       annotations:
         kubernetes.io/ingress.class: nginx 
         cert-manager.io/cluster-issuer: letsencrypt
       ingressClassName: nginx
-      hosts: ["meterics.basingse.com"]
+      hosts: ["metrics.basingse.ca"]
       tls:
       - hosts:
-        - meterics.basingse.com
-        secretName: meterics-tls-secret
+        - metrics.basingse.ca
+        secretName: metrics-tls-secret
     persistence:
       enabled: false
     testFramework:
