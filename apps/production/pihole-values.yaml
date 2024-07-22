@@ -22,7 +22,8 @@ spec:
     persistentVolumeClaim:
       enabled: true
       storageClass: "replicated-storage"
-      accessModes: ReadWriteMany
+      accessModes: 
+        - ReadWriteMany
       # storageClass: "openebs-jiva-csi-default"
     dnsmasq:
       customDnsEntries:
