@@ -5,7 +5,7 @@ metadata:
   namespace: openebs
 spec:
   node: control-1
-  disks: ["/dev/nvme0n1"]
+  disks: ["/dev/disk/by-id/nvme-eui.002538b571b0e462"]
 ---
 apiVersion: "openebs.io/v1beta2"
 kind: DiskPool
@@ -14,7 +14,7 @@ metadata:
   namespace: openebs
 spec:
   node: control-2
-  disks: ["/dev/nvme1n1"]
+  disks: ["/dev/disk/by-id/nvme-SKHynix_HFS512GD9TNI-L2B0B_NY0CN04561250CR0V"]
 ---
 apiVersion: "openebs.io/v1beta2"
 kind: DiskPool
