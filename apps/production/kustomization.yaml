@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - ../base/pihole
   - ../base/orbital-sync
+  - ./prometheus
   - ./grafana
 patches:
   - path: pihole-values.yaml
@@ -12,3 +13,4 @@ patches:
   - path: orbital-sync.yaml
     target:
       kind: Deployment
+      name: orbital-sync
