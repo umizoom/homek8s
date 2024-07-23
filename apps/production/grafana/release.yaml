@@ -83,6 +83,9 @@ spec:
         opnsense:
           url: https://raw.githubusercontent.com/umizoom/homek8s/main/apps/production/grafana/opnsense-dashboard.json
           datasource: Prometheus
+        disk-pools:
+          url: https://raw.githubusercontent.com/openebs/monitoring/develop/deploy/charts/dashboards/mayastor/diskpool.json
+          datasource: Prometheus
         # flux-control-plane:
         #   url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/control-plane.json
         #   datasource: Prometheus
