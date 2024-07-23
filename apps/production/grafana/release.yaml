@@ -55,7 +55,8 @@ spec:
             type: prometheus
             uid: prometheus
             access: proxy
-            url: http://192.168.1.22:9090
+            # url: http://192.168.1.22:9090
+            url: http://prometheus-server
             jsonData:
               timeInterval: 1m
             # isDefault: true
