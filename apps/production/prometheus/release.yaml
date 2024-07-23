@@ -24,6 +24,8 @@ spec:
       retries: 3
   values:
     server:
+      persistentVolume:
+        storageClass: "replicated-storage"
       serverFiles:
           prometheus.yml:
             scrape_configs:
