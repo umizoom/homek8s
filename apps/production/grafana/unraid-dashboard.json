@@ -1,47 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_PROMETHEUS",
-      "label": "prometheus",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "prometheus",
-      "pluginName": "Prometheus"
-    }
-  ],
-  "__elements": {},
-  "__requires": [
-    {
-      "type": "panel",
-      "id": "gauge",
-      "name": "Gauge",
-      "version": ""
-    },
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "11.1.0"
-    },
-    {
-      "type": "datasource",
-      "id": "prometheus",
-      "name": "Prometheus",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "timeseries",
-      "name": "Time series",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -65,11 +22,10 @@
       }
     ]
   },
-  "editable": false,
+  "editable": true,
   "fiscalYearStartMonth": 0,
   "gnetId": 1860,
   "graphTooltip": 1,
-  "id": null,
   "links": [
     {
       "icon": "external link",
@@ -23366,7 +23322,11 @@
   "templating": {
     "list": [
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "Prometheus",
+          "value": "prometheus"
+        },
         "hide": 0,
         "includeAll": false,
         "label": "datasource",
@@ -23380,7 +23340,11 @@
         "type": "datasource"
       },
       {
-        "current": {},
+        "current": {
+          "selected": true,
+          "text": "unraid-nodeexporter",
+          "value": "unraid-nodeexporter"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "Prometheus"
@@ -23406,7 +23370,11 @@
         "useTags": false
       },
       {
-        "current": {},
+        "current": {
+          "selected": true,
+          "text": "192.168.1.27:9100",
+          "value": "192.168.1.27:9100"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "Prometheus"
@@ -23486,6 +23454,6 @@
   "timezone": "browser",
   "title": "Unraid Metrics",
   "uid": "rYdddlPWk",
-  "version": 11,
+  "version": 1,
   "weekStart": ""
 }
