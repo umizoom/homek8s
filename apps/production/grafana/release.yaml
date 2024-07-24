@@ -77,91 +77,91 @@ spec:
         unraid-docker:
           url: https://raw.githubusercontent.com/umizoom/homek8s/main/apps/production/grafana/unraid-docker-dashboard.json
           datasource: Prometheus
-      unraid:
-        url: https://raw.githubusercontent.com/umizoom/homek8s/main/apps/production/grafana/unraid-dashboard.json
-        datasource: Prometheus
-      opnsense:
-        url: https://raw.githubusercontent.com/umizoom/homek8s/main/apps/production/grafana/opnsense-dashboard.json
-        datasource: Prometheus
-      disk-pools:
-        url: https://raw.githubusercontent.com/openebs/monitoring/develop/deploy/charts/dashboards/mayastor/diskpool.json
-        datasource: Prometheus
-      volumes:
-        url: https://raw.githubusercontent.com/openebs/monitoring/develop/deploy/charts/dashboards/mayastor/volume.json
-        datasource: Prometheus
-      volume-replica:
-        url: https://raw.githubusercontent.com/openebs/monitoring/develop/deploy/charts/dashboards/mayastor/volume-replica.json
-        datasource: Prometheus
-      # flux-control-plane:
-      #   url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/control-plane.json
-      #   datasource: Prometheus
-      # kubernetes-api-server:
-      #   # renovate: depName="Kubernetes / System / API Server"
-      #   gnetId: 15761
-      #   revision: 17
-      #   datasource: Prometheus
-      # kubernetes-coredns:
-      #   # renovate: depName="Kubernetes / System / CoreDNS"
-      #   gnetId: 15762
-      #   revision: 18
-      #   datasource: Prometheus
-      # kubernetes-global:
-      #   # renovate: depName="Kubernetes / Views / Global"
-      #   gnetId: 15757
-      #   revision: 37
-      #   datasource: Prometheus
-      # kubernetes-namespaces:
-      #   # renovate: depName="Kubernetes / Views / Namespaces"
-      #   gnetId: 15758
-      #   revision: 34
-      #   datasource: Prometheus
-      kubernetes-nodes:
-        # renovate: depName="Kubernetes / Views / Nodes"
-        gnetId: 15759
-        revision: 29
-        datasource: Prometheus
-      kubernetes-pods:
-        # renovate: depName="Kubernetes / Views / Pods"
-        gnetId: 15760
-        revision: 28
-        datasource: Prometheus
-      kubernetes-volumes:
-        # renovate: depName="K8s / Storage / Volumes / Cluster"
-        gnetId: 11454
-        revision: 14
-        datasource: Prometheus
-      # nginx:
-      #   url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
-      #   datasource: Prometheus
-      # nginx-request-handling-performance:
-      #   url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
-      #   datasource: Prometheus
-      # node-exporter-full:
-      #   # renovate: depName="Node Exporter Full"
-      #   gnetId: 1860
-      #   revision: 37
-      #   datasource: Prometheus
-      # node-feature-discovery:
-      #   url: https://raw.githubusercontent.com/kubernetes-sigs/node-feature-discovery/master/examples/grafana-dashboard.json
-      #   datasource: Prometheus
-      # prometheus:
-      #   # renovate: depName="Prometheus"
-      #   gnetId: 19105
-      #   revision: 3
-      #   datasource: Prometheus
-      # unpackerr:
-      #   # renovate: depName="Unpackerr"
-      #   gnetId: 18817
-      #   revision: 1
-      #   datasource:
-      #     - { name: DS_PROMETHEUS, value: Prometheus }
-      # volsync:
-      #   # removate: depNmae="VolSync Dashboard"
-      #   gnetId: 21356
-      #   revision: 1
-      #   datasource:
-      #     - { name: DS_PROMETHEUS, value: Prometheus }
-      #     - { name: VAR_REPLICATIONDESTNAME, value: .*-dst }
+        unraid:
+          url: https://raw.githubusercontent.com/umizoom/homek8s/main/apps/production/grafana/unraid-dashboard.json
+          datasource: Prometheus
+        opnsense:
+          url: https://raw.githubusercontent.com/umizoom/homek8s/main/apps/production/grafana/opnsense-dashboard.json
+          datasource: Prometheus
+        disk-pools:
+          url: https://raw.githubusercontent.com/openebs/monitoring/develop/deploy/charts/dashboards/mayastor/diskpool.json
+          datasource: Prometheus
+        volumes:
+          url: https://raw.githubusercontent.com/openebs/monitoring/develop/deploy/charts/dashboards/mayastor/volume.json
+          datasource: Prometheus
+        volume-replica:
+          url: https://raw.githubusercontent.com/openebs/monitoring/develop/deploy/charts/dashboards/mayastor/volume-replica.json
+          datasource: Prometheus
+        # flux-control-plane:
+        #   url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/control-plane.json
+        #   datasource: Prometheus
+        # kubernetes-api-server:
+        #   # renovate: depName="Kubernetes / System / API Server"
+        #   gnetId: 15761
+        #   revision: 17
+        #   datasource: Prometheus
+        # kubernetes-coredns:
+        #   # renovate: depName="Kubernetes / System / CoreDNS"
+        #   gnetId: 15762
+        #   revision: 18
+        #   datasource: Prometheus
+        # kubernetes-global:
+        #   # renovate: depName="Kubernetes / Views / Global"
+        #   gnetId: 15757
+        #   revision: 37
+        #   datasource: Prometheus
+        # kubernetes-namespaces:
+        #   # renovate: depName="Kubernetes / Views / Namespaces"
+        #   gnetId: 15758
+        #   revision: 34
+        #   datasource: Prometheus
+        kubernetes-nodes:
+          # renovate: depName="Kubernetes / Views / Nodes"
+          gnetId: 15759
+          revision: 29
+          datasource: Prometheus
+        kubernetes-pods:
+          # renovate: depName="Kubernetes / Views / Pods"
+          gnetId: 15760
+          revision: 28
+          datasource: Prometheus
+        kubernetes-volumes:
+          # renovate: depName="K8s / Storage / Volumes / Cluster"
+          gnetId: 11454
+          revision: 14
+          datasource: Prometheus
+        # nginx:
+        #   url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
+        #   datasource: Prometheus
+        # nginx-request-handling-performance:
+        #   url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
+        #   datasource: Prometheus
+        # node-exporter-full:
+        #   # renovate: depName="Node Exporter Full"
+        #   gnetId: 1860
+        #   revision: 37
+        #   datasource: Prometheus
+        # node-feature-discovery:
+        #   url: https://raw.githubusercontent.com/kubernetes-sigs/node-feature-discovery/master/examples/grafana-dashboard.json
+        #   datasource: Prometheus
+        # prometheus:
+        #   # renovate: depName="Prometheus"
+        #   gnetId: 19105
+        #   revision: 3
+        #   datasource: Prometheus
+        # unpackerr:
+        #   # renovate: depName="Unpackerr"
+        #   gnetId: 18817
+        #   revision: 1
+        #   datasource:
+        #     - { name: DS_PROMETHEUS, value: Prometheus }
+        # volsync:
+        #   # removate: depNmae="VolSync Dashboard"
+        #   gnetId: 21356
+        #   revision: 1
+        #   datasource:
+        #     - { name: DS_PROMETHEUS, value: Prometheus }
+        #     - { name: VAR_REPLICATIONDESTNAME, value: .*-dst }
     sidecar:
       dashboards:
         enabled: true
