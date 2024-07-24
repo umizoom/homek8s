@@ -150,7 +150,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "editorMode": "code",
             "exemplar": true,
@@ -175,7 +175,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "editorMode": "code",
             "expr": "sum(kube_pod_container_resource_limits{resource=\"cpu\", cluster=\"$cluster\"}) / sum(machine_cpu_cores{cluster=\"$cluster\"})",
@@ -250,7 +250,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "editorMode": "code",
             "exemplar": true,
@@ -275,7 +275,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "editorMode": "code",
             "expr": "sum(kube_pod_container_resource_limits{resource=\"memory\", cluster=\"$cluster\"}) / sum(machine_memory_bytes{cluster=\"$cluster\"})",
@@ -339,7 +339,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "exemplar": true,
             "expr": "count(count by (node) (kube_node_info{cluster=\"$cluster\"}))",
@@ -441,7 +441,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "exemplar": true,
             "expr": "sum(kube_namespace_labels{cluster=\"$cluster\"})",
@@ -462,7 +462,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "expr": "sum(kube_pod_status_phase{phase=\"Running\", cluster=\"$cluster\"})",
             "interval": "",
@@ -482,7 +482,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "expr": "sum(kube_endpoint_info{cluster=\"$cluster\"})",
             "interval": "",
@@ -502,7 +502,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "expr": "sum(kube_deployment_labels{cluster=\"$cluster\"})",
             "interval": "",
@@ -522,7 +522,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "expr": "sum(kube_daemonset_labels{cluster=\"$cluster\"})",
             "interval": "",
@@ -542,7 +542,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "expr": "sum(kube_hpa_labels{cluster=\"$cluster\"})",
             "interval": "",
@@ -562,7 +562,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "expr": "sum(kube_secret_info{cluster=\"$cluster\"})",
             "interval": "",
@@ -582,7 +582,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "exemplar": true,
             "expr": "count(count by (node) (kube_node_info{cluster=\"$cluster\"}))",
@@ -646,7 +646,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "expr": "count(kube_namespace_created{cluster=\"$cluster\"})",
             "interval": "",
@@ -709,7 +709,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "editorMode": "code",
             "exemplar": true,
@@ -734,7 +734,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "editorMode": "code",
             "expr": "sum(kube_pod_container_resource_limits{resource=\"cpu\", cluster=\"$cluster\"})",
@@ -762,7 +762,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "Prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -824,7 +824,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "editorMode": "code",
             "expr": "sum(kube_pod_container_resource_requests{resource=\"memory\", cluster=\"$cluster\"})",
@@ -848,7 +848,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "editorMode": "code",
             "expr": "sum(machine_memory_bytes{instance=\"192.168.1.27:8081\"})",
@@ -912,7 +912,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "expr": "sum(kube_pod_status_phase{phase=\"Running\", cluster=\"$cluster\"})",
             "interval": "",
@@ -1033,7 +1033,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "editorMode": "code",
             "exemplar": true,
@@ -1140,7 +1140,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "editorMode": "code",
             "exemplar": true,
@@ -1248,7 +1248,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "exemplar": true,
             "expr": "sum(rate(container_cpu_usage_seconds_total{image!=\"\", cluster=\"$cluster\"}[$__rate_interval])) by (namespace)",
@@ -1350,7 +1350,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "exemplar": true,
             "expr": "sum(container_memory_working_set_bytes{image!=\"\", cluster=\"$cluster\"}) by (namespace)",
@@ -1453,7 +1453,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "exemplar": true,
             "expr": "avg(sum by (instance, cpu) (rate(node_cpu_seconds_total{mode!~\"idle|iowait|steal\", cluster=\"$cluster\"}[$__rate_interval]))) by (instance)",
@@ -1555,7 +1555,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "editorMode": "code",
             "exemplar": true,
@@ -1664,7 +1664,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "editorMode": "code",
             "exemplar": true,
@@ -1773,7 +1773,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "editorMode": "code",
             "exemplar": true,
@@ -1890,7 +1890,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "editorMode": "code",
             "exemplar": true,
@@ -1919,7 +1919,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "Prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -2023,7 +2023,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "Prometheus"
         },
         "description": "No data is generally a good thing here.",
         "fieldConfig": {
@@ -2128,7 +2128,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "Prometheus"
         },
         "description": "No data is generally a good thing here.",
         "fieldConfig": {
@@ -2250,7 +2250,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "Prometheus"
         },
         "description": "Dropped noisy virtual devices for readability.",
         "fieldConfig": {
@@ -2345,7 +2345,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "editorMode": "code",
             "exemplar": true,
@@ -2443,7 +2443,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "editorMode": "code",
             "exemplar": true,
@@ -2473,7 +2473,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "Prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -2567,7 +2567,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "editorMode": "code",
             "expr": "- sum(rate(container_network_transmit_bytes_total{cluster=\"$cluster\"}[$__rate_interval])) by (namespace)",
@@ -2665,7 +2665,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "editorMode": "code",
             "exemplar": true,
@@ -2695,7 +2695,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "Prometheus"
         },
         "description": "Dropped noisy virtual devices for readability.",
         "fieldConfig": {
@@ -2790,7 +2790,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "editorMode": "code",
             "expr": "- sum(rate(node_network_transmit_bytes_total{device!~\"lxc.*|veth.*|lo\", cluster=\"$cluster\"}[$__rate_interval])) by (instance)",
@@ -2889,7 +2889,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "Prometheus"
             },
             "editorMode": "code",
             "exemplar": true,
@@ -2943,7 +2943,7 @@
           "current": {},
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "Prometheus"
           },
           "definition": "label_values(kube_node_info,cluster)",
           "hide": 0,
