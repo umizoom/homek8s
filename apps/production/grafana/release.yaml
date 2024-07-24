@@ -109,9 +109,7 @@ spec:
           url: https://raw.githubusercontent.com/umizoom/homek8s/main/apps/production/grafana/dashboards/k8-global-dashboard.json
           datasource: Prometheus
         kubernetes-namespaces:
-          # renovate: depName="Kubernetes / Views / Namespaces"
-          gnetId: 15758
-          revision: 34
+          url: https://raw.githubusercontent.com/umizoom/homek8s/main/apps/production/grafana/dashboards/k8-namespaces-dashboard.json
           datasource: Prometheus
         kubernetes-nodes:
           # renovate: depName="Kubernetes / Views / Nodes"
