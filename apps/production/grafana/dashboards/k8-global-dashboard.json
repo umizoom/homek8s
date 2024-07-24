@@ -1,47 +1,4 @@
 {
-    "__inputs": [
-      {
-        "name": "DS_PROMETHEUS",
-        "label": "Prometheus",
-        "description": "",
-        "type": "datasource",
-        "pluginId": "prometheus",
-        "pluginName": "Prometheus"
-      }
-    ],
-    "__elements": {},
-    "__requires": [
-      {
-        "type": "panel",
-        "id": "bargauge",
-        "name": "Bar gauge",
-        "version": ""
-      },
-      {
-        "type": "grafana",
-        "id": "grafana",
-        "name": "Grafana",
-        "version": "11.1.0"
-      },
-      {
-        "type": "datasource",
-        "id": "prometheus",
-        "name": "Prometheus",
-        "version": "1.0.0"
-      },
-      {
-        "type": "panel",
-        "id": "stat",
-        "name": "Stat",
-        "version": ""
-      },
-      {
-        "type": "panel",
-        "id": "timeseries",
-        "name": "Time series",
-        "version": ""
-      }
-    ],
     "annotations": {
       "list": [
         {
@@ -69,7 +26,6 @@
     "fiscalYearStartMonth": 0,
     "gnetId": 15757,
     "graphTooltip": 1,
-    "id": null,
     "links": [],
     "liveNow": false,
     "panels": [
@@ -154,7 +110,7 @@
             },
             "editorMode": "code",
             "exemplar": true,
-            "expr": "avg(sum by (instance, cpu) (rate(node_cpu_seconds_total{mode!~\"idle|iowait|steal\", cluster=\"$cluster\"}[$__rate_interval])))",
+            "expr": "avg(sum by (instance, cpu) (rate(node_cpu_seconds_total{mode!~\"idle|iowait|steal\", instance!=\"192.168.1.27:9100\"}[$__rate_interval])))",
             "interval": "",
             "legendFormat": "Real",
             "range": true,
@@ -254,7 +210,7 @@
             },
             "editorMode": "code",
             "exemplar": true,
-            "expr": "sum(node_memory_MemTotal_bytes{cluster=\"$cluster\"} - node_memory_MemAvailable_bytes{cluster=\"$cluster\"}) / sum(node_memory_MemTotal_bytes{cluster=\"$cluster\"})",
+            "expr": "sum(node_memory_MemTotal_bytes{instance!=\"192.168.1.27:9100\"} - node_memory_MemAvailable_bytes{instance!=\"192.168.1.27:9100\"}) / sum(node_memory_MemTotal_bytes{instance!=\"192.168.1.27:9100\"})",
             "interval": "",
             "legendFormat": "Real",
             "range": true,
@@ -762,7 +718,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "Prometheus"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -851,7 +807,7 @@
               "uid": "Prometheus"
             },
             "editorMode": "code",
-            "expr": "sum(machine_memory_bytes{instance=\"192.168.1.27:8081\"})",
+            "expr": "sum(machine_memory_bytes{instance!=\"192.168.1.27:8081\"})",
             "hide": false,
             "legendFormat": "Total",
             "range": true,
@@ -2926,7 +2882,11 @@
     "templating": {
       "list": [
         {
-          "current": {},
+          "current": {
+            "selected": false,
+            "text": "Prometheus",
+            "value": "prometheus"
+          },
           "hide": 0,
           "includeAll": false,
           "multi": false,
@@ -2940,7 +2900,12 @@
           "type": "datasource"
         },
         {
-          "current": {},
+          "current": {
+            "isNone": true,
+            "selected": true,
+            "text": "None",
+            "value": ""
+          },
           "datasource": {
             "type": "prometheus",
             "uid": "Prometheus"
