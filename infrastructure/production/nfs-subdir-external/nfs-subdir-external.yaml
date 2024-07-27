@@ -9,10 +9,9 @@ spec:
     nfs:
       server: 192.168.1.27
       path: /mnt/user/home-cluster-nfs
-      reclaimPolicy: Retain
+      reclaimPolicy: Delete
     storageClass:
       create: true
-      # defaultClass: true
       name: nfs-client
       allowVolumeExpansion: true
       reclaimPolicy: Delete
