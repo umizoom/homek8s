@@ -9,7 +9,7 @@ spec:
   resources:
     requests:
       storage: 3Gi
-  storageClassName: "openebs-double-replica"
+  storageClassName: "nfs-client"
 ---
 kind: Pod
 apiVersion: v1
@@ -24,7 +24,7 @@ spec:
         claimName: fio-volume-claim
   containers:
     - name: fio
-      image: nixery.dev/shell/fio
+      image: nixery.dev/shell/fio/curl
       args:
         - sleep
         - "1000000"
