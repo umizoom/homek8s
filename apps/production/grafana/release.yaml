@@ -98,7 +98,7 @@ spec:
           url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/control-plane.json
           datasource: Prometheus
         k8up-backups:
-          url: https://raw.githubusercontent.com/umizoom/homek8s/main/apps/production/grafana/dashboards/k8up-backup.json
+          url: https://raw.githubusercontent.com/M0NsTeRRR/grafana-dashboards/main/dashboards/k8up.json
           datasource: Prometheus
         kubernetes-api-server:
           # renovate: depName="Kubernetes / System / API Server"
