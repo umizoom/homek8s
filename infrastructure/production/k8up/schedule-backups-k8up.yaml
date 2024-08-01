@@ -19,8 +19,7 @@ spec:
       name: backup-repo
       key: password
   backup:
-    # schedule: '5 4 * * *'
-    schedule: '00 22 * * *' # tesing
+    schedule: '5 4 * * *'
     failedJobsHistoryLimit: 2
     successfulJobsHistoryLimit: 2
     promURL: http://prometheus-prometheus-pushgateway:9091
