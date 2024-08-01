@@ -51,3 +51,8 @@ spec:
             - 192.168.2.2:9502
             - 192.168.2.3:9502
             - 192.168.2.4:9502
+      - job_name: k8up
+        scrape_interval: 5s
+        static_configs:
+          - targets:
+            - k8up-metrics:8080
