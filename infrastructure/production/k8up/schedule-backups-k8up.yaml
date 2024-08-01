@@ -20,7 +20,7 @@ spec:
       key: password
   backup:
     # schedule: '5 4 * * *'
-    schedule: '30 21 * * *' # tesing
+    schedule: '00 22 * * *' # tesing
     failedJobsHistoryLimit: 2
     successfulJobsHistoryLimit: 2
     promURL: http://prometheus-prometheus-pushgateway:9091
