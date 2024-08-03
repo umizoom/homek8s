@@ -14,17 +14,17 @@
 kind: Pod
 apiVersion: v1
 metadata:
-  name: fio
+  name: netshoot-2
 spec:
   nodeSelector:
-    openebs.io/engine: mayastor
+    openebs.io/nodeid: control-2
   # volumes:
   #   - name: ms-volume
   #     persistentVolumeClaim:
   #       claimName: fio-volume-claim
   containers:
-    - name: fio
-      image: nixery.dev/shell/fio/curl
+    - name: netshoot-2
+      image: nicolaka/netshoot
       args:
         - sleep
         - "1000000"

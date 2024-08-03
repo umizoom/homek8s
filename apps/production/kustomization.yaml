@@ -5,6 +5,7 @@ resources:
   - ../base/orbital-sync
   - ./prometheus
   - ./grafana
+  - ./homebridge
 patches:
   - path: pihole-values.yaml
     target:
