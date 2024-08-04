@@ -24,7 +24,7 @@ subjects:
     kind: ServiceAccount
     name: porkbun-basingse-porkbun-webhook
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
   name: porkbun-webhook
