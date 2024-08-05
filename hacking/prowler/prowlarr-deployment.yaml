@@ -32,7 +32,7 @@ spec:
               value: Etc/UTC
             - name: UMASK
               value: "002"
-          image: ghcr.io/hotio/prowlarr:release-dc95e2c-880-linux-amd64
+          image: ghcr.io/hotio/prowlarr:release-1.21.2.4649
           name: prowlarr
           ports:
             - containerPort: 9696
