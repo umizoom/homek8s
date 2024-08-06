@@ -40,6 +40,10 @@ spec:
           volumeMounts:
             - mountPath: /config
               name: prowlarr-claim
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: 9696
       restartPolicy: Always
       volumes:
         - name: prowlarr-claim

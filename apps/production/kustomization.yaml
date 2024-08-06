@@ -6,6 +6,7 @@ resources:
   - ./prometheus
   - ./grafana
   - ./homebridge
+  - ./prowler
 patches:
   - path: pihole-values.yaml
     target:

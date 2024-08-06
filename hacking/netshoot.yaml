@@ -18,17 +18,16 @@ metadata:
 spec:
   nodeSelector:
     openebs.io/nodeid: control-2
-  # volumes:
-  #   - name: ms-volume
-  #     persistentVolumeClaim:
-  #       claimName: fio-volume-claim
+  volumes:
+    - name: ms-volume
+      persistentVolumeClaim:
+        claimName: prowlarr-claim
   containers:
     - name: netshoot-2
       image: nicolaka/netshoot
       args:
         - sleep
         - "1000000"
-      # volumeMounts:
-      #   - mountPath: "/volume"
-      #     name: ms-volume
-# fio --name=benchtest --size=2000m --filename=/volume/test --direct=1 --rw=randrw --ioengine=libaio --bs=4k --iodepth=16 --numjobs=8 --time_based --runtime=120
+      volumeMounts:
+        - mountPath: "/config"
+          name: ms-volume
