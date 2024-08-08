@@ -12,7 +12,6 @@ spec:
       name: sops-gpg
   interval: 5m
   dependsOn:
-    - name:  my-secrets
     - name: base-infrastrcture
   sourceRef:
     kind: GitRepository
