@@ -7,7 +7,7 @@ creation_rules:
     encrypted_regex: (ca|cert|key|secret|token)$
     pgp: BAFBAF486E2E489700A8639C2B75A847B165ECC2
   
-  - path_regex: infrastructure/dependencies/.*.*
+  - path_regex: infrastructure/*/.*.*
     encrypted_regex: ^(data|stringData)$
     pgp: BAFBAF486E2E489700A8639C2B75A847B165ECC2
 
