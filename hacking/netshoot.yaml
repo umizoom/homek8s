@@ -14,10 +14,10 @@
 kind: Pod
 apiVersion: v1
 metadata:
-  name: netshoot-1
+  name: netshoot-3
 spec:
-  # nodeSelector:
-  #   openebs.io/nodeid: control-2
+  nodeSelector:
+    openebs.io/nodeid: control-1
   volumes:
     - name: data
       nfs:

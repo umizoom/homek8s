@@ -9,7 +9,7 @@
 #   resources:
 #     requests:
 #       storage: 3Gi
-#   storageClassName: "nfs-client"
+#   storageClassName: "replicated-storage"
 ---
 kind: Pod
 apiVersion: v1
@@ -17,18 +17,21 @@ metadata:
   name: fio
 spec:
   nodeSelector:
-    openebs.io/engine: mayastor
-  # volumes:
-  #   - name: ms-volume
-  #     persistentVolumeClaim:
-  #       claimName: fio-volume-claim
+    openebs.io/nodeid: control-1
+  volumes:
+    - name: ms-volume
+      # persistentVolumeClaim:
+      #   claimName: fio-volume-claim
+      nfs:
+        server: 192.168.1.27
+        path: /mnt/user/home-cluster-nfs
   containers:
     - name: fio
-      image: nixery.dev/shell/fio/curl
+      image: nixery.dev/shell/fio
       args:
         - sleep
         - "1000000"
-      # volumeMounts:
-      #   - mountPath: "/volume"
-      #     name: ms-volume
-# fio --name=benchtest --size=2000m --filename=/volume/test --direct=1 --rw=randrw --ioengine=libaio --bs=4k --iodepth=16 --numjobs=8 --time_based --runtime=120
+      volumeMounts:
+        - mountPath: "/volume"
+          name: ms-volume
+# fio --name=benchtest --size=2000m --filename=/volume/test --direct=1 --rw=randrw --ioengine=libaio --bs=4k --iodepth=16 --numjobs=8 --time_based --runtime=60

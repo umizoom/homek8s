@@ -28,6 +28,7 @@ spec:
     server:
       persistentVolume:
         storageClass: "replicated-storage"
+        size: 10Gi
     extraScrapeConfigs: |
       - job_name: unraid-cadvisor
         scrape_interval: 5s
