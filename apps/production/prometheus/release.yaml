@@ -23,13 +23,12 @@ spec:
       strategy: rollback
       retries: 3
   values:
-    replicaCount: 0
     alertmanager:
       enabled: false
     server:
       persistentVolume:
         storageClass: "replicated-storage"
-        size: 10Gi
+        size: 8Gi
     extraScrapeConfigs: |
       - job_name: unraid-cadvisor
         scrape_interval: 5s
