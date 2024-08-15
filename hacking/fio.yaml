@@ -1,15 +1,15 @@
-# ---
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-#   name: fio-volume-claim
-# spec:
-#   accessModes:
-#   - ReadWriteOnce
-#   resources:
-#     requests:
-#       storage: 3Gi
-#   storageClassName: "replicated-storage"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: fio-volume-claim1
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi
+  storageClassName: "replicated-storage"
 ---
 kind: Pod
 apiVersion: v1
@@ -20,11 +20,11 @@ spec:
     openebs.io/nodeid: control-1
   volumes:
     - name: ms-volume
-      # persistentVolumeClaim:
-      #   claimName: fio-volume-claim
-      nfs:
-        server: 192.168.1.27
-        path: /mnt/user/home-cluster-nfs
+      persistentVolumeClaim:
+        claimName: fio-volume-claim1
+      # nfs:
+      #   server: 192.168.1.27
+      #   path: /mnt/user/home-cluster-nfs
   containers:
     - name: fio
       image: nixery.dev/shell/fio
