@@ -27,6 +27,7 @@ spec:
       enabled: false
     server:
       persistentVolume:
+        existingClaim: "prometheus-server-claim"
         storageClass: "replicated-storage"
         size: 10Gi
     extraScrapeConfigs: |

@@ -1,12 +1,12 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name:  homebridge-claim
+  name:  prometheus-server-claim
   # Optional:
   namespace: default
-  # annotations:
+  annotations:
     # set to "true" to include in future backups
-    # k8up.io/backup: ""
+    k8up.io/backup: ""
   # Optional:
   #labels:
   #  app: multi-file-writer
@@ -18,21 +18,21 @@ spec:
   resources:
     requests:
       # Must be sufficient to hold your data
-      storage: 100Mi
+      storage: 10Gi
 ---
 apiVersion: k8up.io/v1
 kind: Restore
 metadata:
-  name: homebridge-restore
+  name: prometheus-server-claim
   namespace: default
 spec:
   podSecurityContext:
     fsGroup: 65532
     fsGroupChangePolicy: OnRootMismatch
-  snapshot: "fffdc5e6"
+  snapshot: "e1af4a16"
   restoreMethod:
     folder:
-      claimName: homebridge-claim
+      claimName: prometheus-server-claim
   backend:
     s3:
       endpoint: http://192.168.1.27:9768
