@@ -1,0 +1,14 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name:  prometheus-server-claim
+  namespace: default
+  annotations:
+    k8up.io/backup: "true"
+spec:
+  storageClassName: replicated-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
