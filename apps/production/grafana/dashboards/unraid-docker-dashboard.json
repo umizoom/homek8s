@@ -601,7 +601,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "Prometheus"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -685,7 +685,7 @@
             "uid": "Prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\".+\",instance=~\"$node\"}[5m])) by (name) * 10",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\".+\",instance=~\"$node\"}[1m])) by (name) * 10",
           "format": "time_series",
           "hide": false,
           "interval": "",
@@ -703,7 +703,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "Prometheus"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -758,7 +758,32 @@
           },
           "unit": "Bps"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "qbittorrent"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 7,
@@ -787,7 +812,7 @@
             "uid": "Prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_network_receive_bytes_total{name!=\"\",instance=~\"$node\"}[5m])) by (name) /2",
+          "expr": "sum(rate(container_network_receive_bytes_total{name!=\"\",instance=~\"$node\"}[1m])) by (name) /2",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
@@ -803,7 +828,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "Prometheus"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -887,7 +912,7 @@
             "uid": "Prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_network_transmit_bytes_total{name!=\"\",instance=~\"$node\"}[5m])) by (name) * 0.125",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name!=\"\",instance=~\"$node\"}[1m])) by (name) * 0.125",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{name}}",
@@ -1032,25 +1057,6 @@
                 "id": "custom.align"
               }
             ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Time"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "short"
-              },
-              {
-                "id": "decimals",
-                "value": 2
-              },
-              {
-                "id": "custom.align"
-              }
-            ]
           }
         ]
       },
@@ -1071,7 +1077,8 @@
           ],
           "show": false
         },
-        "showHeader": true
+        "showHeader": true,
+        "sortBy": []
       },
       "pluginVersion": "11.1.0",
       "targets": [
@@ -1125,7 +1132,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "Prometheus"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1195,7 +1202,9 @@
           "calcs": [],
           "displayMode": "table",
           "placement": "right",
-          "showLegend": true
+          "showLegend": true,
+          "sortBy": "Name",
+          "sortDesc": false
         },
         "tooltip": {
           "mode": "multi",
@@ -1216,18 +1225,6 @@
           "legendFormat": "{{name}}",
           "refId": "A",
           "target": ""
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "Prometheus"
-          },
-          "expr": "container_spec_memory_limit_bytes{name!=\"\",instance=~\"$node\"}",
-          "format": "time_series",
-          "hide": true,
-          "intervalFactor": 2,
-          "legendFormat": "Limit {{name}}",
-          "refId": "B"
         }
       ],
       "title": "Used Memory per Container",
@@ -1360,7 +1357,7 @@
       {
         "current": {
           "isNone": true,
-          "selected": true,
+          "selected": false,
           "text": "None",
           "value": ""
         },
@@ -1447,7 +1444,7 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-12h",
     "to": "now"
   },
   "timepicker": {

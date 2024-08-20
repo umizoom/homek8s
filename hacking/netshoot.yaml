@@ -17,7 +17,7 @@ metadata:
   name: netshoot-3
 spec:
   nodeSelector:
-    openebs.io/nodeid: control-1
+    openebs.io/nodeid: control-3
   volumes:
     - name: data
       nfs:
