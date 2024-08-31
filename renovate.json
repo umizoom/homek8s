@@ -6,6 +6,5 @@
   
   "kubernetes": {
     "fileMatch": ["\\.yaml$"]
-  },
-  "ignorePaths": ["**/talos/**"]
+  }
 }
