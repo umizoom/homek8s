@@ -6,5 +6,8 @@
   
   "kubernetes": {
     "fileMatch": ["\\.yaml$"]
+  },
+  "flux": {
+    "fileMatch": ["\\.yaml$"]
   }
 }
