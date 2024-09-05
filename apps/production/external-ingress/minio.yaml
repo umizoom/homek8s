@@ -45,7 +45,7 @@ spec:
           service:
             name: minio-external-ip
             port:
-              name: http
+              name: minio
         path: /
         pathType: ImplementationSpecific
   tls:
