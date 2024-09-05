@@ -62,3 +62,36 @@ status:
   loadBalancer:
     ingress:
     - ip: 192.168.2.11
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    nginx.org/websocket-services: "minio-external-ip"
+  labels:
+    app: minio-api
+  name: minio-api-external-service
+  namespace: default
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: minio-api.basingse.ca
+    http:
+      paths:
+      - backend:
+          service:
+            name: minio-external-ip
+            port:
+              name: minio-api
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - minio-api.basingse.ca
+    secretName: minio-api-tls-secret
+status:
+  loadBalancer:
+    ingress:
+    - ip: 192.168.2.11
