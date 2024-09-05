@@ -14,7 +14,7 @@
 kind: Pod
 apiVersion: v1
 metadata:
-  name: netshoot-3
+  name: &name netshoot-3
 spec:
   nodeSelector:
     openebs.io/nodeid: control-3
@@ -24,7 +24,7 @@ spec:
         server: 192.168.1.27
         path: /mnt/user/home-cluster-nfs
   containers:
-    - name: netshoot-2
+    - name: *name
       image: nicolaka/netshoot
       args:
         - sleep

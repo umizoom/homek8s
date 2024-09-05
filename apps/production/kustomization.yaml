@@ -7,6 +7,7 @@ resources:
   - ./grafana
   - ./homebridge
   - ./prowler
+  - ./external-ingress
 patches:
   - path: orbital-sync.yaml
     target:
