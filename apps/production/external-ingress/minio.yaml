@@ -8,8 +8,6 @@ spec:
       port: 80
       protocol: TCP
       targetPort: 9769
-  selector:
-    io.kompose.service: minio-external-service
   clusterIP: None
   type: ClusterIP
 ---
