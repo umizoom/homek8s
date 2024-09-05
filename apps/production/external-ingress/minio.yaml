@@ -23,16 +23,34 @@ subsets:
     port: 9769
     protocol: TCP
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+  labels:
+    app: minio
   name: minio-external-service
+  namespace: default
 spec:
+  ingressClassName: nginx
   rules:
   - host: minio.basingse.ca
     http:
       paths:
       - backend:
-          serviceName: minio-external-ip
-          servicePort: 80
+          service:
+            name: minio-external-ip
+            port:
+              name: http
         path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - minio.basingse.ca
+    secretName: minio-tls-secret
+status:
+  loadBalancer:
+    ingress:
+    - ip: 192.168.2.11
