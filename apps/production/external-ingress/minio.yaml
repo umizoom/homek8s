@@ -9,7 +9,7 @@ spec:
       protocol: TCP
       targetPort: 9769
     - name: minio-api
-      port: 80
+      port: 443
       protocol: TCP
       targetPort: 9768
   clusterIP: None
