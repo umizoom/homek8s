@@ -8,6 +8,10 @@ spec:
       port: 80
       protocol: TCP
       targetPort: 9769
+    - name: minio-api
+      port: 9768
+      protocol: TCP
+      targetPort: 9768
   clusterIP: None
   type: ClusterIP
 ---
@@ -21,6 +25,9 @@ subsets:
   ports:
   - name: minio
     port: 9769
+    protocol: TCP
+  - name: minio-api
+    port: 9768
     protocol: TCP
 ---
 apiVersion: networking.k8s.io/v1
