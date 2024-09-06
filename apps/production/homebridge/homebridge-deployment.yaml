@@ -59,7 +59,6 @@ metadata:
   name: homebridge-web
   namespace: default
 spec:
-  loadBalancerIP: 192.168.2.11
   ports:
   - name: http
     port: 80
