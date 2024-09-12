@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: maintainerr
+  name: maintainerr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: maintainerr
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: maintainerr
+    spec:
+      securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          fsGroup: 1000
+      containers:
+        - env:
+            - name: TZ
+              value: America/Toronto
+          image: ghcr.io/jorenn92/maintainerr:latest
+          name: maintainerr
+          ports:
+            - containerPort: 6246
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /opt/data
+              name: maintainerr-claim
+      restartPolicy: Always
+      volumes:
+        - name: maintainerr-claim
+          persistentVolumeClaim:
+            claimName: maintainerr-claim

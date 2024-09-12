@@ -8,6 +8,7 @@ resources:
   - ./homebridge
   - ./prowler
   - ./external-ingress
+  - ./maintainerr
 patches:
   - path: orbital-sync.yaml
     target:
