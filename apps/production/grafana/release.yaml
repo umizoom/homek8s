@@ -50,14 +50,21 @@ spec:
     datasources:
       datasources.yaml:
         apiVersion: 1
-        deleteDatasources:
-          - { name: Loki }
+        # deleteDatasources:
+        #   - { name: Loki }
         datasources:
+          - name: Loki
+            type: loki
+            uid: loki
+            access: proxy
+            url: http://openebs-loki.openebs:3100
+            jsonData:
+              timeInterval: 1m
+            # isDefault: true
           - name: Prometheus
             type: prometheus
             uid: prometheus
             access: proxy
-            # url: http://192.168.1.22:9090
             url: http://prometheus-server
             jsonData:
               timeInterval: 1m
