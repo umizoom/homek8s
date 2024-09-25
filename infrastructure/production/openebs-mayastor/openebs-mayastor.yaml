@@ -22,7 +22,7 @@ spec:
         kind: HelmRepository
         name: openebs
         namespace: openebs
-      interval: 2m
+      interval: 1m
   values:
     localpv-provisioner:
       localpv:
