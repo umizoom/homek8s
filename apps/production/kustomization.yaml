@@ -9,7 +9,7 @@ resources:
   - ./prowler
   - ./external-ingress
   - ./maintainerr
-  - ./maintainerr
+  - ./unpackerr
 patches:
   - path: orbital-sync.yaml
     target:
