@@ -22,6 +22,11 @@ spec:
     remediation:
       retries: 5
   values:
+    controllers:
+      unpackerr:
+        type: deployment
+        annotations:
+          reloader.stakater.com/auto: 'true'
     image:
       repository: ghcr.io/hotio/unpackerr
       tag: latest@sha256:13b84daaf2632ccea9f008ee0e2a9f78b5f0d45856eaeb4ff12de2ce35234335
