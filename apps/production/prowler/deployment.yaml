@@ -32,7 +32,7 @@ spec:
               value: Etc/UTC
             - name: UMASK
               value: "002"
-          image: ghcr.io/hotio/prowlarr:release-e6c84dc
+          image: ghcr.io/hotio/prowlarr@sha256:fe352854caf374c450512e9d5f94f81713ef4e47d4ae8aab285a68f0c598fbff
           name: prowlarr
           ports:
             - containerPort: 9696
