@@ -137,8 +137,7 @@ spec:
           revision: 14
           datasource: Prometheus
         unpackerr:
-          gnetId: 18817
-          revision: 1
+          url: https://raw.githubusercontent.com/umizoom/homek8s/main/apps/production/grafana/dashboards/unpackerr.json
           datasource: Prometheus
         
         # nginx:
