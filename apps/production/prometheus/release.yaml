@@ -59,6 +59,6 @@ spec:
           - targets:
             - k8up-metrics:8080
       - job_name: unpackerr
-        scrape_interval: 5s
+        scrape_interval: 1m
         static_configs:
           - targets: ["unpackerr.default.svc.cluster.local:5656"]
