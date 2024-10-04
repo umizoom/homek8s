@@ -62,4 +62,4 @@ spec:
         scrape_interval: 5s
         static_configs:
           - targets:
-            -  http://unpackerr.default.svc.cluster.local:5656
+            - http://unpackerr.default.svc.cluster.local:5656
