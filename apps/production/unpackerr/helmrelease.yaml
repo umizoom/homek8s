@@ -46,6 +46,7 @@ spec:
             #   memory: 2048Mi
             env:
               UN_ACTIVITY: "true"
+              TZ: "EST"
               UN_INTERVAL: 1m
               UN_WEBSERVER_METRICS: "true"
               UN_SONARR_0_URL: https://tv.lab.umaidabbasi.com
