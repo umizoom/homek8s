@@ -61,5 +61,4 @@ spec:
       - job_name: unpackerr
         scrape_interval: 5s
         static_configs:
-          - targets:
-            - http://unpackerr.default.svc.cluster.local:5656
+          - targets: ["unpackerr.default.svc.cluster.local:5656"]
