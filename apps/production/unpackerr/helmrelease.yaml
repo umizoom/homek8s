@@ -23,53 +23,64 @@ spec:
       retries: 2
   values:
     controllers:
-      unpackerr:
+      main:
         type: deployment
-        annotations:
-          reloader.stakater.com/auto: 'true'
-      containers:
-        image:
-          repository: ghcr.io/hotio/unpackerr
-          tag: latest@sha256:13b84daaf2632ccea9f008ee0e2a9f78b5f0d45856eaeb4ff12de2ce35234335
-        env:
-          UN_ACTIVITY: "true"
-          UN_INTERVAL: 1m
-          UN_WEBSERVER_METRICS: "true"
-          UN_SONARR_0_URL: https://tv.lab.umaidabbasi.com
-          UN_SONARR_0_PATHS_0: &path /data/torrents
-          UN_RADARR_0_URL: https://movies.lab.umaidabbasi.com
-          UN_RADARR_0_PATHS_0: *path
-          UN_SONARR_1_URL: https://kidstv.lab.umaidabbasi.com
-          UN_SONARR_1_PATHS_0: *path
-          UN_RADARR_1_URL: https://kidsmovies.lab.umaidabbasi.com
-          UN_RADARR_1_PATHS_0: *path
-        envFrom:
-          - secretRef:
-              name: *app
-            resources:
-        requests:
-          memory: 2048Mi
-          cpu: 10m
-        limits:
-          memory: 2048Mi
+        strategy: Recreate
+        containers:
+          main:
+            image:
+              # -- image repository
+              repository: ghcr.io/hotio/unpackerr
+              # -- image tag
+              # this example is not automatically updated, so be sure to use the latest image
+              tag: latest@sha256:13b84daaf2632ccea9f008ee0e2a9f78b5f0d45856eaeb4ff12de2ce35234335
+              # -- image pull policy
+              pullPolicy: IfNotPresent
+
+            # -- environment variables.
+            # See [image docs](https://github.com/dani-garcia/vaultwarden/blob/main/.env.template) for more details.
+            # requests:
+            #   memory: 2048Mi
+            #   cpu: 10m
+            # limits:
+            #   memory: 2048Mi
+            env:
+              UN_ACTIVITY: "true"
+              UN_INTERVAL: 1m
+              UN_WEBSERVER_METRICS: "true"
+              UN_SONARR_0_URL: https://tv.lab.umaidabbasi.com
+              UN_SONARR_0_PATHS_0: &path /data/torrents
+              UN_RADARR_0_URL: https://movies.lab.umaidabbasi.com
+              UN_RADARR_0_PATHS_0: *path
+              UN_SONARR_1_URL: https://kidstv.lab.umaidabbasi.com
+              UN_SONARR_1_PATHS_0: *path
+              UN_RADARR_1_URL: https://kidsmovies.lab.umaidabbasi.com
+              UN_RADARR_1_PATHS_0: *path
+            envFrom:
+              - secretRef:
+                  name: *app
+
+    # -- Configures service settings for the chart.
     service:
       main:
-        controller: *app  
+        controller: main
         ports:
           http:
             port: 5656
-    defaultPodOptions:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups: [10000]
+
+    # -- Configure persistence settings for the chart under this key.
     persistence:
-      media:
-        enabled: true
+      config:
         type: nfs
         server: "192.168.1.27"
         path: /data/
         globalMounts:
           - path: /data
+        defaultPodOptions:
+    
+    securityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
+      supplementalGroups: [10000]
