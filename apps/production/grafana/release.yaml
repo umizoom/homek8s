@@ -93,13 +93,13 @@ spec:
           url: https://raw.githubusercontent.com/umizoom/homek8s/main/apps/production/grafana/dashboards/opnsense-dashboard.json
           datasource: Prometheus
         disk-pools:
-          url: https://raw.githubusercontent.com/openebs/monitoring/develop/deploy/charts/dashboards/mayastor/diskpool.json
+          url: https://raw.githubusercontent.com/openebs/monitoring/refs/heads/develop/deploy/charts/dashboards/mayastor/mayastor-diskpool.json
           datasource: Prometheus
         volumes:
-          url: https://raw.githubusercontent.com/openebs/monitoring/develop/deploy/charts/dashboards/mayastor/volume.json
+          url: https://github.com/openebs/monitoring/blob/develop/deploy/charts/dashboards/mayastor/mayastor-volume.json
           datasource: Prometheus
         volume-replica:
-          url: https://raw.githubusercontent.com/openebs/monitoring/develop/deploy/charts/dashboards/mayastor/volume-replica.json
+          url: https://raw.githubusercontent.com/openebs/monitoring/refs/heads/develop/deploy/charts/dashboards/mayastor/mayastor-volume-replica.json
           datasource: Prometheus
         flux-control-plane:
           url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/control-plane.json
@@ -135,11 +135,7 @@ spec:
           # renovate: depName="K8s / Storage / Volumes / Cluster"
           gnetId: 11454
           revision: 14
-          datasource: Prometheus
-        # unpackerr:
-        #   url: https://raw.githubusercontent.com/umizoom/homek8s/main/apps/production/grafana/dashboards/unpackerr.json
-        #   datasource: Prometheus
-        
+          datasource: Prometheus      
         # nginx:
         #   url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
         #   datasource: Prometheus
