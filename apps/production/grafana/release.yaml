@@ -96,7 +96,7 @@ spec:
           url: https://raw.githubusercontent.com/openebs/monitoring/refs/heads/develop/deploy/charts/dashboards/mayastor/mayastor-diskpool.json
           datasource: Prometheus
         volumes:
-          url: https://github.com/openebs/monitoring/blob/develop/deploy/charts/dashboards/mayastor/mayastor-volume.json
+          url: https://raw.githubusercontent.com/openebs/monitoring/refs/heads/develop/deploy/charts/dashboards/mayastor/mayastor-volume.json
           datasource: Prometheus
         volume-replica:
           url: https://raw.githubusercontent.com/openebs/monitoring/refs/heads/develop/deploy/charts/dashboards/mayastor/mayastor-volume-replica.json
