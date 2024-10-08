@@ -32,6 +32,28 @@ spec:
               value: Etc/UTC
             - name: UMASK
               value: "002"
+            - name: VPN_ENABLED
+              value: "true"
+            - name: VPN_PROVIDER
+              value: "pia"
+            - name: VPN_PIA_USER
+              valueFrom:
+                secretKeyRef:
+                  name: pia-creds
+                  key: user
+            - name: VPN_PIA_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: pia-creds
+                  key: password
+            - name: VPN_PIA_PREFERRED_REGION
+              value: "ca_toronto"
+            - name: VPN_LAN_NETWORK
+              value: "192.168.2.0/24"
+            - name: VPN_CONF
+              value: "wg0"
+            - name: VPN_ADDITIONAL_PORTS
+              value: "443/tcp"
           image: ghcr.io/hotio/prowlarr:latest@sha256:fe352854caf374c450512e9d5f94f81713ef4e47d4ae8aab285a68f0c598fbff
           name: prowlarr
           ports:
