@@ -43,8 +43,8 @@ spec:
                 spec:
                   exec:
                     command:
-                      - ls
-                      - /data/torrents/
+                      - cat
+                      - /data/nfs-test.txt
                   initialDelaySeconds: 10
                   periodSeconds: 30
                   failureThreshold: 3
