@@ -56,6 +56,10 @@ spec:
               value: "443/tcp"
           image: ghcr.io/hotio/prowlarr:latest@sha256:fe352854caf374c450512e9d5f94f81713ef4e47d4ae8aab285a68f0c598fbff
           name: prowlarr
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
           ports:
             - containerPort: 9696
               protocol: TCP
