@@ -49,7 +49,7 @@ spec:
             - name: VPN_PIA_PREFERRED_REGION
               value: "ca_toronto"
             - name: VPN_LAN_NETWORK
-              value: "192.168.2.0/24"
+              value: "192.168.2.0/24,192.168.1.0/24"
             - name: VPN_CONF
               value: "wg0"
             - name: VPN_ADDITIONAL_PORTS
