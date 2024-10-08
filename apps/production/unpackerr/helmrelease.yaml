@@ -43,7 +43,7 @@ spec:
                   exec:
                     command:
                       - ls
-                      - /mnt/nfs/your-directory
+                      - /data/torrents/
                   initialDelaySeconds: 10
                   periodSeconds: 30
                   failureThreshold: 3
