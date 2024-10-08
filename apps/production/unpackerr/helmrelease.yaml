@@ -39,6 +39,7 @@ spec:
             probes:
               liveness:
                 custom: true
+                enabled: true
                 spec:
                   exec:
                     command:
