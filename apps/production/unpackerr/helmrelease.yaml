@@ -43,8 +43,8 @@ spec:
                 spec:
                   exec:
                     command:
-                      - cat
-                      - /data/nfs-test.txt
+                      - ls
+                      - /data/
                   initialDelaySeconds: 10
                   periodSeconds: 30
                   failureThreshold: 3
