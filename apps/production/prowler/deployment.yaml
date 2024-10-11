@@ -33,7 +33,7 @@ spec:
             - name: UMASK
               value: "002"
             - name: VPN_ENABLED
-              value: "true"
+              value: "false"
             - name: VPN_PROVIDER
               value: "pia"
             - name: VPN_PIA_USER
