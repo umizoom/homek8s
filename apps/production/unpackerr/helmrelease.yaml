@@ -88,8 +88,6 @@ spec:
         type: nfs
         server: "192.168.1.27"
         path: /mnt/user/data
-        mountOptions:
-          - vers=4.1
         globalMounts:
           - path: /data
     defaultPodOptions:
