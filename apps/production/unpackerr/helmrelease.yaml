@@ -84,10 +84,11 @@ spec:
 
     # -- Configure persistence settings for the chart under this key.
     persistence:
-      config:
-        type: nfs
-        server: "192.168.1.27"
-        path: /mnt/user/data
+      data:
+        # type: nfs
+        # server: "192.168.1.27"
+        # path: /mnt/user/data
+        existingClaim: media-pvc
         globalMounts:
           - path: /data
     defaultPodOptions:

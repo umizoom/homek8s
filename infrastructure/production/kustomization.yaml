@@ -8,6 +8,7 @@ resources:
   - ./openebs-mayastor
   - ./nfs-subdir-external
   - ./k8up
+  - ./nfs-pv
   # - ./rook-ceph
   # - local-path-provisioner.yaml
   # - ./openebs-jiva
