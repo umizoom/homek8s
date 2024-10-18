@@ -36,19 +36,19 @@ spec:
               tag: latest@sha256:13b84daaf2632ccea9f008ee0e2a9f78b5f0d45856eaeb4ff12de2ce35234335
               # -- image pull policy
               pullPolicy: IfNotPresent
-            probes:
-              liveness:
-                custom: true
-                enabled: true
-                spec:
-                  exec:
-                    command:
-                      - ls
-                      - /data/
-                  initialDelaySeconds: 10
-                  periodSeconds: 30
-                  failureThreshold: 3
-                  timeoutSeconds: 5
+            # probes:
+            #   liveness:
+            #     custom: true
+            #     enabled: true
+            #     spec:
+            #       exec:
+            #         command:
+            #           - ls
+            #           - /data/
+            #       initialDelaySeconds: 10
+            #       periodSeconds: 30
+            #       failureThreshold: 3
+            #       timeoutSeconds: 5
 
             # -- environment variables.
             # See [image docs](https://github.com/dani-garcia/vaultwarden/blob/main/.env.template) for more details.
