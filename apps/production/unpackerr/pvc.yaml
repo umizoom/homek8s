@@ -4,7 +4,7 @@ metadata:
   name: media-pvc
   namespace: default
   annotations: 
-    k8up.syn.tools/ignore: true
+    k8up.syn.tools/ignore: "true"
 spec:
   accessModes:
     - ReadWriteMany
