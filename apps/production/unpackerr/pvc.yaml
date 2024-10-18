@@ -8,5 +8,5 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 5Gi
+      storage: 5Gi # Arbitrary value, used just to match a persistent volume
   volumeName: media
