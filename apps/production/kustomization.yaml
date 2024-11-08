@@ -10,6 +10,7 @@ resources:
   - ./external-ingress
   - ./maintainerr
   - ./unpackerr
+  - ./calibre-web
 patches:
   - path: orbital-sync.yaml
     target:
