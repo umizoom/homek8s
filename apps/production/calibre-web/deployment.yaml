@@ -24,7 +24,7 @@ spec:
               value: Etc/UTC
             - name: DOCKER_MODS
               value: linuxserver/mods:universal-calibre
-          image: lscr.io/linuxserver/calibre-web:0.6.23
+          image: lscr.io/linuxserver/calibre-web:2021.12.16
           name: calibre-web
           ports:
             - containerPort: 8083
