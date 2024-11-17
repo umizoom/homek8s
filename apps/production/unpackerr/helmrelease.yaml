@@ -61,6 +61,9 @@ spec:
               UN_ACTIVITY: "true"
               TZ: "EST"
               UN_INTERVAL: 1m
+              PUID: 1000
+              PGUID: 1000
+              UMASK: 002
               UN_WEBSERVER_METRICS: "true"
               UN_SONARR_0_URL: https://tv.lab.umaidabbasi.com:443
               UN_SONARR_0_PATHS_0: &path /data/torrents
