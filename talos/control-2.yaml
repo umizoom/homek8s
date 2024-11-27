@@ -22,7 +22,7 @@ machine:
     # Used to provide additional options to the kubelet.
     kubelet:
         # The `image` field is an optional reference to an alternative kubelet image.
-        image: ghcr.io/siderolabs/kubelet:v1.31.2
+        image: ghcr.io/siderolabs/kubelet:v1.31.3
         # Enable container runtime default Seccomp profile.
         defaultRuntimeSeccompProfileEnabled: true
         # The `disableManifestsDirectory` field configures the kubelet to get static pod manifests from the /etc/kubernetes/manifests directory.
@@ -436,7 +436,7 @@ cluster:
     # API server specific configuration options.
     apiServer:
         # The container image used in the API server manifest.
-        image: registry.k8s.io/kube-apiserver:v1.31.2
+        image: registry.k8s.io/kube-apiserver:v1.31.3
         # Extra certificate subject alternative names for the API server's certificate.
         certSANs:
             - 192.168.2.2
@@ -471,17 +471,17 @@ cluster:
     # Controller manager server specific configuration options.
     controllerManager:
         # The container image used in the controller manager manifest.
-        image: registry.k8s.io/kube-controller-manager:v1.31.2
+        image: registry.k8s.io/kube-controller-manager:v1.31.3
     # Kube-proxy server-specific configuration options
     proxy:
         # The container image used in the kube-proxy manifest.
-        image: registry.k8s.io/kube-proxy:v1.31.2
+        image: registry.k8s.io/kube-proxy:v1.31.3
         # # Disable kube-proxy deployment on cluster bootstrap.
         # disabled: false
     # Scheduler server specific configuration options.
     scheduler:
         # The container image used in the scheduler manifest.
-        image: registry.k8s.io/kube-scheduler:v1.31.2
+        image: registry.k8s.io/kube-scheduler:v1.31.3
     # Configures cluster member discovery.
     discovery:
         # Enable the cluster membership discovery feature.
