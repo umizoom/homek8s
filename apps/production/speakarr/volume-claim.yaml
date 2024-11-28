@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: speakarr-config
+spec:
+  storageClassName: "replicated-storage"
+  volumeName: pvc-55364272-73a5-482e-95ec-f485ba167f06
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+

@@ -11,6 +11,7 @@ resources:
   - ./maintainerr
   - ./unpackerr
   - ./calibre-web
+  - ./speakarr
 patches:
   - path: orbital-sync.yaml
     target:
