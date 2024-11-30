@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: readarr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: readarr
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: readarr
+    spec:
+      containers:
+        - env:
+            - name: PGID
+              value: "1000"
+            - name: PUID
+              value: "1000"
+            - name: TZ
+              value: Etc/UTC
+          image: ghcr.io/hotio/readarr:latest@sha256:5cfd2f6d6bc1b89fe827f3cfa59b1920522c1dfbf17a0560f992280baf133c39 
+          name: readarr
+          ports:
+            - containerPort: 8787
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /config
+              name: readarr-config
+            - mountPath: /data
+              name: readarr-media
+      restartPolicy: Always
+      volumes:
+        - name: readarr-config
+          persistentVolumeClaim:
+            claimName: readarr-config
+        - name: readarr-media
+          persistentVolumeClaim:
+            claimName: media-pvc
