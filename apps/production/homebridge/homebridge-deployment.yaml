@@ -24,7 +24,7 @@ spec:
     spec:
       hostNetwork: true
       containers:
-        - image: homebridge/homebridge:2024-06-27
+        - image: homebridge/homebridge:latest@sha256:85689216d41a215c5f5ae3681bfffc9ad84ee2f3dbfe5cf15ea8ab095840c187
           name: homebridge
           volumeMounts:
             - mountPath: /homebridge
