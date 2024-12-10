@@ -8,7 +8,7 @@ spec:
   accessModes:
     - ReadWriteMany
   mountOptions:
-    - vers=3
+    - nfsvers=4.1
     - hard
   nfs:
     path: /mnt/user/data   # Path to the existing NFS directory
