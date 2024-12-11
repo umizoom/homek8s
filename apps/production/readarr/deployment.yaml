@@ -33,6 +33,15 @@ spec:
               name: readarr-config
             - mountPath: /data
               name: readarr-media
+          livenessProbe:
+            exec:
+              command:
+              - ls
+              - /data/
+            initialDelaySeconds: 10
+            periodSeconds: 7200
+            failureThreshold: 1
+            timeoutSeconds: 5
       restartPolicy: Always
       volumes:
         - name: readarr-config
