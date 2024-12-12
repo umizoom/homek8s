@@ -22,7 +22,7 @@ spec:
               value: "true"
             - name: TIMEZONE
               value: "EST"
-          image: ghcr.io/umizoom/pod-reaper:latest@sha256:5bf4b348b9a5042992af500f905b35f3d99920810b45fb4ffddc840d6b661303
+          image: ghcr.io/umizoom/pod-reaper:latest@sha256:da71fb0535d6fa4971771c6a2632d649bc2aa5a309cdebb105c7a8843620761d
           name: pod-reaper
       restartPolicy: Always
 
