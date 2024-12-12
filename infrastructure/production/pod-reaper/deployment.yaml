@@ -20,7 +20,9 @@ spec:
         - env:
             - name: inCluster
               value: "true"
-          image: ghcr.io/umizoom/pod-reaper:latest
+            - name: TIMEZONE
+              value: "EST"
+          image: ghcr.io/umizoom/pod-reaper:latest@sha256:5bf4b348b9a5042992af500f905b35f3d99920810b45fb4ffddc840d6b661303
           name: pod-reaper
       restartPolicy: Always
 
