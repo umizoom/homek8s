@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-reaper
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pod-reaper
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: pod-reaper
+    spec:
+      serviceAccountName: pod-reaper-sa
+      containers:
+        - env:
+            - name: inCluster
+              value: "true"
+          image: ghcr.io/umizoom/pod-reaper:latest
+          name: pod-reaper
+      restartPolicy: Always
+

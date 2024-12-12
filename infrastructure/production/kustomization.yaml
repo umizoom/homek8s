@@ -9,6 +9,7 @@ resources:
   - ./nfs-subdir-external
   - ./k8up
   - ./nfs-pv
+  - ./pod-reaper
   # - ./rook-ceph
   # - local-path-provisioner.yaml
   # - ./openebs-jiva
