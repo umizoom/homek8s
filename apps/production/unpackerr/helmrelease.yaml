@@ -66,13 +66,13 @@ spec:
               PGUID: 1000
               UMASK: 002
               UN_WEBSERVER_METRICS: "true"
-              UN_SONARR_0_URL: https://tv.lab.umaidabbasi.com:443
+              UN_SONARR_0_URL: https://tv.lab.umaidabbasi.com
               UN_SONARR_0_PATHS_0: &path /data/torrents
-              UN_RADARR_0_URL: https://movies.lab.umaidabbasi.com:443
+              UN_RADARR_0_URL: https://movies.lab.umaidabbasi.com
               UN_RADARR_0_PATHS_0: *path
-              UN_SONARR_1_URL: https://kidstv.lab.umaidabbasi.com:443
+              UN_SONARR_1_URL: https://kidstv.lab.umaidabbasi.com
               UN_SONARR_1_PATHS_0: *path
-              UN_RADARR_1_URL: https://kidsmovies.lab.umaidabbasi.com:443
+              UN_RADARR_1_URL: https://kidsmovies.lab.umaidabbasi.com
               UN_RADARR_1_PATHS_0: *path
             envFrom:
               - secretRef:
