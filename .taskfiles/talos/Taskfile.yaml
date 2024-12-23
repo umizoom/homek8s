@@ -47,11 +47,11 @@ tasks:
       sops --decrypt "{{.TALOS_CONFIG}}" | \
       talosctl --talosconfig /dev/stdin kubeconfig
 
-  dash:
-    desc: Get dashboard
-    cmd: |
-      sops --decrypt "{{.TALOS_CONFIG}}" | \
-      talosctl --talosconfig /dev/stdin dashboard -n "{{.CONTROL_PLANE_IP}}" -e "{{.WORKER_IP}}"
+  upgrade:
+    desc: Run Ansible playbook to upgrade talos os
+    cmds:
+      - sops --decrypt --output-type yaml "{{.TALOS_CONFIG}}" > /tmp/talosconfig.yaml
+      - ansible-playbook hacking/ansible/talos-upgrade.yaml -i hacking/ansible/hosts.yaml
   
   den:
     desc: Decrypt config, place into /tmp

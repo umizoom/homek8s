@@ -1,0 +1,8 @@
+control-nodes:
+  hosts:
+    control-3:
+      IP: 192.168.2.4
+    control-2:
+      IP: 192.168.2.3
+    control-1:
+      IP: 192.168.2.2
