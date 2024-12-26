@@ -5,7 +5,7 @@
   strategy: free
   gather_facts: false
   vars:
-    talos_version: "v1.9.0"  # Set your desired Talos version here
+    talos_version: "v1.9.1"  # Set your desired Talos version here
 
   tasks:
     - name: Get Talos node version
