@@ -24,7 +24,7 @@ spec:
             - name: INTERVAL_MINUTES
               value: "10"
             - name: TZ
-              value: Etc/UTC
+              value: EST
             - name: PRIMARY_HOST_BASE_URL
               value: https://pi1.lab.umaidabbasi.com/
             - name: PRIMARY_HOST_PASSWORD
