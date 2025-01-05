@@ -23,7 +23,7 @@ spec:
             - name: TZ
               value: Etc/UTC
               # https://hotio.dev/containers/readarr/#tags
-          image: ghcr.io/hotio/readarr:latest@sha256:ca0aa0039756f73b8bafb412e24487d0ce0a2083f89cfac179007ec76584f7f7 
+          image: ghcr.io/hotio/readarr:latest@sha256:b6a7d939dad36629976ec903c39e1af375ad8d7f1ed45ed99ec64f0d2592787a 
           name: readarr
           ports:
             - containerPort: 8787
