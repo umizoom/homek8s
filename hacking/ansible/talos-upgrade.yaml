@@ -5,7 +5,7 @@
   strategy: free
   gather_facts: false
   vars:
-    talos_version: "v1.9.1"  # Set your desired Talos version here
+    talos_version: "v1.9.2"  # Set your desired Talos version here
 
   tasks:
     - name: Get Talos node version
@@ -20,7 +20,7 @@
       when: "'{{ talos_version }}' not in version.stdout_lines | join(' ')"
       debug:
         msg:
-          - "Upgrading {{ hostvars[inventory_hostname].IP }}"
+          - "Upgrading {{ hostvars[inventory_hostname].IP }} to {{ talos_version }} "
     
     - name: Upgrade Talos nodes
       delegate_to: localhost
