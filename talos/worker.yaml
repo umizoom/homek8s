@@ -8,10 +8,10 @@ machine:
     # Defines the role of the machine within the cluster.
     type: worker
     # The `token` is used by a machine to join the PKI of the cluster.
-    token: ENC[AES256_GCM,data:iFF0vEmSJqJdtFhUcBucR9Umm2y9ygQ=,iv:GGXO7YAf1iDWyhfM89G0mSdcUzFIQ0+UtYCzso1RRTE=,tag:IQQFKltjlBmKXJwIvtzxlw==,type:str]
+    token: ENC[AES256_GCM,data:+Nx2MnTNslifk77vWxmyvoUL7rj0LEM=,iv:YLL3783rfbYTf/KeFjRM9H0Ylg7cxJLOkO4GzoX904E=,tag:HzmThnIcjL3ITJWqe8WuPg==,type:str]
     # The root certificate authority of the PKI.
     ca:
-        crt: ENC[AES256_GCM,data:61mGFpAFLS7Q9a6wsFSXDIbjrP9UB8nOMI7Sj9V3XaLHkprTTJ6ImAUAJr0uI1M7QcK/cPklbKCaHkYe/yMdFkgO/NPJgcxnM0ddfngLhKyg8Xp2gI1pKRze0QqBsreE477Aa8/2r0hHRozNzcxJmQvHW3kBkEsF7ZkkuHF9VaRHxW20B9SHZd1O65F7KP51JbH68OVSw+A4aA4CZPcmM1YOINAP0HRotaq9aF7hg9Q5rBx6JtADF306E3jw2CRUHscf44lNLfbsIzCNja6BpQHxaZN4CKlMK5t9fRHFSbwyTNitTmX0Wwqc7IqI5iGFL6cSIprh6h/Rkh1XhFbQzvoR1zZGxVb06i10THuZqDUirzp5qgC8V1/7iDMxNdD1X0Asdg4emE6K73dD37TpnoA1m5+3VDfFsor2NIOUmwaSWTXjCOW1o6d5e2zKYYovt/3rD/UofWru8C6IpihEuSHC6qd6qtKX8L0hKBjjs3KY1NclI466ui6q4l06FmL5vaI1ziFayeJYvQqmnwY/lXui/0V3BK+YFaTs8AZKpMq7aHhys/foshmuuCFChGCuuTFVtzs/kFOW45uNcTALvrrF5ft+kRH8qHp5Tpwec++GnecFdCv1RFcgvTzpY2y4Mx5UwYkpMq2ROJv2J1jkECYAvZYvGvVaor5pSeizdYJygorDMhipiwzupJLnxBNWMFEUequh3ePV5j0G/Y4cBNs8gYZsCpjNev2Cq1KpJA2ix7W4IY9xmGJ+qjScC8ydaUlAPzYMOgUTUxtmXymZkwZujv8sMdO53b7DJZvfiVr0SDLY+5Y42qoJCIvNtBZp8GuIUH5GURcgiutH32u5DMsLCnCvik44F1HnHjB6AV2tCw1D,iv:IjB3URa51p818KKCMxoR18sJ6S5A8D0BXm8wpu+Ajro=,tag:024bUhwbOtwzcmArlTCU2w==,type:str]
+        crt: ENC[AES256_GCM,data:7TCDSNUrhUXXUTR/VNdnOwNQRSo7qGk2ScJt2OIpZR1ZkU0kdcByfL8F8ecJ+eEff2g3qzlbDqu7A4F8G0X9DhVH7FvugsijSfmz72tOOsw8fyjLD6o/rWaQeg/4+xeqxsaGsP2cVRtpjjJx+1Vna7FMXDQyoPU6bnkq2CZDEDkbrgFv/0iD7RY3vpV6b1WLEitWF/lvJ8NrvdhavdQ4A/7XvikcWoEDwe0dhUgNhYY0PZSROwDNMOO3TBXa4bUsrHHEW0KepRUpiHjsLWNy7pZ4oCKq6QlPy6C75vYuZIpdghXfE/LKg+K5tFRuCdvYA28UuNKvKjGbsiuIhQEKnxWI0qzrpkQfRtYVHfMI5c7fh9W5cJqRjrjGgJJ9Ynf+wVaNAMQg6KLWGI75mCA4QlVyujHPML5R3d6qIWJ3Xi/2gVbI0a/0qmyK34MOI1PxK2x0G9jo+c5glmdc3C8lR3oyTNY2mwuv/skqdIybpl2vfTnDQjmlfCcFNEBk+ylfOnu/N+WvX7UpVjgKpbkFmqQGNWEiQXStfeQe2FMNp5vWh2fU630U14ZJKp5jwf8ITjpiaQm2zM14r8eKQ+BhOl3SAB8cekBAdaTRJRwJRdbkAWHxICPxXjmbNavXnQGXsAirq6sgfuzSScbv2LDO2IcXVGa1NRD10aPyiRX3vzAgs9Qkz2Ofwp7udL15UnyNlMO17UQUpSnqu0h3jDTb/QCVVvFkStzOabsD/TwTDGPArCTFqnbma+1B9J/vSzNuDedJO4cRCRV/jlELjUBl7zZhHUXKhqZflGKF9ufHMvo9u+sC8XUccNV64ywSm2jZtWvLe26XISwxJDJ+DafSTwBmhXjynJfT3rRY3z58Vynr6pZy,iv:fM2L3YjX0M83gG5yrJneCD7CT/iyatU8SbJtMF1aQTM=,tag:iOuRzYLOqyNqb+WB1eE5ww==,type:str]
         key: ""
     # Extra certificate subject alternative names for the machine's certificate.
     certSANs: []
@@ -22,7 +22,7 @@ machine:
     # Used to provide additional options to the kubelet.
     kubelet:
         # The `image` field is an optional reference to an alternative kubelet image.
-        image: ghcr.io/siderolabs/kubelet:v1.32.1
+        image: ghcr.io/siderolabs/kubelet:v1.32.2
         # Enable container runtime default Seccomp profile.
         defaultRuntimeSeccompProfileEnabled: true
         # The `disableManifestsDirectory` field configures the kubelet to get static pod manifests from the /etc/kubernetes/manifests directory.
@@ -365,7 +365,7 @@ cluster:
     # Globally unique identifier for this cluster (base64 encoded random 32 bytes).
     id: UKQ1WV9D5R6TGbtdmIi155HZY1O6QU6kZeySMJntgy0=
     # Shared secret of cluster (base64 encoded random 32 bytes).
-    secret: ENC[AES256_GCM,data:FsT4cFzwIQj0RqBSQKhDaQ2aI1mhlEesjhSUG5lwK1J6unWDtHiFO4jFYl8=,iv:lAiqBz3qYoBq5wCd1k0GycZbTp2lvJT59kww0kw2nEg=,tag:dhks775nbYRtxkS2JLPWhg==,type:str]
+    secret: ENC[AES256_GCM,data:aLvu5MJMtAeYXmco8TyhS8EDuY0HooY597OFIhzFJHSugD0iB3DTIpzBARU=,iv:oHPf4Z8k06VOZWUTtFhf+s+3QjPcStqtoS215B8DqjQ=,tag:y0wTmqr6umJYLEbTCz4HyA==,type:str]
     # Provides control plane specific configuration options.
     controlPlane:
         # Endpoint is the canonical controlplane endpoint, which can be an IP address or a DNS hostname.
@@ -387,10 +387,10 @@ cluster:
             #     urls:
             #         - https://docs.projectcalico.org/archive/v3.20/manifests/canal.yaml
     # The [bootstrap token](https://kubernetes.io/docs/reference/access-authn-authz/bootstrap-tokens/) used to join the cluster.
-    token: ENC[AES256_GCM,data:f5fnH/6FyW3cz7tZiMgV5qLCUGN4MRM=,iv:91vOWWFqSyM4TgC3mxiUaEJR9gB8WbUF5/5hQ2h3Up0=,tag:bqbmr8ZrTbHprGq3Pidd2w==,type:str]
+    token: ENC[AES256_GCM,data:cpGt7TOD54NPO10uU9el3tnpWL8XN10=,iv:j0oURsZ5xvSfTSBL0gVfYF5FvGtDjhvGNYXP2CFFD0A=,tag:MW1iDiqwee6z6DEng4CaaQ==,type:str]
     # The base64 encoded root certificate authority used by Kubernetes.
     ca:
-        crt: ENC[AES256_GCM,data:Wu3Kwbqqdalwc6e4TUaj+VVfqseFU2ze7tRZKelvQCfoGzAqw0XqzCJy4zUZdEH+bYBbgmoCdNT14756dCJNg8yQWlasQqnW/v5QTddDtk9LUmAK4trgVJM8qp7tyzOOgIW4mcX+hy+jppe8oUrbMzSgUWuGYvvcn99uq8Q6Brd2kdWisTbPFBHAdxSbKbX/dU23upLev7PsZQW4uDEpeY84MUPwl4kB5xSCcwZusMh6uWvgjJYCs3MTDE7JzDnWy+aopgO8D/zpruUcOjKCSkxPUbo2G5cplDP/6l6Plr0MBIS5yASwleO2PXAlEFGzr6BxCteuhmbXtTgATrFUpyTRkxStwUs8zb5z1E2agndjr7Htgk1WhQzmTMIMJKgy0d8pNWlr4+Pf0wNcoUlPXX3ZQ1fKzMGptkUiDtfCEu+Dsp5tTooJMGLrshVB/pnjQCbTDbMVmj3ONFWWusDKU+yv8XDIAguiZpfXIu6S6fGYiJw4KuNRleKjc5sabqxx407GyUdqOJMawDK2exYFSX8iDrPcS7iIHtHCX0eukjIEiJ6A/lzeXDQjv1mZjVxvVlOJG8xVMV7qeMc3ycvE+BjCHVIOmeCXUr1f5Ldv2avDwlNp/zX2e7pXhubeMq+cRRzLACl5HOG8uW/T3vRqf7vWOCw2ezWQDeggITHaKCwX1nfKugtbH5T7ClKQW81CgzuuFWtxVa+l6nfMhkPMHsmR49vshKsjcAfYeW2KrRYd+zodw5CHTT7o+YQXP63AuIp9yFK6fWbvqmyOeXv2hG7YKLgNLOCqvXZzHEUBJYCuI3kxgzEM9a3RZxsUpXTjQeX1uMdcBPGk/ILo+t6wFIw7AMhowfoo0AlE/np3h2ziLncXAEw/XEwKNnQewtLyOAay2ZTJrelmPEfF8Talr6VATLEhD7tIUdfVdYHmuIEu55tPyvaKCrJiys4A4FF3TmgBcf75kAj5Y8PdHs4IUzgSIaK6vD0j7Ijgw1OLFUZDuV+vGRf291FhuyPYEa1ssQZalawaXBA9mfwqpBJH9n+PMZ2z9pHI0bS3Pg==,iv:1Ej9kC/sULCRaBg5YFPVBrc7kQaW+qTjmZZmsCSbUvs=,tag:xSWLxNZef2phVux0P6jDmw==,type:str]
+        crt: ENC[AES256_GCM,data:G9qOJt10Qqt7u2r8IZro63QLkh6Tib9PRH9DN4ne4XvFjc74yOTYA5ktHWp+G2edf/URCbPSldsRu7Bqx8Y2SjSrBP+q96SZLPNDxjuCNdrCWqsRPCYTwSnAnvp46nd4eXtHFBgkumCSBtIxcgJpwkfJ2HaNE3iRVHvTW7Ml36fW74nvwBhlhHzRa5mDpqbiB3qIBADe2/iwH+C3ksGkKoP5wHp2ACJVHCCnxJpbOv6zWobQifyMrD3axRCIqHF5frsBGzlugbxdSE5r/FdH5/ZoTRlmWFEtikaNSkorBF7PlyhRLstTgoRX25793FRHXmRRyS8QB9IoJ+IWbGsGBFNE17fjOhlEiM8GKo6YmsylJZsK74D2w9reDstWADw+NoUlnaGzZHVz4IfGSVdu9HEUQ9+bs4qBRkwLBsPhuXzSZucHoMpsSwLdrsSDgGgGLuINAUQ47wR8K896pk0MNThdyXZxFhaMixQ9K3de/GNWo/k3CMmLvTSWCS0S1DFLCSJn3Vg1feeWn8vDZB+PW5jezNN9VK9mUy02qoHwcWWEt3sIYhyHJ1xdf3GYYPq02kWtv95D/YRH7TbsUJgpWRy71uOcvPMY1gtkX46dZTvcg8Txuf3VeFNlqo8wpK5/nempLGU1IEC0mLIXP98G+dDtFDLiTaIJmDk318rCE+5KFHSONVdw0k81ZJwHP1KUvQqDNb5uTBfx1dOdUcQgci5xWYDTyMrsZ8eEuDFbfLbtOGKRTa8i6KXshfv1B1ujmw9EHQ1qHaaFRxX9M9a02/pauxOdcMAjpqlz17/vLpKfT8/I/Qjfc59mIh10kqu8KtlnzNzyfRyv+w+l+ZBFX+5RyCB/JxK9x+VIY/8f7sNRmmheFDRG8xc5PJfy3JA2JI1ZsiFOqhKR93c8AaHoIMz+StiUGp1Swj262iEt3vmHK6D8bnmpM5azq2O5XgIIlNB5Ss9AgSFYZ2x895AF0XddpbkHIWq853lNF4TZiNIvwZUZzrxkT7MRrUI/o6anFZ6OmMkBp5C4JQ3RRC+vBXinLzzTkvChUtS0XQ==,iv:Kf+LveUcWPymPIhFb9Nofwaryz5KvaglFqdWDip+L/I=,tag:hJMMM8SPxqfR3PJ+CeeFBg==,type:str]
         key: ""
     # Configures cluster member discovery.
     discovery:
@@ -423,7 +423,7 @@ cluster:
 #     key: LS0tIEVYQU1QTEUgS0VZIC0tLQ==
 # # API server specific configuration options.
 # apiServer:
-#     image: registry.k8s.io/kube-apiserver:v1.32.1 # The container image used in the API server manifest.
+#     image: registry.k8s.io/kube-apiserver:v1.32.2 # The container image used in the API server manifest.
 #     # Extra arguments to supply to the API server.
 #     extraArgs:
 #         feature-gates: ServerSideApply=true
@@ -459,21 +459,21 @@ cluster:
 #             - level: Metadata
 # # Controller manager server specific configuration options.
 # controllerManager:
-#     image: registry.k8s.io/kube-controller-manager:v1.32.1 # The container image used in the controller manager manifest.
+#     image: registry.k8s.io/kube-controller-manager:v1.32.2 # The container image used in the controller manager manifest.
 #     # Extra arguments to supply to the controller manager.
 #     extraArgs:
 #         feature-gates: ServerSideApply=true
 # # Kube-proxy server-specific configuration options
 # proxy:
 #     disabled: false # Disable kube-proxy deployment on cluster bootstrap.
-#     image: registry.k8s.io/kube-proxy:v1.32.1 # The container image used in the kube-proxy manifest.
+#     image: registry.k8s.io/kube-proxy:v1.32.2 # The container image used in the kube-proxy manifest.
 #     mode: ipvs # proxy mode of kube-proxy.
 #     # Extra arguments to supply to kube-proxy.
 #     extraArgs:
 #         proxy-mode: iptables
 # # Scheduler server specific configuration options.
 # scheduler:
-#     image: registry.k8s.io/kube-scheduler:v1.32.1 # The container image used in the scheduler manifest.
+#     image: registry.k8s.io/kube-scheduler:v1.32.2 # The container image used in the scheduler manifest.
 #     # Extra arguments to supply to the scheduler.
 #     extraArgs:
 #         feature-gates: AllBeta=true
@@ -527,28 +527,28 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2025-03-05T01:56:33Z"
-    mac: ENC[AES256_GCM,data:8qPVG/R9vYt/gWscsGOYrwwQJEOCyzWR8UQussPkRhFaxk9lvN3G+p48bC0Z1/vPJiOQx5xINjNDut15zvtpvhuk2BlNuawE6S408ggPZpZqFn0OGR4aJqJ+wNKvI9ZQpxAgHp8qFV7b486mu9KWM/e77mc2kkbhud74lzqvSEU=,iv:V+WlTsScBQJigwCZtg5BDrfyDBchv2SS5UMzidNo2fs=,tag:3ymqfXEUsGIVSo8x7lhW0A==,type:str]
+    lastmodified: "2025-03-05T02:01:53Z"
+    mac: ENC[AES256_GCM,data:URf5dKabG8SwnbLPFrInvNUcG4rdW3OaHraFssXlTXx5zfuSXMDLR6/5QQxLLcCN2RsVDRw3bcnT2+CTIqMGcO/nY5qDyDMV9WEh2Nf5NgpRJGf+aT9biNU7ZhVM2hurJZj3QZ/dupzr+cW92xIOnXrILJOpluW/frRLBq8UxDw=,iv:L7jECoBB8QVGytQJOuYGEszNEhi1qQbaRqYkrkEnl0Q=,tag:bwlsnBxvc+37u66IIN+bOQ==,type:str]
     pgp:
-        - created_at: "2025-03-05T01:56:33Z"
+        - created_at: "2025-03-05T02:01:53Z"
           enc: |-
             -----BEGIN PGP MESSAGE-----
 
-            hQIMAwVxt8ZNZv4DAQ//dOT9rlFU9WyKBrKGGTrvQ12hZx4ohQax5ss4aRkGDdCE
-            rd2xAUK9BTZJ2rY4KvQu/exJZtY/Om9tLE14D+ogUnzCi7sCzBBUStPVNwi1KZnp
-            28nXQEqfQfO0+0oJJP4mmMhAHuEXpa7zlDb8qiw8JyGBg+fylSRtABEg6vlGefea
-            lFeoCwE3OhQiBQ3Uilyw/i/pEuMxjEax7/RVQgHto4LwNaOp5aHyFk5DrVgdTR5A
-            v214Ca28gwK0N6g6vqYzZjX7EXbcS+C7x6QHRCQQ3kMFVAPoDH7GIvXQh3zR0/Vb
-            RGdsZ3MsjbqXaPfveTZBIDeeD8/gnYuF5TGcOWjj7+m6Qt2oEwKWcDuDp5tIQpA/
-            pqUHl8ZCOzy4Hh3iUrcsRhD3SUCCol/iYKU1CBV9l3jVkgMhY7bcMBR80JMnwlJZ
-            jX1PsSywmqLZ7xRw9aAeyqwAIiXzqWhyMLhtfplPFVlq8gZwwL93y3J2KO0VAymn
-            EyOvBUnh7bR3rMdNkL6b4NIhuHKZ4sJNf4QUsO4zjwZrOBd8j0Gblpc3oU+CR8Pr
-            TBtbVOTazl3k1BZ8sVMCoj/eH+gqtXEMilfSXpjKgRVknejLdh/6eATp2hiAAePq
-            l1Qf/UTLCmbQ6n3DkTqiLz0EX6OKOZLY0PqyeB88g9it9cNl/qWxTnNlMOF6M83U
-            aAEJAhCN/AhdWlNkCTmXaRs5GdghRVn6JMUIc4nREnI1PYwrNBkeHeyWd5DXJxOK
-            DQS/rP2x05jDnFE5tYsX/JkyKTrPD+C/stGG+xWvXgHMtTmy8RUCS123wdyZNb6J
-            zhpnKx9gzxvq
-            =zg2+
+            hQIMAwVxt8ZNZv4DAQ/6Aq0VpLAJZFek4Kca/I1n5zB0in2nmkvdJAkr7BnqVlnM
+            nLE+llgOzpS7xWkCts+Sk9XUIYV11fmkk+MqbuVaWNTslpi07o9yGAyKyBCuMlAv
+            tZlBC76hwS22hRxO3dWlGyp6hJ41kQkamOdKXpPtifeqy9jedQ2LtXtqQtRfXh9J
+            4Br1HbKZ5kK322FMS2v4ZrjqGfyMm2jEkQGOiraoDFi2+CGWFLzczOBgM6TgWtTe
+            9UxIZv/myXE9cfrXl9kEJDxMe2j/vrxiQlH5qQQ1BMVUsjBNsnS+hqWeOJBCjnuU
+            1nlgMqfD8wJPRbcSmFzgjhNV4MAIV2lH7WYiUCyKuw5n8thVurUXfCQ6GaWwqRRa
+            sCufZ3/AhyE8rFYRYodWVZgl0IW6eR1Jo4b1pf9EKXXPu3pCMrDec5ikJIaQDGTw
+            rA4healkHF4rSFU6rscXQhxzXvW/xuWKrPBEXN+mufu5s7Kg6wyo/ZDdG3OG5uLF
+            1Wyir97x/yEbp6w1XauXGzJ4exooE5xa9iDTrif0TPxgcPodc1jy3uiSmvRwa1xt
+            E14xGNjCeGfqkJS5s39Az+Q4t2u6PfmJPU0QzJpXBdwAi0sfhkALNAd0K+XHruj1
+            D3uc6/5JHC4DR1merkjgwKGygn0QEIEL4l9Fw+fj3VbKq5I2/ZNwxK87xl1qK9rU
+            aAEJAhBcjwNwl0W30tjblomsgRg+vebKaRLYoUkmy8965gbDq3wUGfVZ0xHnQesl
+            VS5ixI4RyAV+jTJ0PtfktnugVfBJOg7ScthmJQd6ZgweZUHUp0UjHA9R1Ayu4+ZA
+            XttpI2XEuQZg
+            =ckjz
             -----END PGP MESSAGE-----
           fp: BAFBAF486E2E489700A8639C2B75A847B165ECC2
     encrypted_regex: (ca|cert|key|secret|token)$
