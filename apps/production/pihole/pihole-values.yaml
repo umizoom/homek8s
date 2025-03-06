@@ -32,10 +32,10 @@ spec:
       annotations:
         kubernetes.io/ingress.class: nginx 
         cert-manager.io/cluster-issuer: letsencrypt
-        nginx.org/server-snippets: |
-          location / {
-            return 302 /admin;
-          }  
+        # nginx.org/server-snippets: |
+        #   location / {
+        #     return 302 /admin;
+        #   }  
       hosts:
         - pihole.basingse.ca
       tls:
