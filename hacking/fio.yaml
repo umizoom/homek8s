@@ -17,7 +17,7 @@ metadata:
   name: fio
 spec:
   nodeSelector:
-    openebs.io/nodeid: control-2
+    openebs.io/nodeid: control-1
   volumes:
     - name: ms-volume
       # persistentVolumeClaim:
