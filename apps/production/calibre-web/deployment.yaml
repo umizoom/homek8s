@@ -26,7 +26,7 @@ spec:
               value: linuxserver/mods:universal-calibre
               # https://github.com/linuxserver/docker-calibre-web/releases
               # https://github.com/janeczku/calibre-web/releases
-          image: lscr.io/linuxserver/calibre-web:latest@sha256:a0f80e0ac06e0a09fdd5be8205e40afee8f4cc019840ecfa0e989e6d5ae25625
+          image: lscr.io/linuxserver/calibre-web:latest@sha256:148f4ce06b61e67457351dd8015983b3bea57623ddfc52d1b6f9f443fb786874
           name: calibre-web
           ports:
             - containerPort: 8083
