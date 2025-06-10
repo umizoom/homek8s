@@ -30,7 +30,7 @@ spec:
       ingressClassName: nginx
       path: /
       annotations:
-        kubernetes.io/ingress.class: nginx 
+        # kubernetes.io/ingress.class: nginx 
         cert-manager.io/cluster-issuer: letsencrypt
         nginx.org/server-snippets: |
           location / {
