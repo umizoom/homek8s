@@ -17,10 +17,10 @@ spec:
   install:
     createNamespace: true
     remediation:
-      retries: 1
+      retries: 2
   upgrade:
     remediation:
-      retries: 1
+      retries: 2
   values:
     controllers:
       main:
