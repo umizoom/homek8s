@@ -1,0 +1,8 @@
+yq -r .machine.ca.crt control-3.yaml | base64 -d > ca.crt && \
+yq -r .machine.ca.key control-3.yaml  | base64 -d > ca.key && \
+talosctl gen key --name admin && \
+talosctl gen csr --key admin.key --ip 127.0.0.1 && \
+talosctl gen crt --ca ca --csr admin.csr --name admin --hours 8760 && \
+yq eval '.contexts.home.ca = "'"$(base64 -b 0 -i  ca.crt)"'" | .contexts.home.crt = "'"$(base64 -b 0 -i admin.crt)"'" | .contexts.home.key = "'"$(base64 -b 0 -i admin.key)"'"' -i /tmp/talosconfig.yaml
+
+talosctl apply-config --nodes 192.168.2.4 --file control-3.yaml --insecure
