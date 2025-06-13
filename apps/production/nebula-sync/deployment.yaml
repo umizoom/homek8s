@@ -31,6 +31,8 @@ spec:
               value: "upstreams"
             - name: SYNC_GRAVITY_AD_LIST
               value: "true"
+            - name: CRON
+              value: "0 * * * *"
             - name: PRIMARY
               valueFrom:
                 secretKeyRef:
