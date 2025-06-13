@@ -14,8 +14,3 @@ resources:
   - ./speakarr
   - ./readarr
   - ./nebula-sync
-# patches:
-#   - path: orbital-sync.yaml
-#     target:
-#       kind: Deployment
-#       name: orbital-sync
