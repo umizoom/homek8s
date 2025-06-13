@@ -51,6 +51,13 @@ flux build kustomization infra-dependencies --path infrastructure/dependencies \
 --dry-run
 ```
 
+Sync git repo 
+
+```
+flux reconcile source git flux-system  
+```
+
+
 ## Bootstrap staging and production
 
 ```sh
