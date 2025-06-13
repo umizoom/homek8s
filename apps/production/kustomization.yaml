@@ -13,8 +13,4 @@ resources:
   - ./calibre-web
   - ./speakarr
   - ./readarr
-patches:
-  - path: orbital-sync.yaml
-    target:
-      kind: Deployment
-      name: orbital-sync
+  - ./nebula-sync

@@ -3,11 +3,7 @@ kind: Kustomization
 namespace: default
 resources:
   - ../base/pihole
-  - ../base/orbital-sync
 patches:
   - path: pihole-values.yaml
     target:
       kind: HelmRelease
-  - path: orbital-sync.yaml
-    target:
-      kind: Deployment
