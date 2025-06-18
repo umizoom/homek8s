@@ -436,7 +436,7 @@ cluster:
     # API server specific configuration options.
     apiServer:
         # The container image used in the API server manifest.
-        image: registry.k8s.io/kube-apiserver:v1.33.1
+        image: registry.k8s.io/kube-apiserver:v1.33.2
         # Extra certificate subject alternative names for the API server's certificate.
         certSANs:
             - 192.168.2.3
