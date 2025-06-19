@@ -39,6 +39,7 @@ spec:
   path: ./infrastructure/production
   prune: true
   wait: false
+  # TODO: this is a workaround for the diskpools not being found by Kustomizations, causing base-infra to be stuck in Reconciliation, 
 ---
 # apiVersion: kustomize.toolkit.fluxcd.io/v1
 # kind: Kustomization
