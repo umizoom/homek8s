@@ -42,6 +42,8 @@ Upgrade talos OS
 
 Upgrade k8s
 
+Note times you need to run `brew install siderolabs/tap/talosctl` to upgrade talosctl cli
+
 1. Test a Dry run upgrade via: `talosctl --nodes 192.168.2.2 upgrade-k8s --to 1.33.4 --dry-run`
 2. Run actual upgrade `talosctl --nodes 192.168.2.2 upgrade-k8s --to 1.33.4`
 3. Update talos worker and control files via `./hacking/k8-upgrade/update-sourcefiles.sh 1.33.4`
