@@ -35,7 +35,7 @@ Upgrade talos OS
 
 1. update talos version in `hacking/ansible/talos-upgrade.yaml`
 2. Run `task talos:upgrade`
-3. Manually update worker and control files via with new verison ` sops --d --in-place talos/worker.yaml`
+3. Manually update worker and control files via with new verison `sops --d --in-place talos/worker.yaml`
 4. Commit and push up changes
 
 ### K8s
