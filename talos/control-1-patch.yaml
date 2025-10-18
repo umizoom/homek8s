@@ -1,0 +1,13 @@
+machine:
+  kubelet:
+    image: ghcr.io/siderolabs/kubelet:v1.34.1
+  install:
+    image: ghcr.io/siderolabs/installer:v1.11.2
+  network:
+    hostname: control-1
+    interfaces:
+      - deviceSelector:
+          busPath: 0*
+        dhcp: true
+        vip:
+          ip: 192.168.2.9

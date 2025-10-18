@@ -38,6 +38,18 @@ Upgrade talos OS
 3. Manually update worker and control files via with new verison `sops --d --in-place talos/worker.yaml`
 4. Commit and push up changes
 
+Generate secrets.yaml from control plane configuration
+
+```
+talosctl gen secrets --from-controlplane-config controlplane-1.yaml
+```
+
+Talos Get disk information 
+
+```
+ta get disks --nodes 192.168.2.2
+```
+
 ### K8s
 
 Upgrade k8s
