@@ -25,7 +25,7 @@ spec:
       hostNetwork: true
       containers:
           # https://github.com/homebridge/docker-homebridge/pkgs/container/homebridge
-        - image: ghcr.io/homebridge/homebridge:latest@sha256:56dc04f7ab55ac44a9ab72a0a2855535453ec7650cc5cafa26aa2794d7897605
+        - image: ghcr.io/homebridge/homebridge:latest@sha256:d4b3172ae2e65e9fd5645e9d9c695d7a9d0be959f5001bd1d3eb7bb770172175
           name: homebridge
           volumeMounts:
             - mountPath: /homebridge
