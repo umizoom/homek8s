@@ -14,14 +14,14 @@ task talos:den
 
 # 2. Decrypt all talos/worker and talos/control node files
 for file in talos/worker.yaml talos/control-*.yaml; do
-  if [ -f "$file" ]; then
+  if [ -f "$file" ] && [[ "$file" != *-patch.yaml ]]; then
     sops --decrypt --in-place "$file"
   fi
 done
 
 # 3. Update only the version in the image tags
 for file in talos/worker.yaml talos/control-*.yaml; do
-  if [ -f "$file" ]; then
+  if [ -f "$file" ] && [[ "$file" != *-patch.yaml ]]; then
     # kubelet
     sed -i '' -E "s|(ghcr\.io/siderolabs/kubelet:v)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$file"
     # apiserver
@@ -37,7 +37,7 @@ done
 
 # 4. Re-encrypt all files
 for file in talos/worker.yaml talos/control-*.yaml; do
-  if [ -f "$file" ]; then
+  if [ -f "$file" ] && [[ "$file" != *-patch.yaml ]]; then
     sops --encrypt --in-place "$file"
   fi
 done
