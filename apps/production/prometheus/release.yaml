@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: prometheus
-      version: 25.30.2
+      version: 27.52.0
       sourceRef:
         kind: HelmRepository
         name: prometheus
