@@ -6,12 +6,12 @@ metadata:
 spec:
   chart:
     spec:
-      version: "2.34.0"
+      version: "2.35.0"
   values:
     replicaCount: 1
     image:
       repository: pihole/pihole
-      tag: "2025.08.0"
+      tag: "2025.11.1"
     admin:
         existingSecret: pihole-password
         passwordKey: password
