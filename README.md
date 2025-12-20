@@ -54,7 +54,7 @@ ta get disks --nodes 192.168.2.2
 
 Upgrade k8s
 
-Note times you need to run `brew install siderolabs/tap/talosctl` to upgrade talosctl cli
+Note: At times you need to run `brew install siderolabs/tap/talosctl` to upgrade talosctl cli
 
 1. Test a Dry run upgrade via: `talosctl --nodes 192.168.2.2 upgrade-k8s --to 1.33.4 --dry-run`
 2. Run actual upgrade `talosctl --nodes 192.168.2.2 upgrade-k8s --to 1.33.4`
