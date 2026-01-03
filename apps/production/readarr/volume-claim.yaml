@@ -4,6 +4,7 @@ metadata:
   name: readarr-config
 spec:
   storageClassName: "replicated-storage"
+  volumeName: pvc-1e61d736-335e-4c1c-a92e-1c714f68896a
   accessModes:
     - ReadWriteOnce
   resources:
