@@ -10,6 +10,6 @@ resources:
   - ./maintainerr
   - ./unpackerr
   - ./calibre-web
-  # - ./speakarr # currently broken due to hotio.dev/containers/readarr being deleted.
-  # - ./readarr  # currently broken
+  - ./speakarr # currently broken due to hotio.dev/containers/readarr being deleted.
+  - ./readarr  # currently broken
   - ./nebula-sync
