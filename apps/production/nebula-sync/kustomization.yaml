@@ -3,5 +3,4 @@ kind: Kustomization
 namespace: default
 resources:
   - deployment.yaml
-  - secrets.yaml
-
+  - external-secrets.yaml

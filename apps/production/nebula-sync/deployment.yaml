@@ -41,7 +41,7 @@ spec:
             - name: REPLICAS
               valueFrom:
                 secretKeyRef:
-                  name: pihole-k8s
+                  name: pihole-k8s-external
                   key: password
           name:  nebula-sync
           image: ghcr.io/lovelaze/nebula-sync:v0.11.1
