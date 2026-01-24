@@ -6,8 +6,7 @@ metadata:
   namespace: external-secrets
   # Override Release name to avoid the pattern Namespace-Release
   # Ref: https://fluxcd.io/flux/components/helm/api/v2/#helm.toolkit.fluxcd.io/v2.HelmRelease
-  releaseName: external-secrets
-  targetNamespace: external-secrets
+spec:
   interval: 10m
   chart:
     spec:
