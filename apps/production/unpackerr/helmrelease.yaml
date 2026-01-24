@@ -76,7 +76,7 @@ spec:
               UN_RADARR_1_PATHS_0: *path
             envFrom:
               - secretRef:
-                  name: *app
+                  name: unpackerr-external
 
     # -- Configures service settings for the chart.
     service:

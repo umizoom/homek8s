@@ -40,7 +40,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: pia-creds-external
-                  key: user
+                  key: username
             - name: VPN_PIA_PASS
               valueFrom:
                 secretKeyRef:
