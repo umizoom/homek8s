@@ -36,7 +36,7 @@ spec:
             - name: PRIMARY
               valueFrom:
                 secretKeyRef:
-                  name: pihole-unraid
+                  name: pihole-unraid-external
                   key: password
             - name: REPLICAS
               valueFrom:
