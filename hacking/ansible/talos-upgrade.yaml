@@ -5,7 +5,7 @@
   strategy: free
   gather_facts: false
   vars:
-    talos_version: "v1.11.6"  # Set your desired Talos version here
+    talos_version: "v1.12.2"  # Set your desired Talos version here
 
   tasks:
     - name: Get Talos node version
@@ -13,7 +13,7 @@
       register: version
       command: >
          talosctl version --nodes {{ hostvars[inventory_hostname].IP }} --short
-    
+
     - name: Print Upgrading message
       delegate_to: localhost
       # only upgrade if var.talos_version is not installed
@@ -21,14 +21,14 @@
       debug:
         msg:
           - "Upgrading {{ hostvars[inventory_hostname].IP }} to {{ talos_version }} "
-    
+
     - name: Upgrade Talos nodes
       delegate_to: localhost
       # only upgrade if var.talos_version is not installed
       when: "'{{ talos_version }}' not in version.stdout_lines | join(' ')"
       command: >
         talosctl upgrade --nodes {{ hostvars[inventory_hostname].IP }} --image ghcr.io/siderolabs/installer:{{ talos_version }} --preserve=true
-  
+
     - name: Wait for upgraded nodes to become healthy
       delegate_to: localhost
       command: talosctl health --nodes {{ hostvars[inventory_hostname].IP }}
@@ -36,12 +36,10 @@
       until: "'waiting for all k8s nodes to report schedulable: OK' in health_check.stderr_lines"
       retries: 10
       delay: 30
-    
+
     # - name: DEBUG
     #   delegate_to: localhost
     #   when: "'{{ talos_version }}' not in version.stdout_lines | join(' ')"
     #   debug:
     #     msg:
     #       -  "{{ version.stdout_lines }}"
-
-
