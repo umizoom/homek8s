@@ -2,10 +2,9 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../../base/pihole
-  - secrets.yaml
+  - external-secrets.yaml
 patches:
   - path: pihole-values.yaml
     target:
       kind: HelmRelease
       name: pihole
-

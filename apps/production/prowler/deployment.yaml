@@ -39,12 +39,12 @@ spec:
             - name: VPN_PIA_USER
               valueFrom:
                 secretKeyRef:
-                  name: pia-creds
+                  name: pia-creds-external
                   key: user
             - name: VPN_PIA_PASS
               valueFrom:
                 secretKeyRef:
-                  name: pia-creds
+                  name: pia-creds-external
                   key: password
             - name: VPN_PIA_PREFERRED_REGION
               value: "ca_toronto"
