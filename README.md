@@ -11,6 +11,13 @@ This repository contains Infrastructure as Code for Kubernetes home clusters, te
 * Kustomize
 * [Task](https://taskfile.dev/usage)
 * [Sops](https://github.com/getsops/sops)
+* [Pre-Commit](https://pre-commit.com/index.html)
+
+## Install Pre-Commit
+
+```bash
+pre-commit install
+```
 
 ## Talos Linux
 
@@ -68,7 +75,7 @@ Note: At times you need to run `brew install siderolabs/tap/talosctl` to upgrade
 Build apps manifest:
 
 ```bash
-flux build kustomization apps --path apps/local/ 
+flux build kustomization apps --path apps/local/
 ```
 
 Build infra local manifest:
@@ -88,7 +95,7 @@ flux build kustomization infra-dependencies --path infrastructure/dependencies \
 Sync git repo:
 
 ```bash
-flux reconcile source git flux-system  
+flux reconcile source git flux-system
 ```
 
 
