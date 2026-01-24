@@ -12,4 +12,4 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: external-secrets
+    name: infra-dependencies
