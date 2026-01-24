@@ -12,7 +12,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
   name: external-secrets
-  namespace:  external-secrets
+  namespace: flux-system
 spec:
   interval: 10m
   ref:
