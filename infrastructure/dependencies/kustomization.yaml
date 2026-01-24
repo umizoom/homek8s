@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - namespaces.yaml
   - base-helm-repo.yaml
-  - ./external-secrets
+  # - ./external-secrets
   - kubelet-serving-cert-approver/standalone-install.yaml
   - k8up-crds.yaml
   - ./pork-bun
