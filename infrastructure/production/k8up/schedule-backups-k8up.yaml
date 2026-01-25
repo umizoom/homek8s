@@ -10,13 +10,13 @@ spec:
       endpoint: https://minio-api.basingse.ca
       bucket: backups
       accessKeyIDSecretRef:
-        name: minio-credentials
+        name: minio-credentials-external
         key: username
       secretAccessKeySecretRef:
-        name: minio-credentials
+        name: minio-credentials-external
         key: password
     repoPasswordSecretRef:
-      name: backup-repo
+      name: backup-repo-external
       key: password
   backup:
     schedule: '5 4 * * *'
