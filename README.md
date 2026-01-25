@@ -134,25 +134,27 @@ flux bootstrap github \
 
 ### Secrets
 
+This project uses `SOPS` and the `external-secrets operator` with bit-warden as the secret store.
+
+#### SOPS
+
+SOPS is used for encrypting files within the repo. This include the Talos config files.
+
 For detailed information, see the [Flux SOPS guide](https://fluxcd.io/flux/guides/mozilla-sops/).
 
-Encrypting secrets:
 
-```sh
-task sops:encrypt
-```
+#### External-Secrets Operator
 
-Bootstrapping:
+The operator is used in conjunction with the [bitwarden-cli](https://github.com/umizoom/bitwarden-cli) container. All api keys, password etc use the operator.
 
-```sh
-flux create kustomization my-secrets \
---source=flux-system \
---path=./clusters/production \
---prune=true \
---interval=10m \
---decryption-provider=sops \
---decryption-secret=sops-gpg
-```
+The general idea is the Operator calls the bitwarden-cli via a GET to `http://bitwarden-cli.bitwarden.svc.cluster.local:8087/object/item/{{ .remoteRef.key }}`. The key is the ID of the secret in bit warden.
+
+Only the pods in the namespace `external-secrets` can poll the `bitwarden-cli`. This is achieved via a `NetworkPolicy`.
+
+The `bitwarden-cli` quries vault and returns the secret. The Operator then creates a K8s native `Secret` in the cluster based of the ExternalSecret spec.
+
+For detailed information, see the [.](https://external-secrets.io/latest/examples/bitwarden/)
+
 
 ## Diagram
 
