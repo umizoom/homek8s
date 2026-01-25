@@ -7,7 +7,7 @@ metadata:
 rules:
   - apiGroups: [""]
     resources: ["secrets"]
-    resourceNames: ["porkbun-api-keys"]
+    resourceNames: ["porkbun-api-keys-external"]
     verbs: ["get"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -55,7 +55,7 @@ spec:
         kind: GitRepository
         name: porkbun-webhook
   values:
-    groupName: basingse.ca 
+    groupName: basingse.ca
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -70,15 +70,15 @@ spec:
     solvers:
       - selector:
           dnsZones:
-            - basingse.ca 
+            - basingse.ca
         dns01:
           webhook:
             groupName: basingse.ca
             solverName: porkbun
             config:
               apiKeySecretRef:
-                name: porkbun-api-keys
+                name: porkbun-api-keys-external
                 key: api-key
               secretKeySecretRef:
-                name: porkbun-api-keys
+                name: porkbun-api-keys-external
                 key: secret-key
