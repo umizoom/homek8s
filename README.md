@@ -58,7 +58,7 @@ talosctl gen secrets --from-controlplane-config controlplane-1.yaml
 talosctl get disks --nodes 192.168.2.2
 ```
 
-### Kubernetes
+## Kubernetes
 
 Upgrade Kubernetes version:
 
@@ -69,8 +69,32 @@ Note: At times you need to run `brew install siderolabs/tap/talosctl` to upgrade
 3. Update talos worker and control files via: `./hacking/k8-upgrade/update-sourcefiles.sh v1.35.0`
 4. Commit and push changes
 
+## Secrets
 
-### Flux
+This project uses `SOPS` and the `external-secrets operator` with bit-warden as the secret store.
+
+### SOPS
+
+SOPS is used for encrypting files within the repo. This include the Talos config files.
+
+For detailed information, see the [Flux SOPS guide](https://fluxcd.io/flux/guides/mozilla-sops/).
+
+
+### External-Secrets Operator
+
+The operator is used in conjunction with the [bitwarden-cli](https://github.com/umizoom/bitwarden-cli) container. All api keys, password etc use the operator.
+
+The general idea is the Operator calls the bitwarden-cli via a GET to `http://bitwarden-cli.bitwarden.svc.cluster.local:8087/object/item/{{ .remoteRef.key }}`. The key is the ID of the secret in bit warden.
+
+Only the pods in the namespace `external-secrets` can poll the `bitwarden-cli`. This is achieved via a `NetworkPolicy`.
+
+The `bitwarden-cli` quries vault and returns the secret. The Operator then creates a K8s native `Secret` in the cluster based of the ExternalSecret spec.
+
+For detailed information, see the [.](https://external-secrets.io/latest/examples/bitwarden/)
+
+
+
+## Flux
 
 Build apps manifest:
 
@@ -99,7 +123,7 @@ flux reconcile source git flux-system
 ```
 
 
-## Bootstrap Staging and Production
+### Bootstrap Staging and Production
 
 Set up environment variables:
 
@@ -131,30 +155,6 @@ flux bootstrap github \
     --personal \
     --path=clusters/production
 ```
-
-### Secrets
-
-This project uses `SOPS` and the `external-secrets operator` with bit-warden as the secret store.
-
-#### SOPS
-
-SOPS is used for encrypting files within the repo. This include the Talos config files.
-
-For detailed information, see the [Flux SOPS guide](https://fluxcd.io/flux/guides/mozilla-sops/).
-
-
-#### External-Secrets Operator
-
-The operator is used in conjunction with the [bitwarden-cli](https://github.com/umizoom/bitwarden-cli) container. All api keys, password etc use the operator.
-
-The general idea is the Operator calls the bitwarden-cli via a GET to `http://bitwarden-cli.bitwarden.svc.cluster.local:8087/object/item/{{ .remoteRef.key }}`. The key is the ID of the secret in bit warden.
-
-Only the pods in the namespace `external-secrets` can poll the `bitwarden-cli`. This is achieved via a `NetworkPolicy`.
-
-The `bitwarden-cli` quries vault and returns the secret. The Operator then creates a K8s native `Secret` in the cluster based of the ExternalSecret spec.
-
-For detailed information, see the [.](https://external-secrets.io/latest/examples/bitwarden/)
-
 
 ## Diagram
 
