@@ -475,7 +475,7 @@ cluster:
     # Kube-proxy server-specific configuration options
     proxy:
         # The container image used in the kube-proxy manifest.
-        image: registry.k8s.io/kube-proxy:v1.35.0
+        image: registry.k8s.io/kube-proxy:v1.35.1
         # # Disable kube-proxy deployment on cluster bootstrap.
         # disabled: false
     # Scheduler server specific configuration options.
