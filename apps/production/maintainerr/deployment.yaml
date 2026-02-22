@@ -24,7 +24,7 @@ spec:
         - env:
             - name: TZ
               value: America/Toronto
-          image: ghcr.io/maintainerr/maintainerr:2.26.1
+          image: ghcr.io/maintainerr/maintainerr:2.27.0
           name: maintainerr
           ports:
             - containerPort: 6246
