@@ -1998,7 +1998,7 @@ spec:
           value: memberlist
         - name: METALLB_DEPLOYMENT
           value: controller
-        image: quay.io/metallb/controller:v0.15.3
+        image: quay.io/metallb/controller:v0.16.1
         livenessProbe:
           failureThreshold: 3
           httpGet:
