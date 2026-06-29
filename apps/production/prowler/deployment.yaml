@@ -55,7 +55,7 @@ spec:
             - name: VPN_ADDITIONAL_PORTS
               value: "443/tcp"
               # https://hotio.dev/containers/prowlarr/#tags
-          image: ghcr.io/hotio/prowlarr:latest@sha256:dbf998c023c0cc438096fcef9df6606a92e16577efd05da05f7145cc28c4850b
+          image: ghcr.io/hotio/prowlarr:latest@sha256:cda3abd9a35cf248f5cd8446f07d91936282e7a1be1a8a8e59b3ce34a64ba5ec
           name: prowlarr
           securityContext:
             capabilities:
