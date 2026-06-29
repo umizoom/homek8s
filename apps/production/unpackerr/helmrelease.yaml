@@ -34,7 +34,7 @@ spec:
               # -- image tag
               # this example is not automatically updated, so be sure to use the latest image
               # https://hotio.dev/containers/unpackerr/#tags
-              tag: latest@sha256:f083eb50fbb940e960423e9ee2ad3e119a7332c5f41f5fdba88011181ab34d31
+              tag: latest@sha256:e596850cc2d0e47faa78776aecdc10982f28ac83f84b36d2aa5635a3934a24fa
               # -- image pull policy
               pullPolicy: IfNotPresent
             probes:
