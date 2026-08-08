@@ -34,8 +34,8 @@ spec:
               name: chaptarr-media
               subPath: media/audio-books
             - mountPath: /ebooks
-              name: calibre-web-books
-              # subPath: /books
+              name: chaptarr-media
+              subPath: media/books
             - mountPath: /downloads
               name: chaptarr-media
               subPath: torrents
@@ -56,6 +56,3 @@ spec:
         - name: chaptarr-media
           persistentVolumeClaim:
             claimName: media-pvc
-        - name: calibre-web-books
-          persistentVolumeClaim:
-            claimName: calibre-web-books
