@@ -1,1 +1,49 @@
-https://lizardbois.slack.com/archives/D8WHZUTSP/p1786212199007309
+apiVersion: v1
+kind: Service
+metadata:
+  name: chaptarr
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8789
+  selector:
+    app: chaptarr
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    nginx.org/client-max-body-size: "0"
+    nginx.org/proxy-buffer-size: 128k
+    nginx.org/proxy-buffers: "4 256k"
+    nginx.org/location-snippets: |
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection $http_connection;
+  labels:
+    app: chaptarr
+  name: chaptarr
+  namespace: default
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: chaptarr.basingse.ca
+    http:
+      paths:
+      - backend:
+          service:
+            name: chaptarr
+            port:
+              name: http
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - chaptarr.basingse.ca
+    secretName: chaptarr-tls-secret
+status:
+  loadBalancer:
+    ingress:
+    - ip: 192.168.2.11
