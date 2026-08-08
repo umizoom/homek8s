@@ -35,7 +35,7 @@ spec:
               subPath: media/audio-books
             - mountPath: /ebooks
               name: chaptarr-media
-              subPath: media/ebooks
+              subPath: media/books
             - mountPath: /downloads
               name: chaptarr-media
               subPath: torrents
