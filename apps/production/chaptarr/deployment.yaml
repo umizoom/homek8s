@@ -34,8 +34,8 @@ spec:
               name: chaptarr-media
               subPath: media/audio-books
             - mountPath: /ebooks
-              name: alibre-web-books
-              subPath: /books
+              name: calibre-web-books
+              # subPath: /books
             - mountPath: /downloads
               name: chaptarr-media
               subPath: torrents
