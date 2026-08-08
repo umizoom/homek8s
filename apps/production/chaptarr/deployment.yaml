@@ -1,20 +1,18 @@
-# https://github.com/blampe/rreading-glasses using a third party metadata provider
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: speakarr
+  name: chaptarr
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: speakarr
+      app: chaptarr
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: speakarr
+        app: chaptarr
     spec:
       containers:
         - env:
@@ -23,32 +21,38 @@ spec:
             - name: PUID
               value: "99"
             - name: TZ
-              value: Etc/UTC
-              # https://hotio.dev/containers/readarr/#tags
-          image: ghcr.io/hotio/readarr:latest@sha256:91e3d1c9e0dbc6f4ece5ae9f9f7ed3ca4ed4fdeff241b95c49337ba38c91da72 
-          name: speakarr
+              value: America/New_York
+          image: chaptarr/chaptarr:latest
+          name: chaptarr
           ports:
-            - containerPort: 8787
+            - containerPort: 8789
               protocol: TCP
           volumeMounts:
             - mountPath: /config
-              name: speakarr-config
-            - mountPath: /data
-              name: speakarr-media
+              name: chaptarr-config
+            - mountPath: /audiobooks
+              name: chaptarr-media
+              subPath: media/audio-books
+            - mountPath: /ebooks
+              name: chaptarr-media
+              subPath: media/ebooks
+            - mountPath: /downloads
+              name: chaptarr-media
+              subPath: torrents
           livenessProbe:
             exec:
               command:
               - ls
-              - /data/
+              - /config/
             initialDelaySeconds: 10
             periodSeconds: 7200
             failureThreshold: 1
             timeoutSeconds: 5
       restartPolicy: Always
       volumes:
-        - name: speakarr-config
+        - name: chaptarr-config
           persistentVolumeClaim:
-            claimName: speakarr-config
-        - name: speakarr-media
+            claimName: chaptarr-config
+        - name: chaptarr-media
           persistentVolumeClaim:
             claimName: media-pvc
