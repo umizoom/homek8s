@@ -22,7 +22,7 @@ spec:
               value: "99"
             - name: TZ
               value: America/New_York
-          image: chaptarr/chaptarr:latest
+          image: chaptarr/chaptarr:0.9.911
           name: chaptarr
           ports:
             - containerPort: 8789
@@ -43,7 +43,7 @@ spec:
             exec:
               command:
               - ls
-              - /config/
+              - /ebooks/
             initialDelaySeconds: 10
             periodSeconds: 7200
             failureThreshold: 1
