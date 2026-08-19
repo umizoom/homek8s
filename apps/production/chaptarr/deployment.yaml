@@ -22,7 +22,7 @@ spec:
               value: "99"
             - name: TZ
               value: America/New_York
-          image: chaptarr/chaptarr:0.9.928
+          image: chaptarr/chaptarr:0.9.929
           name: chaptarr
           ports:
             - containerPort: 8789
