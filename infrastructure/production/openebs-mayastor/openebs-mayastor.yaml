@@ -13,7 +13,15 @@ metadata:
   name: openebs
   namespace: openebs
 spec:
-  interval: 5m
+  interval: 10m          # Increased slightly to give components room to stabilize
+  timeout: 15m           # CRITICAL: Gives Replicated PV engines ample time to roll over
+  upgrade:
+    remediation:
+      retries: 3         # Allows Flux to retry automatically if it encounters API stutter
+      remediateLastFailure: true
+  install:
+    remediation:
+      retries: 3
   chart:
     spec:
       chart: openebs
@@ -22,7 +30,7 @@ spec:
         kind: HelmRepository
         name: openebs
         namespace: openebs
-      interval: 1m
+      interval: 10m      # Aligned with the top-level spec interval
   values:
     localpv-provisioner:
       localpv:
@@ -59,4 +67,3 @@ spec:
       replicated:
         mayastor:
           enabled: true
-
