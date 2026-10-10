@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: bitwarden-cli
-          image: ghcr.io/umizoom/bitwarden-cli:2026.2.0
+          image: ghcr.io/umizoom/bitwarden-cli:2026.9.1
           imagePullPolicy: IfNotPresent
           env:
             - name: BW_HOST
