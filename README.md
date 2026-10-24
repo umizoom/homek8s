@@ -120,6 +120,15 @@ Both live in the `prometheus` HelmRelease: `apps/production/prometheus/release.y
 | `ContainerOOMKilled` | warning | A container was OOMKilled and restarted in the last 10m |
 | `NodeHighMemory` / `NodeHighCPU` | warning | Node memory or CPU above 90% for 15m |
 | `NodeDiskLow` | warning | Less than 10% free on `/var` for 15m |
+| `K8upNoRecentBackup` | critical | No backup has completed in 36 hours |
+| `K8upBackupErrors` | warning | The last restic backup of a volume reported errors (even if the k8up job shows Succeeded) |
+| `K8upJobFailed` / `K8upScheduledJobFailing` | warning | A k8up backup, check or prune job failed |
+| `PVCFull` | critical | A volume has less than 5% free for 15m |
+| `PVCAlmostFull` | warning | A volume has less than 15% free for 15m |
+| `MayastorPoolNotOnline` | critical | A Mayastor disk pool is degraded or faulted for 5m |
+| `MayastorNodeOffline` | warning | A Mayastor node is offline for 5m |
+| `MayastorPoolAlmostFull` | warning | A Mayastor pool is above 85% used for 30m |
+| `ScrapeTargetDown` | warning | Unraid, OPNsense, Mayastor or k8up cannot be scraped for 5m |
 
 While `NodeNotReady` is firing for a node, warning alerts for that node are suppressed, so one dead node produces one message instead of a flood.
 
@@ -129,6 +138,8 @@ Limitations:
 
 * Prometheus and Alertmanager run on the cluster they watch. If the whole cluster or Prometheus is down, nothing is sent.
 * Alertmanager has no persistent storage, so silences are lost when its pod restarts.
+* `K8upNoRecentBackup` reads the backup time from the pushgateway. If the pushgateway restarts it loses that value and the alert stays silent until the next backup pushes it again.
+* `PVCAlmostFull` and `PVCFull` skip `media-pvc` (a 50 TiB NFS share where a percentage means little) and the `openebs/*` volumes (they live on the node disk, which `NodeDiskLow` already covers).
 
 ### Test the pipeline
 
