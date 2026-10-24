@@ -33,8 +33,7 @@ spec:
         enabled: false
       extraSecretMounts:
         - name: discord-webhook
-          mountPath: /etc/alertmanager/secrets/discord_webhook_url
-          subPath: webhook_url
+          mountPath: /etc/alertmanager-secrets/discord
           secretName: alertmanager-discord
           readOnly: true
       config:
@@ -47,7 +46,7 @@ spec:
         receivers:
           - name: discord
             discord_configs:
-              - webhook_url_file: /etc/alertmanager/secrets/discord_webhook_url
+              - webhook_url_file: /etc/alertmanager-secrets/discord/webhook_url
                 send_resolved: true
         inhibit_rules:
           # a node that is down explains the pod alerts on it
