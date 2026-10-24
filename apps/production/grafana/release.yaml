@@ -135,7 +135,7 @@ spec:
           # renovate: depName="K8s / Storage / Volumes / Cluster"
           gnetId: 11454
           revision: 14
-          datasource: Prometheus      
+          datasource: Prometheus
         # nginx:
         #   url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
         #   datasource: Prometheus
@@ -191,7 +191,6 @@ spec:
     ingress:
       enabled: true
       annotations:
-        kubernetes.io/ingress.class: nginx 
         cert-manager.io/cluster-issuer: letsencrypt
       ingressClassName: nginx
       hosts: ["metrics.basingse.ca"]

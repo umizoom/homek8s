@@ -15,7 +15,6 @@ kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
-    kubernetes.io/ingress.class: nginx
     nginx.org/client-max-body-size: "0"
     nginx.org/proxy-buffer-size: 128k
     nginx.org/proxy-buffers: "4 256k"

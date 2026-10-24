@@ -4,7 +4,7 @@ set -e
 
 FAILED=0
 
-for file in talos/*; do
+for file in "$@"; do
     if [ -f "$file" ]; then
         if ! grep -q 'sops:' "$file"; then
             echo "[ERROR] $file is not SOPS-encrypted. Run: sops --encrypt --in-place $file"

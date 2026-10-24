@@ -76,7 +76,6 @@ kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
-    kubernetes.io/ingress.class: nginx
   labels:
     app: homebridge
   name: homebridge

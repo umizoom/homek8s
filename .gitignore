@@ -1,1 +1,5 @@
-# .sops.yaml
+.DS_Store
+*.key
+*.crt
+*.csr
+.env
