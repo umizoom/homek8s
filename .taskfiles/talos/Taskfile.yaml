@@ -4,9 +4,6 @@ vars:
   CONTROL_PLANE_IP: 192.168.2.2
   WORKER_IP: 192.168.2.2
   TALOS_CONFIG: "talos/talosconfig.yaml"
-  # Override per node, e.g. `task talos:apply_controlplane_config CONTROL_PLANE_CONFIG=talos/control-2.yaml`
-  CONTROL_PLANE_CONFIG: "talos/control-1.yaml"
-  WORKER_CONFIG: "talos/worker.yaml"
 
 tasks:
   # generate_config:
@@ -15,13 +12,17 @@ tasks:
   #     - talosctl gen config homecluster "https://${CONTROL_PLANE_IP}:6443" --output-dir {{._out_dir}} --force
 
   apply_controlplane_config:
-    desc: Apply configuration to control plane node
+    desc: "Apply configuration to control plane node (usage: task talos:apply_controlplane_config CONTROL_PLANE_CONFIG=talos/control-1.yaml)"
+    requires:
+      vars: [CONTROL_PLANE_CONFIG]
     cmd: |
       sops --decrypt "{{.CONTROL_PLANE_CONFIG}}" | \
       talosctl apply-config --insecure --nodes "{{.CONTROL_PLANE_IP}}" --file /dev/stdin
 
   apply_worker_config:
-    desc: Apply configuration to worker node
+    desc: "Apply configuration to worker node (usage: task talos:apply_worker_config WORKER_CONFIG=talos/worker.yaml)"
+    requires:
+      vars: [WORKER_CONFIG]
     cmd: |
       sops --decrypt "{{.WORKER_CONFIG}}" | \
       talosctl apply-config --insecure --nodes "{{.WORKER_IP}}" --file /dev/stdin
