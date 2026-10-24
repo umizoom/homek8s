@@ -60,6 +60,94 @@ spec:
         existingClaim: "prometheus-server-claim"
         storageClass: "replicated-storage"
         size: 10Gi
+    serverFiles:
+      alerting_rules.yml:
+        groups:
+          - name: nodes
+            rules:
+              - alert: NodeNotReady
+                expr: kube_node_status_condition{condition="Ready",status="true"} == 0
+                for: 2m
+                labels:
+                  severity: critical
+                annotations:
+                  summary: "Node {{ $labels.node }} is not Ready"
+                  description: "Node {{ $labels.node }} has been NotReady for more than 2 minutes."
+              - alert: ControlPlaneQuorumRisk
+                expr: sum(kube_node_status_condition{condition="Ready",status="true"}) < 2
+                for: 1m
+                labels:
+                  severity: critical
+                annotations:
+                  summary: "Fewer than 2 nodes are Ready"
+                  description: "All 3 nodes are control-plane members, so losing a second node puts etcd quorum at risk. Ready nodes: {{ $value }}."
+              - alert: NodeExporterDown
+                expr: up{app_kubernetes_io_name="prometheus-node-exporter"} == 0
+                for: 2m
+                labels:
+                  severity: warning
+                annotations:
+                  summary: "node-exporter on {{ $labels.node }} is down"
+                  description: "Prometheus cannot scrape node-exporter on {{ $labels.node }}, so node metrics and node alerts are blind."
+              - alert: NodeHighMemory
+                expr: 1 - (node_memory_MemAvailable_bytes{app_kubernetes_io_name="prometheus-node-exporter"} / node_memory_MemTotal_bytes{app_kubernetes_io_name="prometheus-node-exporter"}) > 0.9
+                for: 15m
+                labels:
+                  severity: warning
+                annotations:
+                  summary: "Node {{ $labels.node }} memory above 90%"
+                  description: "Memory usage on {{ $labels.node }} is {{ $value | humanizePercentage }} for 15 minutes."
+              - alert: NodeHighCPU
+                expr: 1 - avg by (node) (rate(node_cpu_seconds_total{mode="idle",app_kubernetes_io_name="prometheus-node-exporter"}[5m])) > 0.9
+                for: 15m
+                labels:
+                  severity: warning
+                annotations:
+                  summary: "Node {{ $labels.node }} CPU above 90%"
+                  description: "CPU usage on {{ $labels.node }} is {{ $value | humanizePercentage }} for 15 minutes."
+              - alert: NodeDiskLow
+                expr: node_filesystem_avail_bytes{mountpoint="/var",app_kubernetes_io_name="prometheus-node-exporter"} / node_filesystem_size_bytes{mountpoint="/var",app_kubernetes_io_name="prometheus-node-exporter"} < 0.10
+                for: 15m
+                labels:
+                  severity: warning
+                annotations:
+                  summary: "Node {{ $labels.node }} has less than 10% free on /var"
+                  description: "/var on {{ $labels.node }} has {{ $value | humanizePercentage }} free. /var holds container images, logs and local volumes."
+          - name: pods
+            rules:
+              - alert: PodCrashLooping
+                expr: kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff"} == 1
+                for: 5m
+                labels:
+                  severity: critical
+                annotations:
+                  summary: "{{ $labels.namespace }}/{{ $labels.pod }} is crash looping"
+                  description: "Container {{ $labels.container }} in {{ $labels.namespace }}/{{ $labels.pod }} has been in CrashLoopBackOff for 5 minutes."
+              # Completed job pods (k8up backups) are phase Succeeded, so they are not matched.
+              # The join adds the node label so NodeNotReady can suppress these.
+              - alert: PodNotReady
+                expr: |
+                  (
+                    (kube_pod_status_phase{phase=~"Pending|Unknown"} == 1)
+                    or on (namespace, pod)
+                    (kube_pod_status_ready{condition="false"} == 1 and on (namespace, pod) kube_pod_status_phase{phase="Running"} == 1)
+                  ) * on (namespace, pod) group_left (node) kube_pod_info
+                for: 15m
+                labels:
+                  severity: warning
+                annotations:
+                  summary: "{{ $labels.namespace }}/{{ $labels.pod }} not ready"
+                  description: "{{ $labels.namespace }}/{{ $labels.pod }} on {{ $labels.node }} has been Pending, Unknown or not Ready for 15 minutes."
+              - alert: ContainerOOMKilled
+                expr: |
+                  kube_pod_container_status_last_terminated_reason{reason="OOMKilled"} == 1
+                  and on (namespace, pod, container)
+                  increase(kube_pod_container_status_restarts_total[10m]) > 0
+                labels:
+                  severity: warning
+                annotations:
+                  summary: "{{ $labels.namespace }}/{{ $labels.pod }} was OOMKilled"
+                  description: "Container {{ $labels.container }} in {{ $labels.namespace }}/{{ $labels.pod }} was killed for exceeding its memory limit and restarted."
     extraScrapeConfigs: |
       - job_name: unraid-cadvisor
         scrape_interval: 5s
