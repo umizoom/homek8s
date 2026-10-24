@@ -54,6 +54,19 @@ talosctl apply-config --insecure \
 3. Manually update worker and control files with new version: `sops --d --in-place talos/worker.yaml`
 4. Commit and push changes
 
+### Renew talosconfig
+
+The admin client cert in `talos/talosconfig.yaml` expires after 1 year (current one: 2027-06-20). The `talosconfig-expiry` workflow opens an issue 60 days before that, and 365 days before the Talos CA expires. It only reads public certs, so it needs no secrets.
+
+Renewal runs locally because it needs the PGP key and the Talos CA key, which must never be in CI:
+
+```bash
+task talos:renew
+git commit -am 'chore(talos): renew talosconfig client cert'
+```
+
+This works even after the cert has expired. The nodes are not touched, since the CA is unchanged. If `kubectl` still complains afterwards, run `task talos:get_kubeconfig`.
+
 ### Generate Secrets
 
 Generate `secrets.yaml` from control plane configuration:

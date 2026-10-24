@@ -55,6 +55,16 @@ tasks:
       - sops --decrypt --output-type yaml "{{.TALOS_CONFIG}}" > /tmp/talosconfig.yaml
       - ansible-playbook hacking/ansible/talos-upgrade.yaml -i hacking/ansible/hosts.yaml
 
+  renew:
+    desc: Re-mint the talosconfig admin client cert (expires after 1 year) and re-encrypt talos/talosconfig.yaml
+    cmd: ./scripts/talos-renew-config.sh
+
+  renew_dry_run:
+    desc: Test talos:renew end to end (decrypt, mint, verify against the node) without changing any repo files
+    env:
+      DRY_RUN: "1"
+    cmd: ./scripts/talos-renew-config.sh
+
   den:
     desc: Decrypt config, place into /tmp
     cmds:
