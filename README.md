@@ -141,6 +141,22 @@ curl -X POST localhost:9093/api/v2/alerts -H 'Content-Type: application/json' \
   -d '[{"labels":{"alertname":"TestAlert","severity":"info"},"annotations":{"summary":"test"}}]'
 ```
 
+### Flux alerts
+
+Flux reconcile failures go to the same `#lab-alerts` channel through the Flux notification-controller. A `Provider` (type `discord`) and an `Alert` (`flux-errors`, severity `error`) in `apps/production/notifications/` cover `GitRepository` and `Kustomization` objects in `flux-system` and `HelmRelease` objects in every namespace that has one. Event sources cannot be selected by namespace label, so when a new namespace gets a HelmRelease, add it to `flux-errors`.
+
+The webhook comes from the same Bitwarden item through a second `ExternalSecret` in `flux-system` (`flux-discord-webhook`).
+
+Send a fake Flux error event to check this path:
+
+```bash
+kubectl -n flux-system port-forward svc/notification-controller 8080:80 &
+curl -X POST localhost:8080/ -H 'Content-Type: application/json' -d '{
+  "involvedObject": {"kind":"Kustomization","name":"apps","namespace":"flux-system","apiVersion":"kustomize.toolkit.fluxcd.io/v1"},
+  "severity":"error","reason":"Test","message":"test event","reportingController":"kustomize-controller",
+  "timestamp":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"}'
+```
+
 ### Add or change a rule
 
 1. Edit `serverFiles.alerting_rules.yml` in `apps/production/prometheus/release.yaml`.
