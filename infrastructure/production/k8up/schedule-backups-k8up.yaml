@@ -23,6 +23,11 @@ spec:
     failedJobsHistoryLimit: 2
     successfulJobsHistoryLimit: 2
     promURL: http://prometheus-prometheus-pushgateway:9091
+    # Run as root so restic can read files owned by other uids with 0600/0640
+    # modes. The PVCs are mounted read-only for backups, so this cannot modify data.
+    podSecurityContext:
+      runAsUser: 0
+      runAsNonRoot: false
   check:
     schedule: '0 1 * * 1'
   prune:
