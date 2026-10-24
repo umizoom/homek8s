@@ -106,7 +106,7 @@ For detailed information, see the [.](https://external-secrets.io/latest/example
 
 ## Alerting
 
-Prometheus evaluates alert rules and sends firing alerts to Alertmanager, which posts them to the `#lab-alerts` Discord channel. Resolved alerts are also posted. A still-firing alert is repeated every 4 hours.
+Prometheus evaluates alert rules and sends firing alerts to Alertmanager, which posts them to the `#lab-alerts` Discord channel. Resolved alerts are also posted. A still-firing alert is repeated every 24 hours.
 
 Both live in the `prometheus` HelmRelease: `apps/production/prometheus/release.yaml` (rules under `serverFiles.alerting_rules.yml`, routing under `alertmanager.config`).
 
