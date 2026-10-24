@@ -1,0 +1,111 @@
+name: flux-diff
+
+# Renders the production Flux cluster (kustomize + Helm) offline with flate,
+# fails the PR if anything doesn't render, and comments the rendered diff
+# against the base branch.
+on:
+  pull_request:
+    paths:
+      - apps/**
+      - infrastructure/**
+      - clusters/**
+      - .github/workflows/flux-diff.yaml
+
+concurrency:
+  group: flux-diff-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  CLUSTER_PATH: clusters/production
+
+jobs:
+  flux-diff:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: home-operations/flate/action@631b76b69c4e58c6f4d1cb01e23616fa61aebafa # v0.6.5
+        with:
+          cache: true
+
+      - name: Validate
+        id: test
+        continue-on-error: true
+        shell: bash # enables pipefail so a failing flate isn't masked by tee
+        run: flate test all --path "$CLUSTER_PATH" --no-progress 2>&1 | tee test.log
+
+      - name: Diff
+        id: diff
+        continue-on-error: true
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set +e
+          flate diff all --path "$CLUSTER_PATH" --base "$BASE_SHA" --no-progress -o diff > diff.patch 2> diff.err
+          status=$?
+          cat diff.err
+          exit "$status"
+
+      - name: Build comment
+        if: always()
+        env:
+          TEST_OUTCOME: ${{ steps.test.outcome }}
+          DIFF_OUTCOME: ${{ steps.diff.outcome }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          limit=60000
+          {
+            echo "## Flux diff (\`$CLUSTER_PATH\`)"
+            echo
+            if [[ "$TEST_OUTCOME" == "success" ]]; then
+              echo "✅ **Validation passed:** every Kustomization and HelmRelease renders."
+            else
+              echo "❌ **Validation failed:**"
+              echo
+              echo '```'
+              grep -v '^  ✓' test.log | tail -c 8000
+              echo '```'
+            fi
+            echo
+            if [[ "$DIFF_OUTCOME" != "success" ]]; then
+              echo "❌ **Diff failed to render:**"
+              echo
+              echo '```'
+              tail -c 8000 diff.err
+              echo '```'
+            elif [[ ! -s diff.patch ]]; then
+              echo "No changes to rendered manifests."
+            else
+              echo "<details open><summary>Rendered manifest changes</summary>"
+              echo
+              echo '```diff'
+              head -c "$limit" diff.patch
+              echo
+              echo '```'
+              if (( $(wc -c < diff.patch) > limit )); then
+                echo "_Diff truncated at ${limit} bytes, see the [workflow run]($RUN_URL) for the full output._"
+              fi
+              echo
+              echo "</details>"
+            fi
+          } > comment.md
+
+      - name: Comment on PR
+        if: always() && github.event.pull_request.head.repo.full_name == github.repository
+        uses: marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88 # v3.0.5
+        with:
+          header: flux-diff
+          path: comment.md
+
+      - name: Fail if validation or diff failed
+        if: steps.test.outcome == 'failure' || steps.diff.outcome == 'failure'
+        run: exit 1
