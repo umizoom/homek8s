@@ -59,7 +59,7 @@ spec:
       persistentVolume:
         existingClaim: "prometheus-server-claim"
         storageClass: "replicated-storage"
-        size: 10Gi
+        size: 20Gi
     serverFiles:
       alerting_rules.yml:
         groups:
