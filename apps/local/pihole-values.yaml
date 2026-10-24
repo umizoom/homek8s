@@ -4,9 +4,6 @@ metadata:
   name: pihole
   namespace: pihole
 spec:
-  chart:
-    spec:
-      version: "2.24.0"
   test:
     enable: false
   values:
@@ -19,6 +16,6 @@ spec:
     ingress:
       hosts:
         - pihole.lab
-          # paths:  
+          # paths:
           #   - path: /
           #     pathType: ImplementationSpecific

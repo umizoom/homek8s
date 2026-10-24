@@ -4,9 +4,6 @@ metadata:
   name: pihole
   namespace: default
 spec:
-  chart:
-    spec:
-      version: "2.35.0"
   values:
     replicaCount: 1
     image:
