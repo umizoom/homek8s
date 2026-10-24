@@ -24,7 +24,38 @@ spec:
       retries: 3
   values:
     alertmanager:
-      enabled: false
+      enabled: true
+      image:
+        # chart default (v0.27.0) has no webhook_url_file for Discord; added in v0.28.1
+        tag: v0.28.1
+      # silences reset when the pod restarts; acceptable until alerting has proven itself
+      persistence:
+        enabled: false
+      extraSecretMounts:
+        - name: discord-webhook
+          mountPath: /etc/alertmanager/secrets/discord_webhook_url
+          subPath: webhook_url
+          secretName: alertmanager-discord
+          readOnly: true
+      config:
+        route:
+          receiver: discord
+          group_by: [alertname, namespace]
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 4h
+        receivers:
+          - name: discord
+            discord_configs:
+              - webhook_url_file: /etc/alertmanager/secrets/discord_webhook_url
+                send_resolved: true
+        inhibit_rules:
+          # a node that is down explains the pod alerts on it
+          - source_matchers:
+              - alertname = NodeNotReady
+            target_matchers:
+              - severity = warning
+            equal: [node]
     server:
       persistentVolume:
         existingClaim: "prometheus-server-claim"

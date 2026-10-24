@@ -5,3 +5,4 @@ resources:
   - repository.yaml
   - release.yaml
   - pvc.yaml
+  - external-secrets.yaml
