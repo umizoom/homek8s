@@ -1,4 +1,3 @@
-# TODO: Enable after infra is built using fluxcd
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization

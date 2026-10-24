@@ -35,7 +35,6 @@ kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
-    kubernetes.io/ingress.class: nginx
     nginx.org/websocket-services: "minio-external-ip"
     nginx.org/client-max-body-size: "0"
   labels:
@@ -59,17 +58,12 @@ spec:
   - hosts:
     - minio.basingse.ca
     secretName: minio-tls-secret
-status:
-  loadBalancer:
-    ingress:
-    - ip: 192.168.2.11
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
-    kubernetes.io/ingress.class: nginx
     nginx.org/websocket-services: "minio-external-ip"
     nginx.org/client-max-body-size: "0"
   labels:
@@ -93,7 +87,3 @@ spec:
   - hosts:
     - minio-api.basingse.ca
     secretName: minio-api-tls-secret
-status:
-  loadBalancer:
-    ingress:
-    - ip: 192.168.2.11

@@ -13,6 +13,17 @@ This repository contains Infrastructure as Code for Kubernetes home clusters, te
 * [Sops](https://github.com/getsops/sops)
 * [Pre-Commit](https://pre-commit.com/index.html)
 
+## Repository Layout
+
+* `clusters/{local,production}`: Flux entrypoints per cluster
+* `infrastructure/{base,dependencies,local,production}`: infrastructure components (ingress, cert-manager, storage, backups, external-secrets)
+* `apps/{base,local,production}`: applications
+* `talos/`: SOPS-encrypted Talos machine configs and talosconfig
+* `hacking/`: helper scripts and Ansible playbooks (Talos upgrade, k8s upgrade)
+* `scripts/`: repo tooling used by pre-commit
+
+Change cluster state by committing to git and letting Flux reconcile. Do not `kubectl apply` manifests by hand.
+
 ## Install Pre-Commit
 
 ```bash
@@ -24,9 +35,8 @@ pre-commit install
 ### Dashboard
 
 ```bash
-task talos:dash
-# OR
-tadash1
+task talos:den
+talosctl --talosconfig /tmp/talosconfig.yaml dashboard --nodes 192.168.2.2
 ```
 
 ### Scale Up Cluster
