@@ -2,6 +2,9 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: readarr-config
+  annotations:
+    # readarr is no longer used, so k8up should not back this volume up
+    k8up.io/backup: "false"
 spec:
   storageClassName: "replicated-storage"
   volumeName: pvc-1e61d736-335e-4c1c-a92e-1c714f68896a
@@ -10,4 +13,3 @@ spec:
   resources:
     requests:
       storage: 5Gi
-
