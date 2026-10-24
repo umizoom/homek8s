@@ -1,0 +1,64 @@
+name: talosconfig-expiry
+
+# Opens an issue when the Talos admin client cert or the Talos CA is close to
+# expiring. It only reads public certs committed to git (the plaintext `crt` in
+# talos/talosconfig.yaml and .github/talos-ca.pem), so it needs no secrets and
+# decrypts nothing. Renewal itself stays local: `task talos:renew`.
+on:
+  schedule:
+    - cron: '0 8 * * 1'
+  workflow_dispatch:
+    inputs:
+      client_warn_days:
+        description: Warn when the client cert has fewer days left than this
+        default: '60'
+      ca_warn_days:
+        description: Warn when the CA has fewer days left than this
+        default: '365'
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      CLIENT_WARN_DAYS: ${{ inputs.client_warn_days || '60' }}
+      CA_WARN_DAYS: ${{ inputs.ca_warn_days || '365' }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Check certificate expiry
+        run: |
+          check() {
+            local pem=$1 warn_days=$2 title=$3 body=$4
+            local end end_ts days
+            end=$(openssl x509 -noout -enddate -in "$pem" | cut -d= -f2)
+            end_ts=$(date -d "$end" +%s)
+            days=$(( (end_ts - $(date +%s)) / 86400 ))
+            echo "$title: expires $end ($days days left, warning below $warn_days)"
+            if (( days >= warn_days )); then
+              return
+            fi
+            if [[ -n $(gh issue list --state open --search "\"$title\" in:title" --json number --jq '.[0].number') ]]; then
+              echo "Issue already open"
+              return
+            fi
+            gh issue create --title "$title" --body "Expires on **$end** ($days days left).
+
+          $body"
+          }
+
+          yq -r .contexts.homecluster.crt talos/talosconfig.yaml | base64 -d > "$RUNNER_TEMP/client.crt"
+
+          check "$RUNNER_TEMP/client.crt" "$CLIENT_WARN_DAYS" \
+            "Talos client cert (talosconfig) is expiring" \
+            'Run `task talos:renew` locally, then commit `talos/talosconfig.yaml` and `.github/talos-ca.pem`.'
+
+          check .github/talos-ca.pem "$CA_WARN_DAYS" \
+            "Talos CA is expiring" \
+            'Rotating the CA is a larger operation that reconfigures the nodes. See https://www.talos.dev/latest/talos-guides/howto/cert-management/'
