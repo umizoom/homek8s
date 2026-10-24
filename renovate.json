@@ -12,5 +12,14 @@
     "managerFilePatterns": [
       "/\\.yaml$/"
     ]
-  }
+  },
+  "packageRules": [
+    {
+      "description": "Flux controllers: one PR for all gotk-components.yaml updates",
+      "matchFileNames": [
+        "clusters/**/flux-system/gotk-components.yaml"
+      ],
+      "groupName": "flux"
+    }
+  ]
 }
