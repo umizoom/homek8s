@@ -104,6 +104,49 @@ For detailed information, see the [.](https://external-secrets.io/latest/example
 
 
 
+## Alerting
+
+Prometheus evaluates alert rules and sends firing alerts to Alertmanager, which posts them to the `#lab-alerts` Discord channel. Resolved alerts are also posted. A still-firing alert is repeated every 4 hours.
+
+Both live in the `prometheus` HelmRelease: `apps/production/prometheus/release.yaml` (rules under `serverFiles.alerting_rules.yml`, routing under `alertmanager.config`).
+
+| Alert | Severity | Fires when |
+| --- | --- | --- |
+| `NodeNotReady` | critical | A node is not Ready for 2m |
+| `ControlPlaneQuorumRisk` | critical | Fewer than 2 nodes are Ready (etcd quorum at risk) |
+| `PodCrashLooping` | critical | A container is in CrashLoopBackOff for 5m |
+| `NodeExporterDown` | warning | node-exporter on a node cannot be scraped for 2m |
+| `PodNotReady` | warning | A pod is Pending, Unknown or Running-but-not-Ready for 15m (completed job pods are ignored) |
+| `ContainerOOMKilled` | warning | A container was OOMKilled and restarted in the last 10m |
+| `NodeHighMemory` / `NodeHighCPU` | warning | Node memory or CPU above 90% for 15m |
+| `NodeDiskLow` | warning | Less than 10% free on `/var` for 15m |
+
+While `NodeNotReady` is firing for a node, warning alerts for that node are suppressed, so one dead node produces one message instead of a flood.
+
+The Discord webhook URL is stored in Bitwarden and delivered by an `ExternalSecret` (`apps/production/prometheus/external-secrets.yaml`) as the `alertmanager-discord` secret, which Alertmanager mounts as a file. It is never committed to git. Alertmanager `v0.28.1` is pinned because older versions cannot read a Discord webhook from a file.
+
+Limitations:
+
+* Prometheus and Alertmanager run on the cluster they watch. If the whole cluster or Prometheus is down, nothing is sent.
+* Alertmanager has no persistent storage, so silences are lost when its pod restarts.
+
+### Test the pipeline
+
+Send a fake alert straight to Alertmanager. It should show up in `#lab-alerts` after about 30 seconds and expires on its own after about 5 minutes:
+
+```bash
+task talos:den
+kubectl port-forward svc/prometheus-alertmanager 9093:9093 &
+curl -X POST localhost:9093/api/v2/alerts -H 'Content-Type: application/json' \
+  -d '[{"labels":{"alertname":"TestAlert","severity":"info"},"annotations":{"summary":"test"}}]'
+```
+
+### Add or change a rule
+
+1. Edit `serverFiles.alerting_rules.yml` in `apps/production/prometheus/release.yaml`.
+2. Run the expression in the Prometheus UI first (`kubectl port-forward svc/prometheus-server 9090:80`) and check it returns series without its threshold, otherwise the alert may never fire.
+3. Check the rules with `promtool check rules`. Pod-level alerts should carry a `node` label (join `kube_pod_info`) so `NodeNotReady` can suppress them.
+
 ## Flux
 
 Build apps manifest:
