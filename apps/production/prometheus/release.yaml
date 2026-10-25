@@ -231,7 +231,7 @@ spec:
           - name: external-targets
             rules:
               - alert: ScrapeTargetDown
-                expr: up{job=~"unraid-cadvisor|unraid-nodeexporter|opnsense-nodeexporter|mayastor|k8up"} == 0
+                expr: up{job=~"unraid-cadvisor|unraid-nodeexporter|opnsense-nodeexporter|mayastor|k8up|metallb"} == 0
                 for: 5m
                 labels:
                   severity: warning
@@ -261,6 +261,27 @@ spec:
             - 192.168.2.2:9502
             - 192.168.2.3:9502
             - 192.168.2.4:9502
+      # MetalLB >= v0.16 serves metrics over HTTPS with a self-signed cert and requires a
+      # bearer token. The pods' prometheus.io/scrape annotation is disabled in
+      # infrastructure/production/metallb so the generic kubernetes-pods job skips them.
+      - job_name: metallb
+        scheme: https
+        authorization:
+          credentials_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+        tls_config:
+          insecure_skip_verify: true
+        kubernetes_sd_configs:
+          - role: pod
+            namespaces:
+              names: [metallb-system]
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_container_port_name]
+            action: keep
+            regex: metricshttps
+          - source_labels: [__meta_kubernetes_pod_label_component]
+            target_label: component
+          - source_labels: [__meta_kubernetes_pod_node_name]
+            target_label: node
       - job_name: k8up
         scrape_interval: 5s
         static_configs:
