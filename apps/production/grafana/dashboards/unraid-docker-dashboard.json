@@ -773,10 +773,9 @@
           "showLegend": true,
           "displayMode": "table",
           "placement": "right",
-          "width": 240,
+          "width": 260,
           "calcs": [
-            "max",
-            "mean"
+            "max"
           ],
           "sortBy": "Max",
           "sortDesc": true
@@ -867,7 +866,8 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "bytes",
+          "min": 0
         },
         "overrides": []
       },
@@ -883,10 +883,9 @@
           "showLegend": true,
           "displayMode": "table",
           "placement": "right",
-          "width": 240,
+          "width": 260,
           "calcs": [
-            "max",
-            "mean"
+            "max"
           ],
           "sortBy": "Max",
           "sortDesc": true
@@ -903,7 +902,7 @@
             "type": "prometheus",
             "uid": "Prometheus"
           },
-          "expr": "max by (name) (container_memory_usage_bytes{name!=\"\",instance=~\"$node\"})",
+          "expr": "max by (name) (container_memory_working_set_bytes{name!=\"\",instance=~\"$node\"})",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
@@ -913,7 +912,8 @@
         }
       ],
       "title": "Used Memory per Container",
-      "type": "timeseries"
+      "type": "timeseries",
+      "description": "Working set per container: memory actually in use, excluding reclaimable page cache (for example Plex reading media files). This is what counts toward a container's memory limit. The stack adds up to the containers' total."
     },
     {
       "datasource": {
@@ -1013,10 +1013,9 @@
           "showLegend": true,
           "displayMode": "table",
           "placement": "right",
-          "width": 240,
+          "width": 260,
           "calcs": [
-            "max",
-            "mean"
+            "max"
           ],
           "sortBy": "Max",
           "sortDesc": true
@@ -1121,10 +1120,9 @@
           "showLegend": true,
           "displayMode": "table",
           "placement": "right",
-          "width": 240,
+          "width": 260,
           "calcs": [
-            "max",
-            "mean"
+            "max"
           ],
           "sortBy": "Max",
           "sortDesc": true
@@ -1238,7 +1236,7 @@
             "properties": [
               {
                 "id": "displayName",
-                "value": "Available memory"
+                "value": "Peak memory"
               },
               {
                 "id": "unit",
@@ -1261,7 +1259,7 @@
             "properties": [
               {
                 "id": "displayName",
-                "value": "Limit memory"
+                "value": "Limit"
               },
               {
                 "id": "unit",
@@ -1273,6 +1271,21 @@
               },
               {
                 "id": "custom.align"
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "0": {
+                        "text": "No limit",
+                        "color": "text",
+                        "index": 0
+                      }
+                    }
+                  }
+                ]
               }
             ]
           }
@@ -1310,7 +1323,7 @@
             "type": "prometheus",
             "uid": "Prometheus"
           },
-          "expr": "max(container_memory_usage_bytes{name!=\"\",instance=~\"$node\"}) by (name)",
+          "expr": "max by (name) (container_memory_working_set_bytes{name!=\"\",instance=~\"$node\"})",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -1323,22 +1336,26 @@
             "type": "prometheus",
             "uid": "Prometheus"
           },
-          "expr": "max(container_memory_max_usage_bytes{name!=\"\",instance=~\"$node\"}-container_memory_usage_bytes{name!=\"\",instance=~\"$node\"})by (name)",
+          "expr": "max by (name) (container_memory_max_usage_bytes{name!=\"\",instance=~\"$node\"})",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
-          "refId": "B"
+          "refId": "B",
+          "legendFormat": "",
+          "hide": false
         },
         {
           "datasource": {
             "type": "prometheus",
             "uid": "Prometheus"
           },
-          "expr": "max(container_memory_max_usage_bytes{name!=\"\",instance=~\"$node\"}) by (name)",
+          "expr": "max by (name) (container_spec_memory_limit_bytes{name!=\"\",instance=~\"$node\"})",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
-          "refId": "C"
+          "refId": "C",
+          "legendFormat": "",
+          "hide": false
         }
       ],
       "title": "Memory usage per container",
@@ -1360,7 +1377,8 @@
           }
         }
       ],
-      "type": "table"
+      "type": "table",
+      "description": "Used = working set (excludes reclaimable page cache). Peak = highest usage since the container started. Limit = the container's memory limit; 'No limit' means it can use any free memory."
     },
     {
       "datasource": {
@@ -1421,7 +1439,30 @@
           },
           "unit": "bytes"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": ".* limit"
+            },
+            "properties": [
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "fill": "dash",
+                  "dash": [
+                    10,
+                    10
+                  ]
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 10,
@@ -1435,10 +1476,9 @@
           "showLegend": true,
           "displayMode": "table",
           "placement": "right",
-          "width": 240,
+          "width": 260,
           "calcs": [
-            "max",
-            "mean"
+            "max"
           ],
           "sortBy": "Max",
           "sortDesc": true
@@ -1455,11 +1495,11 @@
             "type": "prometheus",
             "uid": "Prometheus"
           },
-          "expr": "container_memory_usage_bytes{name!=\"\",instance=~\"$node\"}",
+          "expr": "max by (name) (container_memory_working_set_bytes{name!=\"\",instance=~\"$node\"}) and on(name) (max by (name) (container_spec_memory_limit_bytes{name!=\"\",instance=~\"$node\"}) > 0)",
           "format": "time_series",
-          "hide": true,
+          "hide": false,
           "intervalFactor": 2,
-          "legendFormat": "Used {{name}}",
+          "legendFormat": "{{name}}",
           "refId": "A",
           "target": ""
         },
@@ -1468,15 +1508,17 @@
             "type": "prometheus",
             "uid": "Prometheus"
           },
-          "expr": "container_spec_memory_limit_bytes{name!=\"\",instance=~\"$node\"}",
+          "expr": "max by (name) (container_spec_memory_limit_bytes{name!=\"\",instance=~\"$node\"}) > 0",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{name}}",
-          "refId": "B"
+          "legendFormat": "{{name}} limit",
+          "refId": "B",
+          "hide": false
         }
       ],
-      "title": "Limit Memory per Container",
-      "type": "timeseries"
+      "title": "Memory vs limit (containers with a limit)",
+      "type": "timeseries",
+      "description": "Working set against the memory limit for containers that have one (Plex is capped at 4 GiB). Containers with no limit are not shown; they appear in the table as 'No limit'."
     },
     {
       "id": 51,
