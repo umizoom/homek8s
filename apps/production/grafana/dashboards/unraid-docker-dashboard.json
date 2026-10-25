@@ -971,7 +971,8 @@
               }
             ]
           },
-          "unit": "Bps"
+          "unit": "MBs",
+          "decimals": 2
         },
         "overrides": [
           {
@@ -1033,7 +1034,7 @@
             "uid": "Prometheus"
           },
           "editorMode": "code",
-          "expr": "sum by (name) (rate(container_network_receive_bytes_total{name!=\"\",instance=~\"$node\",interface!~\"wg.*|tun.*\"}[$__rate_interval]))",
+          "expr": "sum by (name) (rate(container_network_receive_bytes_total{name!=\"\",instance=~\"$node\",interface!~\"wg.*|tun.*\"}[$__rate_interval])) / 1e6",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
@@ -1045,7 +1046,7 @@
       ],
       "title": "Received Network Traffic per Container",
       "type": "timeseries",
-      "description": "Bytes per second received by each container. VPN tunnel interfaces (wg*, tun*) are excluded so VPN containers like qBittorrent are not counted twice."
+      "description": "Megabytes per second received by each container. VPN tunnel interfaces (wg*, tun*) are excluded so VPN containers like qBittorrent are not counted twice."
     },
     {
       "datasource": {
@@ -1103,7 +1104,8 @@
               }
             ]
           },
-          "unit": "Bps"
+          "unit": "MBs",
+          "decimals": 2
         },
         "overrides": []
       },
@@ -1140,7 +1142,7 @@
             "uid": "Prometheus"
           },
           "editorMode": "code",
-          "expr": "sum by (name) (rate(container_network_transmit_bytes_total{name!=\"\",instance=~\"$node\",interface!~\"wg.*|tun.*\"}[$__rate_interval]))",
+          "expr": "sum by (name) (rate(container_network_transmit_bytes_total{name!=\"\",instance=~\"$node\",interface!~\"wg.*|tun.*\"}[$__rate_interval])) / 1e6",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{name}}",
@@ -1151,7 +1153,7 @@
       ],
       "title": "Sent Network Traffic per Container",
       "type": "timeseries",
-      "description": "Bytes per second sent by each container. VPN tunnel interfaces (wg*, tun*) are excluded so VPN containers like qBittorrent are not counted twice."
+      "description": "Megabytes per second sent by each container. VPN tunnel interfaces (wg*, tun*) are excluded so VPN containers like qBittorrent are not counted twice."
     },
     {
       "datasource": {
