@@ -12,4 +12,3 @@ resources:
   - ./nfs-pv
   - ./pod-reaper
   # - local-path-provisioner.yaml
-  # - ./openebs-jiva
