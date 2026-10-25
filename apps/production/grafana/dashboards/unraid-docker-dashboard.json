@@ -827,7 +827,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 55,
+            "fillOpacity": 10,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -845,7 +845,7 @@
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "normal"
+              "mode": "none"
             },
             "thresholdsStyle": {
               "mode": "off"
@@ -913,7 +913,7 @@
       ],
       "title": "Used Memory per Container",
       "type": "timeseries",
-      "description": "Working set per container: memory actually in use, excluding reclaimable page cache (for example Plex reading media files). This is what counts toward a container's memory limit. The stack adds up to the containers' total."
+      "description": "Working set per container: memory actually in use, excluding reclaimable page cache (for example Plex reading media files). This is what counts toward a container's memory limit. Each line is one container, so the axis matches the values in the legend and tooltip. For the host total, see the Memory card."
     },
     {
       "datasource": {
