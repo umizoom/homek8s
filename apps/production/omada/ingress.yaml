@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    # Omada serves HTTPS itself, so nginx must connect to it over TLS.
+    nginx.org/ssl-services: omada
+    nginx.org/client-max-body-size: "0"
+    nginx.org/proxy-read-timeout: 600s
+  labels:
+    app: omada
+  name: omada
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: omada.basingse.ca
+      http:
+        paths:
+          - backend:
+              service:
+                name: omada
+                port:
+                  name: manage-https
+            path: /
+            pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - omada.basingse.ca
+      secretName: omada-tls-secret

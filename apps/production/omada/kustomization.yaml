@@ -5,3 +5,4 @@ resources:
   - volume-claim.yaml
   - deployment.yaml
   - service.yaml
+  - ingress.yaml
