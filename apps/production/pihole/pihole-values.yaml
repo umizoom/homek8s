@@ -6,6 +6,9 @@ metadata:
 spec:
   values:
     replicaCount: 1
+    resources:
+      limits:
+        memory: 256Mi
     image:
       repository: pihole/pihole
       tag: "2025.11.1"

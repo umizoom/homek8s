@@ -7,10 +7,10 @@ metadata:
     pod-security.kubernetes.io/warn: privileged
     pod-security.kubernetes.io/enforce-version: latest
     app.kubernetes.io/managed-by: Helm
-  annotations: 
+  annotations:
     meta.helm.sh/release-namespace: local-path-storage
     meta.helm.sh/release-name: local-path-storage
-  
+
 
 ---
 apiVersion: v1
@@ -20,10 +20,10 @@ metadata:
   namespace: local-path-storage
   labels:
     app.kubernetes.io/managed-by: Helm
-  annotations: 
+  annotations:
     meta.helm.sh/release-namespace: local-path-storage
     meta.helm.sh/release-name: local-path-storage
-  
+
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -33,7 +33,7 @@ metadata:
   namespace: local-path-storage
   labels:
     app.kubernetes.io/managed-by: Helm
-  annotations: 
+  annotations:
     meta.helm.sh/release-namespace: local-path-storage
     meta.helm.sh/release-name: local-path-storage
 rules:
@@ -48,7 +48,7 @@ metadata:
   name: local-path-provisioner-role
   labels:
     app.kubernetes.io/managed-by: Helm
-  annotations: 
+  annotations:
     meta.helm.sh/release-namespace: local-path-storage
     meta.helm.sh/release-name: local-path-storage
 rules:
@@ -73,7 +73,7 @@ metadata:
   namespace: local-path-storage
   labels:
     app.kubernetes.io/managed-by: Helm
-  annotations: 
+  annotations:
     meta.helm.sh/release-namespace: local-path-storage
     meta.helm.sh/release-name: local-path-storage
 roleRef:
@@ -92,7 +92,7 @@ metadata:
   name: local-path-provisioner-bind
   labels:
     app.kubernetes.io/managed-by: Helm
-  annotations: 
+  annotations:
     meta.helm.sh/release-namespace: local-path-storage
     meta.helm.sh/release-name: local-path-storage
 roleRef:
@@ -112,7 +112,7 @@ metadata:
   namespace: local-path-storage
   labels:
     app.kubernetes.io/managed-by: Helm
-  annotations: 
+  annotations:
     meta.helm.sh/release-namespace: local-path-storage
     meta.helm.sh/release-name: local-path-storage
 spec:
@@ -130,6 +130,9 @@ spec:
       containers:
         - name: local-path-provisioner
           image: rancher/local-path-provisioner:master-head
+          resources:
+            limits:
+              memory: 128Mi
           imagePullPolicy: IfNotPresent
           command:
             - local-path-provisioner
@@ -159,7 +162,7 @@ metadata:
   name: local-path
   labels:
     app.kubernetes.io/managed-by: Helm
-  annotations: 
+  annotations:
     meta.helm.sh/release-namespace: local-path-storage
     meta.helm.sh/release-name: local-path-storage
 provisioner: rancher.io/local-path
@@ -174,7 +177,7 @@ metadata:
   namespace: local-path-storage
   labels:
     app.kubernetes.io/managed-by: Helm
-  annotations: 
+  annotations:
     meta.helm.sh/release-namespace: local-path-storage
     meta.helm.sh/release-name: local-path-storage
 data:

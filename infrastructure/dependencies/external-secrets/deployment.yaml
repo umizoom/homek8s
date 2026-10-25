@@ -18,6 +18,17 @@ spec:
   values:
     crds:
       create: false
+    resources:
+      limits:
+        memory: 256Mi
+    certController:
+      resources:
+        limits:
+          memory: 256Mi
+    webhook:
+      resources:
+        limits:
+          memory: 128Mi
 
   install:
     createNamespace: true

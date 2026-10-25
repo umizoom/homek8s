@@ -25,6 +25,9 @@ spec:
             - name: TZ
               value: America/Toronto
           image: ghcr.io/maintainerr/maintainerr:3.31.0
+          resources:
+            limits:
+              memory: 1Gi
           name: maintainerr
           ports:
             - containerPort: 6246

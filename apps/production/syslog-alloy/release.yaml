@@ -26,7 +26,14 @@ spec:
     controller:
       type: deployment
       replicas: 1
+    configReloader:
+      resources:
+        limits:
+          memory: 64Mi
     alloy:
+      resources:
+        limits:
+          memory: 256Mi
       # Unprivileged, so listen above 1024. service.yaml maps 514 -> 1514.
       extraPorts:
         - name: syslog-udp
