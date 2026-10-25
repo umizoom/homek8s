@@ -272,3 +272,11 @@ flowchart LR
 ```
 
 Manifests are in `apps/production/syslog-alloy/`. In Unraid, set Settings → Syslog Server → Remote syslog server to `192.168.2.20`, port `514` (UDP or TCP).
+
+### Omada controller
+
+The Omada controller runs in the cluster (`apps/production/omada`) behind the MetalLB IP `192.168.2.21`. The two APs live on the `LAN` (`192.168.1.x`) interface, the cluster on `LANk8s` (`192.168.2.x`), so the traffic is routed by OPNsense.
+
+- **Version:** the image tag must match the controller a backup is restored from (restores only work between identical versions).
+- **Migrating from another controller:** in the old controller go to Settings > Migration > Controller Migration, export the settings, import them into the new controller, then run "Migrate Devices" so the APs are pointed at the new address.
+- **New or factory-reset APs:** L2 broadcast discovery (UDP 29810) does not cross subnets. Set DHCP option 138 on the OPNsense `LAN` scope to `192.168.2.21`, or enter the controller address on the AP's web page.
