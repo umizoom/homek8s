@@ -5,6 +5,8 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt
     # Omada serves HTTPS itself, so nginx must connect to it over TLS.
     nginx.org/ssl-services: omada
+    # The web UI uses a websocket for live updates.
+    nginx.org/websocket-services: omada
     nginx.org/client-max-body-size: "0"
     nginx.org/proxy-read-timeout: 600s
   labels:

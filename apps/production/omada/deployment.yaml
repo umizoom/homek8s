@@ -50,7 +50,7 @@ spec:
               cpu: 100m
               memory: 1Gi
             limits:
-              memory: 2560Mi
+              memory: 3Gi
           startupProbe:
             tcpSocket:
               port: manage-https
