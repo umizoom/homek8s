@@ -75,6 +75,7 @@ spec:
               httpHeaderName1: X-Scope-OrgID
             secureJsonData:
               httpHeaderValue1: unraid
+            isDefault: true
           - name: Prometheus
             type: prometheus
             uid: prometheus
@@ -103,6 +104,8 @@ spec:
         unraid:
           url: https://raw.githubusercontent.com/umizoom/homek8s/main/apps/production/grafana/dashboards/unraid-dashboard.json
           datasource: Prometheus
+        unraid-syslog:
+          url: https://raw.githubusercontent.com/umizoom/homek8s/main/apps/production/grafana/dashboards/unraid-syslog-dashboard.json
         opnsense:
           url: https://raw.githubusercontent.com/umizoom/homek8s/main/apps/production/grafana/dashboards/opnsense-dashboard.json
           datasource: Prometheus
