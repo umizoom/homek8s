@@ -36,5 +36,5 @@ spec:
       replicaCount: 1
       resources:
         limits:
-          memory: 512Mi
+          memory: 1Gi
       # kind: daemonset

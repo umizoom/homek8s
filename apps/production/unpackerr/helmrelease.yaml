@@ -39,7 +39,7 @@ spec:
               pullPolicy: IfNotPresent
             resources:
               limits:
-                memory: 2Gi
+                memory: 4Gi
             probes:
               liveness:
                 custom: true
