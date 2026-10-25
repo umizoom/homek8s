@@ -794,7 +794,7 @@
             "uid": "Prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\".+\",instance=~\"$node\"}[1m])) by (name) * 10",
+          "expr": "100 * sum by (name) (rate(container_cpu_usage_seconds_total{name=~\".+\",instance=~\"$node\"}[$__rate_interval])) / scalar(max(machine_cpu_cores{instance=~\"$node\"}))",
           "format": "time_series",
           "hide": false,
           "interval": "",
@@ -807,7 +807,8 @@
         }
       ],
       "title": "CPU Usage per Container",
-      "type": "timeseries"
+      "type": "timeseries",
+      "description": "Share of total host CPU used by each container (100% = every thread busy), so it adds up against the CPU Busy card. Whatever the containers don't account for is the Home Assistant VM and the host itself."
     },
     {
       "datasource": {
@@ -1032,7 +1033,7 @@
             "uid": "Prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_network_receive_bytes_total{name!=\"\",instance=~\"$node\"}[1m])) by (name) /2",
+          "expr": "sum by (name) (rate(container_network_receive_bytes_total{name!=\"\",instance=~\"$node\",interface!~\"wg.*|tun.*\"}[$__rate_interval]))",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
@@ -1043,7 +1044,8 @@
         }
       ],
       "title": "Received Network Traffic per Container",
-      "type": "timeseries"
+      "type": "timeseries",
+      "description": "Bytes per second received by each container. VPN tunnel interfaces (wg*, tun*) are excluded so VPN containers like qBittorrent are not counted twice."
     },
     {
       "datasource": {
@@ -1138,30 +1140,18 @@
             "uid": "Prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_network_transmit_bytes_total{name!=\"\",instance=~\"$node\"}[1m])) by (name) * 0.125",
+          "expr": "sum by (name) (rate(container_network_transmit_bytes_total{name!=\"\",instance=~\"$node\",interface!~\"wg.*|tun.*\"}[$__rate_interval]))",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{name}}",
           "range": true,
           "refId": "A",
           "step": 240
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "Prometheus"
-          },
-          "expr": "rate(container_network_transmit_bytes_total{id=\"/\"}[$interval])",
-          "format": "time_series",
-          "hide": true,
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "refId": "B",
-          "step": 10
         }
       ],
       "title": "Sent Network Traffic per Container",
-      "type": "timeseries"
+      "type": "timeseries",
+      "description": "Bytes per second sent by each container. VPN tunnel interfaces (wg*, tun*) are excluded so VPN containers like qBittorrent are not counted twice."
     },
     {
       "datasource": {
