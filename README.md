@@ -255,7 +255,7 @@ flux bootstrap github \
 
 ### Unraid syslog
 
-Unraid forwards its syslog to the cluster so logs survive a hang or reboot (`/var/log` on Unraid is RAM). Alloy receives it and writes to Loki; read it in Grafana → Explore → `Loki` with `{job="unraid-syslog"}`.
+Unraid forwards its syslog to the cluster so logs survive a hang or reboot (`/var/log` on Unraid is RAM). Alloy receives it and writes to Loki; read it in Grafana → Explore → `Loki Unraid` with `{job="unraid-syslog"}`.
 
 ```mermaid
 flowchart LR
@@ -265,7 +265,7 @@ flowchart LR
     subgraph k8s["k8s (192.168.2.x)"]
         lb["MetalLB<br/>192.168.2.20:514 UDP/TCP"]
         alloy["Alloy<br/>loki.source.syslog :1514"]
-        loki["Loki<br/>openebs-loki"]
+        loki["Loki<br/>openebs-loki<br/>tenant: unraid, 30d retention"]
         grafana["Grafana<br/>Explore"]
     end
     syslog --> lb --> alloy --> loki --> grafana

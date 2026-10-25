@@ -80,6 +80,8 @@ spec:
 
           loki.write "loki" {
             endpoint {
-              url = "http://openebs-loki.openebs:3100/loki/api/v1/push"
+              url       = "http://openebs-loki.openebs:3100/loki/api/v1/push"
+              // Loki runs with auth_enabled, so every push needs a tenant.
+              tenant_id = "unraid"
             }
           }
