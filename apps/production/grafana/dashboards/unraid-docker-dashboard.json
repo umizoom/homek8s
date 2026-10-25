@@ -83,8 +83,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
-        "w": 4,
+        "h": 5,
+        "w": 3,
         "x": 0,
         "y": 0
       },
@@ -173,9 +173,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
-        "w": 4,
-        "x": 4,
+        "h": 5,
+        "w": 3,
+        "x": 3,
         "y": 0
       },
       "id": 49,
@@ -262,9 +262,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
-        "w": 4,
-        "x": 8,
+        "h": 5,
+        "w": 3,
+        "x": 6,
         "y": 0
       },
       "id": 25,
@@ -335,9 +335,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
-        "w": 4,
-        "x": 12,
+        "h": 5,
+        "w": 3,
+        "x": 9,
         "y": 0
       },
       "id": 45,
@@ -405,9 +405,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
-        "w": 4,
-        "x": 16,
+        "h": 5,
+        "w": 3,
+        "x": 12,
         "y": 0
       },
       "id": 50,
@@ -483,9 +483,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
+        "h": 5,
         "w": 3,
-        "x": 20,
+        "x": 15,
         "y": 0
       },
       "id": 31,
@@ -566,10 +566,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 5,
         "w": 3,
-        "x": 20,
-        "y": 3
+        "x": 18,
+        "y": 0
       },
       "hideTimeOverride": true,
       "id": 44,
@@ -612,6 +612,96 @@
       "type": "stat"
     },
     {
+      "id": 60,
+      "type": "stat",
+      "title": "Syslog errors (24h)",
+      "description": "Unraid syslog lines at error severity or worse in the last 24 hours. Click through to Unraid Syslog for details.",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki-unraid"
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 21,
+        "y": 0
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki-unraid"
+          },
+          "queryType": "instant",
+          "expr": "sum(count_over_time({job=\"unraid-syslog\", severity=~\"emergency|alert|critical|error\"} [24h])) or vector(0)"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 0,
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 20
+              }
+            ]
+          },
+          "links": [
+            {
+              "title": "Open Unraid Syslog",
+              "url": "/d/unraid-syslog/unraid-syslog?${__url_time_range}&var-severity=emergency&var-severity=alert&var-severity=critical&var-severity=error"
+            }
+          ]
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      }
+    },
+    {
+      "id": 61,
+      "type": "row",
+      "title": "Containers",
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "panels": []
+    },
+    {
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -629,7 +719,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 0,
+            "fillOpacity": 10,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -672,22 +762,28 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 11,
+        "h": 9,
         "w": 12,
         "x": 0,
-        "y": 7
+        "y": 6
       },
       "id": 1,
       "options": {
         "legend": {
-          "calcs": [],
+          "showLegend": true,
           "displayMode": "table",
           "placement": "right",
-          "showLegend": true
+          "width": 240,
+          "calcs": [
+            "max",
+            "mean"
+          ],
+          "sortBy": "Max",
+          "sortDesc": true
         },
         "tooltip": {
           "mode": "multi",
-          "sort": "none"
+          "sort": "desc"
         }
       },
       "pluginVersion": "10.4.0",
@@ -698,7 +794,7 @@
             "uid": "Prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\".+\",instance=~\"$node\"}[1m])) by (name) * 10",
+          "expr": "100 * sum by (name) (rate(container_cpu_usage_seconds_total{name=~\".+\",instance=~\"$node\"}[$__rate_interval])) / scalar(max(machine_cpu_cores{instance=~\"$node\"}))",
           "format": "time_series",
           "hide": false,
           "interval": "",
@@ -711,6 +807,112 @@
         }
       ],
       "title": "CPU Usage per Container",
+      "type": "timeseries",
+      "description": "Share of total host CPU used by each container (100% = every thread busy), so it adds up against the CPU Busy card. Whatever the containers don't account for is the Home Assistant VM and the host itself."
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 55,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 1,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 6
+      },
+      "id": 38,
+      "options": {
+        "legend": {
+          "showLegend": true,
+          "displayMode": "table",
+          "placement": "right",
+          "width": 240,
+          "calcs": [
+            "max",
+            "mean"
+          ],
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "expr": "max by (name) (container_memory_usage_bytes{name!=\"\",instance=~\"$node\"})",
+          "format": "time_series",
+          "hide": false,
+          "intervalFactor": 2,
+          "legendFormat": "{{name}}",
+          "refId": "A",
+          "target": ""
+        }
+      ],
+      "title": "Used Memory per Container",
       "type": "timeseries"
     },
     {
@@ -740,7 +942,7 @@
             },
             "insertNulls": false,
             "lineInterpolation": "linear",
-            "lineWidth": 2,
+            "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
@@ -769,7 +971,8 @@
               }
             ]
           },
-          "unit": "Bps"
+          "unit": "MBs",
+          "decimals": 2
         },
         "overrides": [
           {
@@ -799,22 +1002,28 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 8,
         "w": 12,
-        "x": 12,
-        "y": 7
+        "x": 0,
+        "y": 15
       },
       "id": 8,
       "options": {
         "legend": {
-          "calcs": [],
+          "showLegend": true,
           "displayMode": "table",
           "placement": "right",
-          "showLegend": true
+          "width": 240,
+          "calcs": [
+            "max",
+            "mean"
+          ],
+          "sortBy": "Max",
+          "sortDesc": true
         },
         "tooltip": {
           "mode": "multi",
-          "sort": "none"
+          "sort": "desc"
         }
       },
       "pluginVersion": "10.4.0",
@@ -825,7 +1034,7 @@
             "uid": "Prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_network_receive_bytes_total{name!=\"\",instance=~\"$node\"}[1m])) by (name) /2",
+          "expr": "sum by (name) (rate(container_network_receive_bytes_total{name!=\"\",instance=~\"$node\",interface!~\"wg.*|tun.*\"}[$__rate_interval])) / 1e6",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
@@ -836,7 +1045,8 @@
         }
       ],
       "title": "Received Network Traffic per Container",
-      "type": "timeseries"
+      "type": "timeseries",
+      "description": "Megabytes per second received by each container. VPN tunnel interfaces (wg*, tun*) are excluded so VPN containers like qBittorrent are not counted twice."
     },
     {
       "datasource": {
@@ -865,7 +1075,7 @@
             },
             "insertNulls": false,
             "lineInterpolation": "linear",
-            "lineWidth": 2,
+            "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
@@ -894,27 +1104,34 @@
               }
             ]
           },
-          "unit": "Bps"
+          "unit": "MBs",
+          "decimals": 2
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 8,
         "w": 12,
         "x": 12,
-        "y": 14
+        "y": 15
       },
       "id": 9,
       "options": {
         "legend": {
-          "calcs": [],
+          "showLegend": true,
           "displayMode": "table",
           "placement": "right",
-          "showLegend": true
+          "width": 240,
+          "calcs": [
+            "max",
+            "mean"
+          ],
+          "sortBy": "Max",
+          "sortDesc": true
         },
         "tooltip": {
           "mode": "multi",
-          "sort": "none"
+          "sort": "desc"
         }
       },
       "pluginVersion": "10.4.0",
@@ -925,30 +1142,18 @@
             "uid": "Prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_network_transmit_bytes_total{name!=\"\",instance=~\"$node\"}[1m])) by (name) * 0.125",
+          "expr": "sum by (name) (rate(container_network_transmit_bytes_total{name!=\"\",instance=~\"$node\",interface!~\"wg.*|tun.*\"}[$__rate_interval])) / 1e6",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{name}}",
           "range": true,
           "refId": "A",
           "step": 240
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "Prometheus"
-          },
-          "expr": "rate(container_network_transmit_bytes_total{id=\"/\"}[$interval])",
-          "format": "time_series",
-          "hide": true,
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "refId": "B",
-          "step": 10
         }
       ],
       "title": "Sent Network Traffic per Container",
-      "type": "timeseries"
+      "type": "timeseries",
+      "description": "Megabytes per second sent by each container. VPN tunnel interfaces (wg*, tun*) are excluded so VPN containers like qBittorrent are not counted twice."
     },
     {
       "datasource": {
@@ -1074,10 +1279,10 @@
         ]
       },
       "gridPos": {
-        "h": 8,
+        "h": 10,
         "w": 12,
         "x": 0,
-        "y": 18
+        "y": 23
       },
       "id": 42,
       "options": {
@@ -1091,7 +1296,12 @@
           "show": false
         },
         "showHeader": true,
-        "sortBy": []
+        "sortBy": [
+          {
+            "displayName": "Used memory",
+            "desc": true
+          }
+        ]
       },
       "pluginVersion": "11.1.0",
       "targets": [
@@ -1138,110 +1348,19 @@
           "options": {
             "reducers": []
           }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "indexByName": {},
+            "renameByName": {}
+          }
         }
       ],
       "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "decimals": 1,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 12,
-        "y": 21
-      },
-      "id": 38,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "sortBy": "Name",
-          "sortDesc": false
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "10.4.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "Prometheus"
-          },
-          "expr": "container_memory_usage_bytes{name!=\"\",instance=~\"$node\"}",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "{{name}}",
-          "refId": "A",
-          "target": ""
-        }
-      ],
-      "title": "Used Memory per Container",
-      "type": "timeseries"
     },
     {
       "datasource": {
@@ -1305,22 +1424,28 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 10,
         "w": 12,
         "x": 12,
-        "y": 28
+        "y": 23
       },
       "id": 39,
       "options": {
         "legend": {
-          "calcs": [],
+          "showLegend": true,
           "displayMode": "table",
           "placement": "right",
-          "showLegend": true
+          "width": 240,
+          "calcs": [
+            "max",
+            "mean"
+          ],
+          "sortBy": "Max",
+          "sortDesc": true
         },
         "tooltip": {
           "mode": "multi",
-          "sort": "none"
+          "sort": "desc"
         }
       },
       "pluginVersion": "10.4.0",
@@ -1362,7 +1487,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 35
+        "y": 33
       },
       "panels": []
     },
@@ -1379,7 +1504,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 36
+        "y": 34
       },
       "targets": [
         {
@@ -1549,7 +1674,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 36
+        "y": 34
       },
       "targets": [
         {
@@ -1696,7 +1821,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 45
+        "y": 43
       },
       "panels": []
     },
@@ -1713,7 +1838,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 46
+        "y": 44
       },
       "targets": [
         {
@@ -1771,7 +1896,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 52
+        "y": 50
       },
       "targets": [
         {
@@ -1808,7 +1933,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 52
+        "y": 50
       },
       "targets": [
         {
