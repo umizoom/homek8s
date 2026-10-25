@@ -1,0 +1,24 @@
+---
+# Syslog entrypoint for Unraid (192.168.1.27) -> Alloy -> Loki.
+apiVersion: v1
+kind: Service
+metadata:
+  name: syslog-alloy-lb
+  namespace: default
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 192.168.2.20
+  # Alloy only runs on one replica; keep the source IP for logging.
+  externalTrafficPolicy: Local
+  selector:
+    app.kubernetes.io/name: alloy
+    app.kubernetes.io/instance: syslog-alloy
+  ports:
+    - name: syslog-udp
+      port: 514
+      targetPort: 1514
+      protocol: UDP
+    - name: syslog-tcp
+      port: 514
+      targetPort: 1514
+      protocol: TCP

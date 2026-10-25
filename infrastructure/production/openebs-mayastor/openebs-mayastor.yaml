@@ -67,3 +67,11 @@ spec:
       replicated:
         mayastor:
           enabled: true
+    # The bundled Loki keeps logs forever by default; drop anything older than 30 days.
+    loki:
+      loki:
+        compactor:
+          retention_enabled: true
+          delete_request_store: s3
+        limits_config:
+          retention_period: 720h

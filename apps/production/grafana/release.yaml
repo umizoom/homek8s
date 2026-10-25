@@ -60,7 +60,21 @@ spec:
             url: http://openebs-loki.openebs:3100
             jsonData:
               timeInterval: 1m
+              httpHeaderName1: X-Scope-OrgID
+            secureJsonData:
+              httpHeaderValue1: openebs
             # isDefault: true
+          # Loki is multi-tenant (auth_enabled), so each tenant needs its own datasource.
+          - name: Loki Unraid
+            type: loki
+            uid: loki-unraid
+            access: proxy
+            url: http://openebs-loki.openebs:3100
+            jsonData:
+              timeInterval: 1m
+              httpHeaderName1: X-Scope-OrgID
+            secureJsonData:
+              httpHeaderValue1: unraid
           - name: Prometheus
             type: prometheus
             uid: prometheus

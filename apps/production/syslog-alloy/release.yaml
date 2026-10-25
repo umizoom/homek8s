@@ -1,0 +1,87 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: syslog-alloy
+  namespace: default
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: alloy
+      version: 1.13.1
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: default
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controller:
+      type: deployment
+      replicas: 1
+    alloy:
+      # Unprivileged, so listen above 1024. service.yaml maps 514 -> 1514.
+      extraPorts:
+        - name: syslog-udp
+          port: 1514
+          targetPort: 1514
+          protocol: UDP
+        - name: syslog-tcp
+          port: 1514
+          targetPort: 1514
+          protocol: TCP
+      configMap:
+        content: |
+          // Receive syslog from Unraid and ship it to Loki (queried from Grafana).
+          loki.source.syslog "unraid" {
+            // Unraid sends classic BSD (RFC3164) syslog. The incoming timestamp has
+            // no timezone, so keep Alloy's receive time instead of parsing it.
+            listener {
+              address       = "0.0.0.0:1514"
+              protocol      = "udp"
+              syslog_format = "rfc3164"
+              labels        = { job = "unraid-syslog", host = "Mini" }
+            }
+
+            listener {
+              address       = "0.0.0.0:1514"
+              protocol      = "tcp"
+              syslog_format = "rfc3164"
+              labels        = { job = "unraid-syslog", host = "Mini" }
+            }
+
+            relabel_rules = loki.relabel.syslog.rules
+            forward_to    = [loki.write.loki.receiver]
+          }
+
+          loki.relabel "syslog" {
+            // Keep these as queryable labels (they are dropped by default as __ labels).
+            rule {
+              source_labels = ["__syslog_message_severity"]
+              target_label  = "severity"
+            }
+            rule {
+              source_labels = ["__syslog_message_facility"]
+              target_label  = "facility"
+            }
+            rule {
+              source_labels = ["__syslog_message_app_name"]
+              target_label  = "app"
+            }
+            forward_to = []
+          }
+
+          loki.write "loki" {
+            endpoint {
+              url       = "http://openebs-loki.openebs:3100/loki/api/v1/push"
+              // Loki runs with auth_enabled, so every push needs a tenant.
+              tenant_id = "unraid"
+            }
+          }
