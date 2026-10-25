@@ -280,4 +280,9 @@ The Omada controller runs in the cluster (`apps/production/omada`) behind the Me
 - **Web UI:** `https://omada.basingse.ca` (nginx ingress, TLS to the backend), or `https://192.168.2.21:8043` directly.
 - **Version:** the image tag must match the controller a backup is restored from (restores only work between identical versions).
 - **Migrating from another controller:** in the old controller go to Settings > Migration > Controller Migration, export the settings, import them into the new controller, then run "Migrate Devices" so the APs are pointed at the new address.
-- **New or factory-reset APs:** L2 broadcast discovery (UDP 29810) does not cross subnets. Set DHCP option 138 on the OPNsense `LAN` scope to `192.168.2.21`, or enter the controller address on the AP's web page.
+- **New or factory-reset APs:** L2 broadcast discovery (UDP 29810) does not cross subnets, so a new AP cannot find the controller on its own. This is handled by a DHCP option on OPNsense:
+  - Services > ISC DHCPv4 > `LAN` > Additional BOOTP/DHCP Options: Number `138`, Type `IP address`, Value `192.168.2.21` (the controller's MetalLB IP).
+  - It only applies when a device takes a new lease. A new or reset AP then appears as Pending in the controller; click Adopt.
+  - Fallback: enter `192.168.2.21` as the controller address on the AP's own web page.
+  - If the controller's IP ever changes, update this option too.
+- **Migrated APs:** the migration wizard points APs at `<ip>:8043` and they send UDP discovery packets to that port, which the Service maps to the pod's UDP 29810 listener. Keep that `8043/UDP` entry on the Service.
