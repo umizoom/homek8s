@@ -252,3 +252,23 @@ flux bootstrap github \
 ## Diagram
 
 ![Home Network](./home_network_overview.png)
+
+### Unraid syslog
+
+Unraid forwards its syslog to the cluster so logs survive a hang or reboot (`/var/log` on Unraid is RAM). Alloy receives it and writes to Loki; read it in Grafana → Explore → `Loki` with `{job="unraid-syslog"}`.
+
+```mermaid
+flowchart LR
+    subgraph unraid["UnRaid (192.168.1.27)"]
+        syslog["syslog<br/>remote syslog server"]
+    end
+    subgraph k8s["k8s (192.168.2.x)"]
+        lb["MetalLB<br/>192.168.2.20:514 UDP/TCP"]
+        alloy["Alloy<br/>loki.source.syslog :1514"]
+        loki["Loki<br/>openebs-loki"]
+        grafana["Grafana<br/>Explore"]
+    end
+    syslog --> lb --> alloy --> loki --> grafana
+```
+
+Manifests are in `apps/production/syslog-alloy/`. In Unraid, set Settings → Syslog Server → Remote syslog server to `192.168.2.20`, port `514` (UDP or TCP).

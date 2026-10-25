@@ -14,3 +14,4 @@ resources:
   - ./readarr  # currently broken due to hotio.dev/containers/readarr being deleted.
   - ./nebula-sync
   - ./notifications
+  - ./syslog-alloy
