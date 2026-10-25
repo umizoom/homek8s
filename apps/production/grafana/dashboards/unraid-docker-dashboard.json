@@ -1370,7 +1370,7 @@
       "id": 52,
       "type": "bargauge",
       "title": "Busiest disks (I/O busy %)",
-      "description": "Share of the selected time range each spinning disk spent doing I/O. Highest = most active. Devices are sdX names; letters can change after a reboot, see Unraid's Main tab for the disk mapping.",
+      "description": "Share of the selected time range each spinning disk spent doing I/O. Highest = most active. Disks are named by serial number, which stays the same across reboots (sdX letters do not).",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -1383,12 +1383,12 @@
       },
       "targets": [
         {
-          "expr": "100 * sum by (device) (increase(node_disk_io_time_seconds_total{job=\"unraid-nodeexporter\"}[$__range]) and on(device,instance) (node_disk_ata_rotation_rate_rpm{job=\"unraid-nodeexporter\"} > 0)) / $__range_s",
+          "expr": "100 * sum by (serial) ((increase(node_disk_io_time_seconds_total{job=\"unraid-nodeexporter\"}[$__range]) and on(device,instance) (node_disk_ata_rotation_rate_rpm{job=\"unraid-nodeexporter\"} > 0)) * on(device,instance) group_left(serial) node_disk_info{job=\"unraid-nodeexporter\"}) / $__range_s",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "legendFormat": "{{device}}",
+          "legendFormat": "{{serial}}",
           "instant": true,
           "refId": "A"
         }
@@ -1419,79 +1419,104 @@
           },
           "max": 100
         },
-        "overrides": []
-      },
-      "options": {
-        "orientation": "horizontal",
-        "displayMode": "gradient",
-        "showUnfilled": true,
-        "valueMode": "color",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "namePlacement": "auto",
-        "sizing": "auto",
-        "minVizHeight": 16,
-        "minVizWidth": 8
-      }
-    },
-    {
-      "id": 53,
-      "type": "bargauge",
-      "title": "Disk spin-downs (\u2248 spin-ups)",
-      "description": "Times each disk spun down in the selected range. Every spin-down follows a spin-up, so this approximates spin-ups. Source: Unraid syslog (Loki), history starts when syslog forwarding was enabled.",
-      "datasource": {
-        "type": "loki",
-        "uid": "loki-unraid"
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 36
-      },
-      "targets": [
-        {
-          "expr": "sum by (disk) (count_over_time({job=\"unraid-syslog\", app=\"emhttpd\"} |= \"spinning down\" | regexp \"spinning down /dev/(?P<disk>[a-z0-9]+)\" [$__range]))",
-          "datasource": {
-            "type": "loki",
-            "uid": "loki-unraid"
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "VH0M5G0M"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Disk 1"
+              }
+            ]
           },
-          "legendFormat": "{{disk}}",
-          "instant": true,
-          "refId": "A"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ZTN04Y51"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Disk 2"
+              }
+            ]
           },
-          "unit": "none",
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "VH0LAMLM"
+            },
+            "properties": [
               {
-                "color": "green",
-                "value": null
-              },
+                "id": "displayName",
+                "value": "Disk 3"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ZA2DWNES"
+            },
+            "properties": [
               {
-                "color": "yellow",
-                "value": 3
-              },
+                "id": "displayName",
+                "value": "Disk 4"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ZA2CRSZ1"
+            },
+            "properties": [
               {
-                "color": "red",
-                "value": 8
+                "id": "displayName",
+                "value": "Disk 5"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ZTN04SHB"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Disk 6"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "2CH9LB8N"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Parity 2"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ZR900D1R"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Reserve (ZR900D1R)"
               }
             ]
           }
-        },
-        "overrides": []
+        ]
       },
       "options": {
         "orientation": "horizontal",
@@ -1515,7 +1540,7 @@
       "id": 54,
       "type": "timeseries",
       "title": "Disk throughput (read + write)",
-      "description": "Combined read and write rate per spinning disk.",
+      "description": "Combined read and write rate per spinning disk, named by serial number.",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -1523,17 +1548,17 @@
       "gridPos": {
         "h": 9,
         "w": 12,
-        "x": 0,
-        "y": 45
+        "x": 12,
+        "y": 36
       },
       "targets": [
         {
-          "expr": "sum by (device) ((rate(node_disk_read_bytes_total{job=\"unraid-nodeexporter\"}[$__rate_interval]) + rate(node_disk_written_bytes_total{job=\"unraid-nodeexporter\"}[$__rate_interval])) and on(device,instance) (node_disk_ata_rotation_rate_rpm{job=\"unraid-nodeexporter\"} > 0))",
+          "expr": "sum by (serial) (((rate(node_disk_read_bytes_total{job=\"unraid-nodeexporter\"}[$__rate_interval]) + rate(node_disk_written_bytes_total{job=\"unraid-nodeexporter\"}[$__rate_interval])) and on(device,instance) (node_disk_ata_rotation_rate_rpm{job=\"unraid-nodeexporter\"} > 0)) * on(device,instance) group_left(serial) node_disk_info{job=\"unraid-nodeexporter\"})",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "legendFormat": "{{device}}",
+          "legendFormat": "{{serial}}",
           "refId": "A"
         }
       ],
@@ -1548,66 +1573,104 @@
           "unit": "Bps",
           "min": 0
         },
-        "overrides": []
-      },
-      "options": {
-        "legend": {
-          "displayMode": "table",
-          "placement": "bottom",
-          "calcs": [
-            "mean",
-            "max"
-          ]
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      }
-    },
-    {
-      "id": 55,
-      "type": "timeseries",
-      "title": "Disk spin-downs over time",
-      "description": "Spin-down events per disk per interval, a proxy for when each disk had been spun up.",
-      "datasource": {
-        "type": "loki",
-        "uid": "loki-unraid"
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 45
-      },
-      "targets": [
-        {
-          "expr": "sum by (disk) (count_over_time({job=\"unraid-syslog\", app=\"emhttpd\"} |= \"spinning down\" | regexp \"spinning down /dev/(?P<disk>[a-z0-9]+)\" [$__auto]))",
-          "queryType": "range",
-          "datasource": {
-            "type": "loki",
-            "uid": "loki-unraid"
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "VH0M5G0M"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Disk 1"
+              }
+            ]
           },
-          "legendFormat": "{{disk}}",
-          "refId": "A"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "drawStyle": "bars",
-            "lineWidth": 0,
-            "fillOpacity": 70,
-            "showPoints": "never",
-            "stacking": {
-              "mode": "normal",
-              "group": "A"
-            }
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ZTN04Y51"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Disk 2"
+              }
+            ]
           },
-          "unit": "none",
-          "min": 0
-        },
-        "overrides": []
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "VH0LAMLM"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Disk 3"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ZA2DWNES"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Disk 4"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ZA2CRSZ1"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Disk 5"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ZTN04SHB"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Disk 6"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "2CH9LB8N"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Parity 2"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ZR900D1R"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Reserve (ZR900D1R)"
+              }
+            ]
+          }
+        ]
       },
       "options": {
         "legend": {
@@ -1633,7 +1696,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 54
+        "y": 45
       },
       "panels": []
     },
@@ -1650,7 +1713,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 55
+        "y": 46
       },
       "targets": [
         {
@@ -1708,7 +1771,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 61
+        "y": 52
       },
       "targets": [
         {
@@ -1745,7 +1808,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 61
+        "y": 52
       },
       "targets": [
         {
