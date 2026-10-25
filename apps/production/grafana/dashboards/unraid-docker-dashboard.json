@@ -1512,83 +1512,11 @@
             "properties": [
               {
                 "id": "displayName",
-                "value": "Unassigned (ZR900D1R)"
+                "value": "Reserve (ZR900D1R)"
               }
             ]
           }
         ]
-      },
-      "options": {
-        "orientation": "horizontal",
-        "displayMode": "gradient",
-        "showUnfilled": true,
-        "valueMode": "color",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "namePlacement": "auto",
-        "sizing": "auto",
-        "minVizHeight": 16,
-        "minVizWidth": 8
-      }
-    },
-    {
-      "id": 53,
-      "type": "bargauge",
-      "title": "Disk spin-downs (\u2248 spin-ups)",
-      "description": "Times each disk spun down in the selected range. Every spin-down follows a spin-up, so this approximates spin-ups. Source: Unraid syslog (Loki), history starts when syslog forwarding was enabled.",
-      "datasource": {
-        "type": "loki",
-        "uid": "loki-unraid"
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 36
-      },
-      "targets": [
-        {
-          "expr": "sum by (disk) (count_over_time({job=\"unraid-syslog\", app=\"emhttpd\"} |= \"spinning down\" | regexp \"spinning down /dev/(?P<disk>[a-z0-9]+)\" [$__range]))",
-          "datasource": {
-            "type": "loki",
-            "uid": "loki-unraid"
-          },
-          "legendFormat": "{{disk}}",
-          "instant": true,
-          "refId": "A"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "unit": "none",
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 3
-              },
-              {
-                "color": "red",
-                "value": 8
-              }
-            ]
-          }
-        },
-        "overrides": []
       },
       "options": {
         "orientation": "horizontal",
@@ -1620,8 +1548,8 @@
       "gridPos": {
         "h": 9,
         "w": 12,
-        "x": 0,
-        "y": 45
+        "x": 12,
+        "y": 36
       },
       "targets": [
         {
@@ -1738,70 +1666,11 @@
             "properties": [
               {
                 "id": "displayName",
-                "value": "Unassigned (ZR900D1R)"
+                "value": "Reserve (ZR900D1R)"
               }
             ]
           }
         ]
-      },
-      "options": {
-        "legend": {
-          "displayMode": "table",
-          "placement": "bottom",
-          "calcs": [
-            "mean",
-            "max"
-          ]
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      }
-    },
-    {
-      "id": 55,
-      "type": "timeseries",
-      "title": "Disk spin-downs over time",
-      "description": "Spin-down events per disk per interval, a proxy for when each disk had been spun up.",
-      "datasource": {
-        "type": "loki",
-        "uid": "loki-unraid"
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 45
-      },
-      "targets": [
-        {
-          "expr": "sum by (disk) (count_over_time({job=\"unraid-syslog\", app=\"emhttpd\"} |= \"spinning down\" | regexp \"spinning down /dev/(?P<disk>[a-z0-9]+)\" [$__auto]))",
-          "queryType": "range",
-          "datasource": {
-            "type": "loki",
-            "uid": "loki-unraid"
-          },
-          "legendFormat": "{{disk}}",
-          "refId": "A"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "drawStyle": "bars",
-            "lineWidth": 0,
-            "fillOpacity": 70,
-            "showPoints": "never",
-            "stacking": {
-              "mode": "normal",
-              "group": "A"
-            }
-          },
-          "unit": "none",
-          "min": 0
-        },
-        "overrides": []
       },
       "options": {
         "legend": {
@@ -1827,7 +1696,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 54
+        "y": 45
       },
       "panels": []
     },
@@ -1844,7 +1713,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 55
+        "y": 46
       },
       "targets": [
         {
@@ -1902,7 +1771,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 61
+        "y": 52
       },
       "targets": [
         {
@@ -1939,7 +1808,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 61
+        "y": 52
       },
       "targets": [
         {
