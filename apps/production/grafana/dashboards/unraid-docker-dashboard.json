@@ -20,7 +20,20 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 10566,
   "graphTooltip": 1,
-  "links": [],
+  "links": [
+    {
+      "title": "Unraid Syslog",
+      "type": "link",
+      "icon": "doc",
+      "url": "/d/unraid-syslog/unraid-syslog",
+      "targetBlank": false,
+      "tooltip": "Search and filter all Unraid logs",
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "tags": []
+    }
+  ],
   "liveNow": false,
   "panels": [
     {
@@ -1339,6 +1352,423 @@
       ],
       "title": "Limit Memory per Container",
       "type": "timeseries"
+    },
+    {
+      "id": 51,
+      "type": "row",
+      "title": "Disk activity",
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 35
+      },
+      "panels": []
+    },
+    {
+      "id": 52,
+      "type": "bargauge",
+      "title": "Busiest disks (I/O busy %)",
+      "description": "Share of the selected time range each spinning disk spent doing I/O. Highest = most active. Devices are sdX names; letters can change after a reboot, see Unraid's Main tab for the disk mapping.",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 36
+      },
+      "targets": [
+        {
+          "expr": "100 * sum by (device) (increase(node_disk_io_time_seconds_total{job=\"unraid-nodeexporter\"}[$__range]) and on(device,instance) (node_disk_ata_rotation_rate_rpm{job=\"unraid-nodeexporter\"} > 0)) / $__range_s",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{device}}",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "unit": "percent",
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 10
+              },
+              {
+                "color": "red",
+                "value": 40
+              }
+            ]
+          },
+          "max": 100
+        },
+        "overrides": []
+      },
+      "options": {
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "showUnfilled": true,
+        "valueMode": "color",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "namePlacement": "auto",
+        "sizing": "auto",
+        "minVizHeight": 16,
+        "minVizWidth": 8
+      }
+    },
+    {
+      "id": 53,
+      "type": "bargauge",
+      "title": "Disk spin-downs (\u2248 spin-ups)",
+      "description": "Times each disk spun down in the selected range. Every spin-down follows a spin-up, so this approximates spin-ups. Source: Unraid syslog (Loki), history starts when syslog forwarding was enabled.",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki-unraid"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 36
+      },
+      "targets": [
+        {
+          "expr": "sum by (disk) (count_over_time({job=\"unraid-syslog\", app=\"emhttpd\"} |= \"spinning down\" | regexp \"spinning down /dev/(?P<disk>[a-z0-9]+)\" [$__range]))",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki-unraid"
+          },
+          "legendFormat": "{{disk}}",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "unit": "none",
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 3
+              },
+              {
+                "color": "red",
+                "value": 8
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "showUnfilled": true,
+        "valueMode": "color",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "namePlacement": "auto",
+        "sizing": "auto",
+        "minVizHeight": 16,
+        "minVizWidth": 8
+      }
+    },
+    {
+      "id": 54,
+      "type": "timeseries",
+      "title": "Disk throughput (read + write)",
+      "description": "Combined read and write rate per spinning disk.",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 45
+      },
+      "targets": [
+        {
+          "expr": "sum by (device) ((rate(node_disk_read_bytes_total{job=\"unraid-nodeexporter\"}[$__rate_interval]) + rate(node_disk_written_bytes_total{job=\"unraid-nodeexporter\"}[$__rate_interval])) and on(device,instance) (node_disk_ata_rotation_rate_rpm{job=\"unraid-nodeexporter\"} > 0))",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "legendFormat": "{{device}}",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 20,
+            "showPoints": "never"
+          },
+          "unit": "Bps",
+          "min": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "mean",
+            "max"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 55,
+      "type": "timeseries",
+      "title": "Disk spin-downs over time",
+      "description": "Spin-down events per disk per interval, a proxy for when each disk had been spun up.",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki-unraid"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 45
+      },
+      "targets": [
+        {
+          "expr": "sum by (disk) (count_over_time({job=\"unraid-syslog\", app=\"emhttpd\"} |= \"spinning down\" | regexp \"spinning down /dev/(?P<disk>[a-z0-9]+)\" [$__auto]))",
+          "queryType": "range",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki-unraid"
+          },
+          "legendFormat": "{{disk}}",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "bars",
+            "lineWidth": 0,
+            "fillOpacity": 70,
+            "showPoints": "never",
+            "stacking": {
+              "mode": "normal",
+              "group": "A"
+            }
+          },
+          "unit": "none",
+          "min": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "mean",
+            "max"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 56,
+      "type": "row",
+      "title": "Logs",
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 54
+      },
+      "panels": []
+    },
+    {
+      "id": 57,
+      "type": "timeseries",
+      "title": "Log volume by severity",
+      "description": "Unraid syslog lines per interval.",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki-unraid"
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 55
+      },
+      "targets": [
+        {
+          "expr": "sum by (severity) (count_over_time({job=\"unraid-syslog\"} [$__auto]))",
+          "queryType": "range",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki-unraid"
+          },
+          "legendFormat": "{{severity}}",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "bars",
+            "lineWidth": 0,
+            "fillOpacity": 70,
+            "showPoints": "never",
+            "stacking": {
+              "mode": "normal",
+              "group": "A"
+            }
+          },
+          "unit": "short",
+          "min": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "mean",
+            "max"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 58,
+      "type": "logs",
+      "title": "Errors and kernel problems (OOM, hung tasks, I/O)",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki-unraid"
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 61
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki-unraid"
+          },
+          "expr": "{job=\"unraid-syslog\"} |~ \"(?i)out of memory|oom-kill|oom_reaper|hung task|blocked for more than|call trace|i/o error|machine check|segfault|soft lockup|hard lockup|ata[0-9]+.*(error|failed|reset)\"",
+          "queryType": "range",
+          "maxLines": 500
+        }
+      ],
+      "options": {
+        "showTime": true,
+        "showLabels": false,
+        "showCommonLabels": false,
+        "wrapLogMessage": true,
+        "prettifyLogMessage": false,
+        "enableLogDetails": true,
+        "dedupStrategy": "none",
+        "sortOrder": "Descending"
+      }
+    },
+    {
+      "id": 59,
+      "type": "logs",
+      "title": "Recent Unraid syslog",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki-unraid"
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 61
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki-unraid"
+          },
+          "expr": "{job=\"unraid-syslog\"}",
+          "queryType": "range",
+          "maxLines": 500
+        }
+      ],
+      "options": {
+        "showTime": true,
+        "showLabels": false,
+        "showCommonLabels": false,
+        "wrapLogMessage": true,
+        "prettifyLogMessage": false,
+        "enableLogDetails": true,
+        "dedupStrategy": "none",
+        "sortOrder": "Descending"
+      }
     }
   ],
   "refresh": "5s",

@@ -1,0 +1,214 @@
+{
+  "uid": "unraid-syslog",
+  "title": "Unraid Syslog",
+  "tags": [
+    "unraid",
+    "logs"
+  ],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "editable": true,
+  "graphTooltip": 1,
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "refresh": "30s",
+  "templating": {
+    "list": [
+      {
+        "name": "app",
+        "label": "app",
+        "type": "query",
+        "datasource": {
+          "type": "loki",
+          "uid": "loki-unraid"
+        },
+        "query": {
+          "label": "app",
+          "refId": "LokiVariableQueryEditor-VariableQuery",
+          "stream": "{job=\"unraid-syslog\"}",
+          "type": 1
+        },
+        "refresh": 2,
+        "includeAll": true,
+        "allValue": ".*",
+        "multi": true,
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        },
+        "sort": 1
+      },
+      {
+        "name": "severity",
+        "label": "severity",
+        "type": "query",
+        "datasource": {
+          "type": "loki",
+          "uid": "loki-unraid"
+        },
+        "query": {
+          "label": "severity",
+          "refId": "LokiVariableQueryEditor-VariableQuery",
+          "stream": "{job=\"unraid-syslog\"}",
+          "type": 1
+        },
+        "refresh": 2,
+        "includeAll": true,
+        "allValue": ".*",
+        "multi": true,
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        },
+        "sort": 1
+      },
+      {
+        "name": "search",
+        "label": "search",
+        "type": "textbox",
+        "query": "",
+        "current": {
+          "text": "",
+          "value": ""
+        },
+        "options": [
+          {
+            "selected": true,
+            "text": "",
+            "value": ""
+          }
+        ]
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "Log volume by severity",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki-unraid"
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki-unraid"
+          },
+          "expr": "sum by (severity) (count_over_time({job=\"unraid-syslog\", app=~\"$app\", severity=~\"$severity\"} |~ \"(?i)$search\" [$__auto]))",
+          "legendFormat": "{{severity}}",
+          "queryType": "range"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "bars",
+            "fillOpacity": 60,
+            "stacking": {
+              "mode": "normal",
+              "group": "A"
+            },
+            "lineWidth": 0
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "type": "logs",
+      "title": "Unraid syslog",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki-unraid"
+      },
+      "gridPos": {
+        "h": 16,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki-unraid"
+          },
+          "expr": "{job=\"unraid-syslog\", app=~\"$app\", severity=~\"$severity\"} |~ \"(?i)$search\"",
+          "queryType": "range",
+          "maxLines": 1000
+        }
+      ],
+      "options": {
+        "showTime": true,
+        "showLabels": false,
+        "showCommonLabels": false,
+        "wrapLogMessage": true,
+        "prettifyLogMessage": false,
+        "enableLogDetails": true,
+        "dedupStrategy": "none",
+        "sortOrder": "Descending"
+      }
+    },
+    {
+      "id": 3,
+      "type": "logs",
+      "title": "Errors and kernel problems (OOM, hung tasks, I/O)",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki-unraid"
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki-unraid"
+          },
+          "queryType": "range",
+          "maxLines": 500,
+          "expr": "{job=\"unraid-syslog\"} |~ \"(?i)out of memory|oom-kill|oom_reaper|hung task|blocked for more than|call trace|i/o error|machine check|segfault|soft lockup|hard lockup|ata[0-9]+.*(error|failed|reset)\""
+        }
+      ],
+      "options": {
+        "showTime": true,
+        "showLabels": false,
+        "showCommonLabels": false,
+        "wrapLogMessage": true,
+        "enableLogDetails": true,
+        "dedupStrategy": "none",
+        "sortOrder": "Descending"
+      }
+    }
+  ]
+}
