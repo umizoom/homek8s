@@ -4,6 +4,21 @@ resources:
   - ../../base/metallb
   - ip-pool.yaml
   - l2-advertisement.yaml
-
-
-
+  - metrics-auth-rbac.yaml
+# The generic kubernetes-pods job scrapes annotated pods over plain HTTP, which MetalLB
+# rejects. Opt out so the dedicated `metallb` job in apps/production/prometheus is the only scraper.
+patches:
+  - target:
+      kind: DaemonSet
+      name: speaker
+    patch: |-
+      - op: replace
+        path: /spec/template/metadata/annotations/prometheus.io~1scrape
+        value: "false"
+  - target:
+      kind: Deployment
+      name: controller
+    patch: |-
+      - op: replace
+        path: /spec/template/metadata/annotations/prometheus.io~1scrape
+        value: "false"
