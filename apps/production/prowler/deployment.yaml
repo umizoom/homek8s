@@ -56,6 +56,9 @@ spec:
               value: "443/tcp"
               # https://hotio.dev/containers/prowlarr/#tags
           image: ghcr.io/hotio/prowlarr:latest@sha256:59640210c491e79cadee466e9e7226d141130a0cdc9b4d012c45be3081c1e663
+          resources:
+            limits:
+              memory: 512Mi
           name: prowlarr
           securityContext:
             capabilities:

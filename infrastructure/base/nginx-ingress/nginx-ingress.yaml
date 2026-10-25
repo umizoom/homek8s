@@ -34,5 +34,7 @@ spec:
     controller:
       enableSnippets: true
       replicaCount: 1
+      resources:
+        limits:
+          memory: 1Gi
       # kind: daemonset
-

@@ -24,6 +24,13 @@ spec:
       retries: 3
   values:
     alertmanager:
+      resources:
+        limits:
+          memory: 128Mi
+      configmapReload:
+        resources:
+          limits:
+            memory: 64Mi
       enabled: true
       image:
         # chart default (v0.27.0) has no webhook_url_file for Discord; added in v0.28.1
@@ -55,7 +62,27 @@ spec:
             target_matchers:
               - severity = warning
             equal: [node]
+    kube-state-metrics:
+      resources:
+        limits:
+          memory: 256Mi
+    prometheus-node-exporter:
+      resources:
+        limits:
+          memory: 128Mi
+    prometheus-pushgateway:
+      resources:
+        limits:
+          memory: 128Mi
+    configmapReload:
+      prometheus:
+        resources:
+          limits:
+            memory: 64Mi
     server:
+      resources:
+        limits:
+          memory: 3Gi
       persistentVolume:
         existingClaim: "prometheus-server-claim"
         storageClass: "replicated-storage"

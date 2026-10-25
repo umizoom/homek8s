@@ -1,0 +1,14 @@
+# Backstop so a pod without an explicit memory limit cannot take down a node.
+# Apps that need more than this set their own limit.
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: default-memory-limit
+  namespace: default
+spec:
+  limits:
+    - type: Container
+      default:
+        memory: 1Gi
+      defaultRequest:
+        memory: 64Mi

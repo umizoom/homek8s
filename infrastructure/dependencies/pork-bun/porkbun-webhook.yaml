@@ -56,6 +56,9 @@ spec:
         name: porkbun-webhook
   values:
     groupName: basingse.ca
+    resources:
+      limits:
+        memory: 128Mi
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer

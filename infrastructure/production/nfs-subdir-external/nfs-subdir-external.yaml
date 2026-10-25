@@ -6,6 +6,9 @@ metadata:
   namespace: nfs-provisioner
 spec:
   values:
+    resources:
+      limits:
+        memory: 128Mi
     nfs:
       server: 192.168.1.27
       path: /mnt/user/home-cluster-nfs

@@ -28,6 +28,9 @@ spec:
       containers:
         - name: bitwarden-cli
           image: ghcr.io/umizoom/bitwarden-cli:2026.9.1
+          resources:
+            limits:
+              memory: 512Mi
           imagePullPolicy: IfNotPresent
           env:
             - name: BW_HOST

@@ -23,6 +23,9 @@ spec:
             - name: TZ
               value: America/New_York
           image: chaptarr/chaptarr:0.9.965
+          resources:
+            limits:
+              memory: 1Gi
           name: chaptarr
           ports:
             - containerPort: 8789

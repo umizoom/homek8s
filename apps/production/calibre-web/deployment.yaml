@@ -27,6 +27,9 @@ spec:
               # https://github.com/linuxserver/docker-calibre-web/releases
               # https://github.com/janeczku/calibre-web/releases
           image: lscr.io/linuxserver/calibre-web:latest@sha256:470b4ed9a7d6ea1475fef17dbcf957cb60880910296d226bd0dca652c05f68ca
+          resources:
+            limits:
+              memory: 768Mi
           name: calibre-web
           ports:
             - containerPort: 8083

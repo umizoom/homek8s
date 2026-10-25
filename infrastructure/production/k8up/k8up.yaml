@@ -25,3 +25,8 @@ spec:
         namespace: default
       interval: 12h
 
+  values:
+    k8up:
+      globalResources:
+        limits:
+          memory: 1Gi

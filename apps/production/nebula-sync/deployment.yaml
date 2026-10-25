@@ -45,3 +45,6 @@ spec:
                   key: password
           name:  nebula-sync
           image: ghcr.io/lovelaze/nebula-sync:v0.11.3
+          resources:
+            limits:
+              memory: 256Mi

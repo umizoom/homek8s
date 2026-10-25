@@ -23,6 +23,9 @@ spec:
       strategy: rollback
       retries: 3
   values:
+    resources:
+      limits:
+        memory: 512Mi
     deploymentStrategy:
       type: Recreate
     # admin:
@@ -186,6 +189,9 @@ spec:
         #     - { name: DS_PROMETHEUS, value: Prometheus }
         #     - { name: VAR_REPLICATIONDESTNAME, value: .*-dst }
     sidecar:
+      resources:
+        limits:
+          memory: 256Mi
       dashboards:
         enabled: true
         searchNamespace: ALL
