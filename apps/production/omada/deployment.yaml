@@ -20,7 +20,7 @@ spec:
         # https://github.com/mbentley/docker-omada-controller
         # Must match the version of the controller being migrated from.
         - name: omada
-          image: mbentley/omada-controller:5.15.24.19
+          image: mbentley/omada-controller:6.3.0.111
           env:
             - name: TZ
               value: America/New_York
