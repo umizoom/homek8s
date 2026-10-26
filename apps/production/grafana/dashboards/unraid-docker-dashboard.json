@@ -527,7 +527,7 @@
             "type": "prometheus",
             "uid": "Prometheus"
           },
-          "expr": "count(rate(container_last_seen{id=~\"/docker/.*\",instance=~\"$node\"}[5m]))",
+          "expr": "count(rate(container_last_seen{job=\"unraid-cadvisor\",id=~\"/docker/.*\",instance=~\"$node\"}[5m]))",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
@@ -793,7 +793,7 @@
             "uid": "Prometheus"
           },
           "editorMode": "code",
-          "expr": "100 * sum by (name) (rate(container_cpu_usage_seconds_total{name=~\".+\",instance=~\"$node\"}[$__rate_interval])) / scalar(max(machine_cpu_cores{instance=~\"$node\"}))",
+          "expr": "100 * sum by (name) (rate(container_cpu_usage_seconds_total{job=\"unraid-cadvisor\",name=~\".+\",instance=~\"$node\"}[$__rate_interval])) / scalar(max(machine_cpu_cores{job=\"unraid-cadvisor\",instance=~\"$node\"}))",
           "format": "time_series",
           "hide": false,
           "interval": "",
@@ -902,7 +902,7 @@
             "type": "prometheus",
             "uid": "Prometheus"
           },
-          "expr": "max by (name) (container_memory_working_set_bytes{name!=\"\",instance=~\"$node\"})",
+          "expr": "max by (name) (container_memory_working_set_bytes{job=\"unraid-cadvisor\",name!=\"\",instance=~\"$node\"})",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
@@ -1033,7 +1033,7 @@
             "uid": "Prometheus"
           },
           "editorMode": "code",
-          "expr": "sum by (name) (rate(container_network_receive_bytes_total{name!=\"\",instance=~\"$node\",interface!~\"wg.*|tun.*\"}[$__rate_interval])) / 1e6",
+          "expr": "sum by (name) (rate(container_network_receive_bytes_total{job=\"unraid-cadvisor\",name!=\"\",instance=~\"$node\",interface!~\"wg.*|tun.*\"}[$__rate_interval])) / 1e6",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
@@ -1140,7 +1140,7 @@
             "uid": "Prometheus"
           },
           "editorMode": "code",
-          "expr": "sum by (name) (rate(container_network_transmit_bytes_total{name!=\"\",instance=~\"$node\",interface!~\"wg.*|tun.*\"}[$__rate_interval])) / 1e6",
+          "expr": "sum by (name) (rate(container_network_transmit_bytes_total{job=\"unraid-cadvisor\",name!=\"\",instance=~\"$node\",interface!~\"wg.*|tun.*\"}[$__rate_interval])) / 1e6",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{name}}",
@@ -1323,7 +1323,7 @@
             "type": "prometheus",
             "uid": "Prometheus"
           },
-          "expr": "max by (name) (container_memory_working_set_bytes{name!=\"\",instance=~\"$node\"})",
+          "expr": "max by (name) (container_memory_working_set_bytes{job=\"unraid-cadvisor\",name!=\"\",instance=~\"$node\"})",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -1336,7 +1336,7 @@
             "type": "prometheus",
             "uid": "Prometheus"
           },
-          "expr": "max by (name) (container_memory_max_usage_bytes{name!=\"\",instance=~\"$node\"})",
+          "expr": "max by (name) (container_memory_max_usage_bytes{job=\"unraid-cadvisor\",name!=\"\",instance=~\"$node\"})",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
@@ -1349,7 +1349,7 @@
             "type": "prometheus",
             "uid": "Prometheus"
           },
-          "expr": "max by (name) (container_spec_memory_limit_bytes{name!=\"\",instance=~\"$node\"})",
+          "expr": "max by (name) (container_spec_memory_limit_bytes{job=\"unraid-cadvisor\",name!=\"\",instance=~\"$node\"})",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
@@ -1495,7 +1495,7 @@
             "type": "prometheus",
             "uid": "Prometheus"
           },
-          "expr": "max by (name) (container_memory_working_set_bytes{name!=\"\",instance=~\"$node\"}) and on(name) (max by (name) (container_spec_memory_limit_bytes{name!=\"\",instance=~\"$node\"}) > 0)",
+          "expr": "max by (name) (container_memory_working_set_bytes{job=\"unraid-cadvisor\",name!=\"\",instance=~\"$node\"}) and on(name) (max by (name) (container_spec_memory_limit_bytes{job=\"unraid-cadvisor\",name!=\"\",instance=~\"$node\"}) > 0)",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
@@ -1508,7 +1508,7 @@
             "type": "prometheus",
             "uid": "Prometheus"
           },
-          "expr": "max by (name) (container_spec_memory_limit_bytes{name!=\"\",instance=~\"$node\"}) > 0",
+          "expr": "max by (name) (container_spec_memory_limit_bytes{job=\"unraid-cadvisor\",name!=\"\",instance=~\"$node\"}) > 0",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{name}} limit",
