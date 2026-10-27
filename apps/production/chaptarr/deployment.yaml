@@ -33,23 +33,16 @@ spec:
           volumeMounts:
             - mountPath: /config
               name: chaptarr-config
-            - mountPath: /audiobooks
+            - mountPath: /data
               name: chaptarr-media
-              subPath: media/audio-books
-            - mountPath: /ebooks
-              name: chaptarr-media
-              subPath: media/books
-            - mountPath: /downloads
-              name: chaptarr-media
-              subPath: torrents
           livenessProbe:
             exec:
               command:
               - ls
-              - /ebooks/
+              - /data/media/books
             initialDelaySeconds: 10
-            periodSeconds: 7200
-            failureThreshold: 1
+            periodSeconds: 60
+            failureThreshold: 3
             timeoutSeconds: 5
       restartPolicy: Always
       volumes:
