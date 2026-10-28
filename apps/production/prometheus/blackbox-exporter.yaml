@@ -24,6 +24,13 @@ spec:
       retries: 3
   values:
     fullnameOverride: blackbox-exporter
+    config:
+      modules:
+        tcp_connect:
+          prober: tcp
+          timeout: 5s
+          tcp:
+            preferred_ip_protocol: ip4
     resources:
       limits:
         memory: 64Mi
