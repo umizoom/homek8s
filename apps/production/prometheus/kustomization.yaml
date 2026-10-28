@@ -4,5 +4,6 @@ namespace: default
 resources:
   - repository.yaml
   - release.yaml
+  - blackbox-exporter.yaml
   - pvc.yaml
   - external-secrets.yaml
