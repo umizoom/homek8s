@@ -265,16 +265,17 @@ spec:
                 annotations:
                   summary: "{{ $labels.job }} target {{ $labels.instance }} is down"
                   description: "Prometheus cannot scrape {{ $labels.job }} at {{ $labels.instance }}. For unraid and opnsense this usually means the host (backup storage, router) is down."
+              # The 1h delay rides out the Unraid backup/mover stopping the container.
               # hotio holds qBittorrent back until PIA hands out a forwarded port, so a failed
               # port forward (or a dead VPN) shows up as the WebUI not listening.
               - alert: QbittorrentWebUIDown
                 expr: probe_success{job="qbittorrent-webui"} == 0
-                for: 10m
+                for: 1h
                 labels:
                   severity: warning
                 annotations:
                   summary: "qBittorrent WebUI is unreachable"
-                  description: "{{ $labels.instance }} has not accepted connections for 10 minutes. The container does not start qBittorrent until PIA provides a forwarded port, so check `docker logs qbittorrent` on Unraid for \"[PIA] Forwarded port request failed\" and try another VPN_PIA_PREFERRED_REGION."
+                  description: "{{ $labels.instance }} has not accepted connections for 1 hour. The container does not start qBittorrent until PIA provides a forwarded port, so check `docker logs qbittorrent` on Unraid for \"[PIA] Forwarded port request failed\" and try another VPN_PIA_PREFERRED_REGION."
     extraScrapeConfigs: |
       - job_name: unraid-cadvisor
         scrape_interval: 5s
