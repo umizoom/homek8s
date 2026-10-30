@@ -50,10 +50,41 @@ tasks:
       talosctl --talosconfig /dev/stdin kubeconfig
 
   upgrade:
-    desc: Run Ansible playbook to upgrade talos os
+    desc: "Bump the installer image in the machine configs and roll the Talos upgrade across the control plane (usage: task talos:upgrade VERSION=v1.14.2)"
+    requires:
+      vars: [VERSION]
+    env:
+      TALOSCONFIG: /tmp/talosconfig.yaml
     cmds:
-      - sops --decrypt --output-type yaml "{{.TALOS_CONFIG}}" > /tmp/talosconfig.yaml
-      - ansible-playbook hacking/ansible/talos-upgrade.yaml -i hacking/ansible/hosts.yaml
+      - ./scripts/talos-set-version.sh "{{.VERSION}}"
+      - task: den
+      - ansible-playbook hacking/ansible/talos-upgrade.yaml -i hacking/ansible/hosts.yaml -e talos_version="v{{.VERSION | trimPrefix "v"}}"
+
+  upgrade_dry_run:
+    desc: "Show what talos:upgrade would do without changing configs or nodes (usage: task talos:upgrade_dry_run VERSION=v1.14.2)"
+    requires:
+      vars: [VERSION]
+    env:
+      TALOSCONFIG: /tmp/talosconfig.yaml
+      DRY_RUN: "1"
+    cmds:
+      - ./scripts/talos-set-version.sh "{{.VERSION}}"
+      - task: den
+      - ansible-playbook hacking/ansible/talos-upgrade.yaml -i hacking/ansible/hosts.yaml --check -e talos_version="v{{.VERSION | trimPrefix "v"}}"
+
+  k8s_version_dry_run:
+    desc: "Show which Kubernetes image tags k8s_version would change (usage: task talos:k8s_version_dry_run VERSION=1.37.2)"
+    requires:
+      vars: [VERSION]
+    env:
+      DRY_RUN: "1"
+    cmd: ./scripts/k8s-set-version.sh "{{.VERSION}}"
+
+  k8s_version:
+    desc: "Bump the Kubernetes image tags in the machine configs without decrypting them (usage: task talos:k8s_version VERSION=1.37.2)"
+    requires:
+      vars: [VERSION]
+    cmd: ./scripts/k8s-set-version.sh "{{.VERSION}}"
 
   renew:
     desc: Re-mint the talosconfig admin client cert (expires after 1 year) and re-encrypt talos/talosconfig.yaml

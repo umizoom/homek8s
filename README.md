@@ -19,8 +19,8 @@ This repository contains Infrastructure as Code for Kubernetes home clusters, te
 * `infrastructure/{base,dependencies,local,production}`: infrastructure components (ingress, cert-manager, storage, backups, external-secrets)
 * `apps/{base,local,production}`: applications
 * `talos/`: SOPS-encrypted Talos machine configs and talosconfig
-* `hacking/`: helper scripts and Ansible playbooks (Talos upgrade, k8s upgrade)
-* `scripts/`: repo tooling used by pre-commit
+* `hacking/`: helper scripts and the Ansible playbook for the Talos upgrade
+* `scripts/`: repo tooling (pre-commit checks, talosconfig renewal, Talos/k8s version bumps)
 
 Change cluster state by committing to git and letting Flux reconcile. Do not `kubectl apply` manifests by hand.
 
@@ -49,10 +49,11 @@ talosctl apply-config --insecure \
 
 ### Upgrade Talos OS
 
-1. Update talos version in `hacking/ansible/talos-upgrade.yaml`
-2. Run `task talos:upgrade`
-3. Manually update worker and control files with new version: `sops --d --in-place talos/worker.yaml`
-4. Commit and push changes
+The machine configs stay encrypted throughout: version bumps use `sops --set`, so nothing is decrypted to disk and there is no manual decrypt/re-encrypt step.
+
+1. Preview: `task talos:upgrade_dry_run VERSION=v1.14.2` (prints the planned installer tag changes and runs the playbook with `--check`; changes nothing)
+2. Run: `task talos:upgrade VERSION=v1.14.2`. This bumps the installer image tag in `talos/*.yaml`, then upgrades the control-plane nodes one at a time using the image from each node's config.
+3. Commit and push changes
 
 ### Renew talosconfig
 
@@ -87,10 +88,12 @@ Upgrade Kubernetes version:
 
 Note: At times you need to run `brew install siderolabs/tap/talosctl` to upgrade talosctl CLI.
 
-1. Test a dry run upgrade via: `talosctl --nodes 192.168.2.2 upgrade-k8s --to v1.37.1 --dry-run`
-2. Run the actual upgrade: `talosctl --nodes 192.168.2.2 upgrade-k8s --to v1.37.1`
-3. Update talos worker and control files via: `./hacking/k8-upgrade/update-sourcefiles.sh 1.37.1`
-4. Commit and push changes
+1. Preview the config changes: `task talos:k8s_version_dry_run VERSION=1.37.2`
+2. Bump the image tags in the encrypted `talos/*.yaml` configs (no decrypt needed): `task talos:k8s_version VERSION=1.37.2`
+3. Decrypt the talosconfig: `task talos:den`
+4. Test a dry run upgrade via: `talosctl --talosconfig /tmp/talosconfig.yaml --nodes 192.168.2.2 upgrade-k8s --to 1.37.2 --dry-run`
+5. Run the actual upgrade: `talosctl --talosconfig /tmp/talosconfig.yaml --nodes 192.168.2.2 upgrade-k8s --to 1.37.2`
+6. Commit and push changes
 
 ## Secrets
 
