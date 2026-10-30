@@ -25,7 +25,7 @@ spec:
       hostNetwork: true
       containers:
           # https://github.com/homebridge/docker-homebridge/pkgs/container/homebridge
-        - image: ghcr.io/homebridge/homebridge:latest@sha256:716b2cfb5743d9f36f850c8eb44ee5892357c0aa5696809ea8271f903da1f0ea
+        - image: ghcr.io/homebridge/homebridge:latest@sha256:0f038cdd83223aeb634038f96c59efd55ffb7cfc6c1c9c0b1e1f8604d7c5e26c
           resources:
             limits:
               memory: 512Mi
