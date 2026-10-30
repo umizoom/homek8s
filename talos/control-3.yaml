@@ -22,7 +22,7 @@ machine:
     # Used to provide additional options to the kubelet.
     kubelet:
         # The `image` field is an optional reference to an alternative kubelet image.
-        image: ghcr.io/siderolabs/kubelet:v1.37.1
+        image: ghcr.io/siderolabs/kubelet:v1.37.2
         # Enable container runtime default Seccomp profile.
         defaultRuntimeSeccompProfileEnabled: true
         # The `disableManifestsDirectory` field configures the kubelet to get static pod manifests from the /etc/kubernetes/manifests directory.
@@ -436,7 +436,7 @@ cluster:
     # API server specific configuration options.
     apiServer:
         # The container image used in the API server manifest.
-        image: registry.k8s.io/kube-apiserver:v1.37.1
+        image: registry.k8s.io/kube-apiserver:v1.37.2
         # Extra certificate subject alternative names for the API server's certificate.
         certSANs:
             - 192.168.2.2
@@ -471,17 +471,17 @@ cluster:
     # Controller manager server specific configuration options.
     controllerManager:
         # The container image used in the controller manager manifest.
-        image: registry.k8s.io/kube-controller-manager:v1.37.1
+        image: registry.k8s.io/kube-controller-manager:v1.37.2
     # Kube-proxy server-specific configuration options
     proxy:
         # The container image used in the kube-proxy manifest.
-        image: registry.k8s.io/kube-proxy:v1.37.1
+        image: registry.k8s.io/kube-proxy:v1.37.2
         # # Disable kube-proxy deployment on cluster bootstrap.
         # disabled: false
     # Scheduler server specific configuration options.
     scheduler:
         # The container image used in the scheduler manifest.
-        image: registry.k8s.io/kube-scheduler:v1.37.1
+        image: registry.k8s.io/kube-scheduler:v1.37.2
     # Configures cluster member discovery.
     discovery:
         # Enable the cluster membership discovery feature.
@@ -547,8 +547,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2026-09-27T19:57:34Z"
-    mac: ENC[AES256_GCM,data:bOyftnnzOG4KKi7LT2lnaHYBH3CRZEdBV/OJIraSE4IZkt+crqhNa7/sg10xll2tpOCRT5njXIq0Y6Wa0tijF5mPLz4VxTos80boRW+Yshl24a5eCBoUEuoLCP2ZpLTVZZ6/4d+rN6xFPnSh3cbJgCy0moKKjiB0Xwh4Jg13SfU=,iv:i0V4Fp/N6eugD5nAaZMUyK6j/pQGOqwo88Nnz3d/NDA=,tag:hAl2n8vYgLmVMeTRS001lQ==,type:str]
+    lastmodified: "2026-10-30T23:00:07Z"
+    mac: ENC[AES256_GCM,data:1kbu4xc9Dlchq3T+Jqt/2ioBQKtLbi/5TkUgGGn0k4CvGIXzZHi5I+OuhAn4D7S1Xe3eN09WsOkTqkwnvSWjNUK9XRnN0WbVZTsszRt3EW0sdiOk3qBYv1OIc+uWJo0CDPkLoN9z9uc9gEZjTPitMguEBwIu7yxqP8ykqi5YfQg=,iv:RRCkW/7uDgUKohq8FUBY/2zfGKZf8lZvG2Qg+SoNJms=,tag:JTlhcwUPDc7t4qJCq/oXsQ==,type:str]
     pgp:
         - created_at: "2026-09-27T19:57:34Z"
           enc: |-
