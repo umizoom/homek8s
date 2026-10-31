@@ -31,6 +31,11 @@ spec:
           timeout: 5s
           tcp:
             preferred_ip_protocol: ip4
+        http_2xx:
+          prober: http
+          timeout: 10s
+          http:
+            preferred_ip_protocol: ip4
     resources:
       limits:
         memory: 64Mi

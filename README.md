@@ -145,6 +145,8 @@ Both live in the `prometheus` HelmRelease: `apps/production/prometheus/release.y
 | `MayastorNodeOffline` | warning | A Mayastor node is offline for 5m |
 | `MayastorPoolAlmostFull` | warning | A Mayastor pool is above 85% used for 30m |
 | `ScrapeTargetDown` | warning | Unraid, OPNsense, Mayastor or k8up cannot be scraped for 5m |
+| `HomeAssistantDown` | warning | Home Assistant does not return a 2xx response for 1h |
+| `NginxProxyDown` | warning | An Nginx Proxy Manager instance on Unraid (LAN or DMZ) refuses connections for 1h |
 
 While `NodeNotReady` is firing for a node, warning alerts for that node are suppressed, so one dead node produces one message instead of a flood.
 
