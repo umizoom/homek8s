@@ -21,6 +21,7 @@ spec:
     - {name: manager-v2, port: 29814, targetPort: 29814, protocol: TCP}
     - {name: transfer-v2, port: 29815, targetPort: 29815, protocol: TCP}
     - {name: rtty, port: 29816, targetPort: 29816, protocol: TCP}
+    - {name: device-monitor, port: 29817, targetPort: 29817, protocol: TCP}
     # Migrated APs send their discovery packets to the controller's web port
     # (the port given to the migration wizard), so answer UDP 8043 with the
     # discovery listener.

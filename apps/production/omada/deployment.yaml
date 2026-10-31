@@ -18,9 +18,8 @@ spec:
     spec:
       containers:
         # https://github.com/mbentley/docker-omada-controller
-        # Must match the version of the controller being migrated from.
         - name: omada
-          image: mbentley/omada-controller:5.15.24.19
+          image: mbentley/omada-controller:6.3.0.111
           env:
             - name: TZ
               value: America/New_York
@@ -43,6 +42,7 @@ spec:
             - {name: manager-v2, containerPort: 29814, protocol: TCP}
             - {name: transfer-v2, containerPort: 29815, protocol: TCP}
             - {name: rtty, containerPort: 29816, protocol: TCP}
+            - {name: device-monitor, containerPort: 29817, protocol: TCP}
             - {name: eap-discovery, containerPort: 19810, protocol: UDP}
             - {name: app-discovery, containerPort: 27001, protocol: UDP}
           resources:
