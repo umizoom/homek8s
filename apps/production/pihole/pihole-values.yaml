@@ -28,6 +28,8 @@ spec:
     dnsmasq:
       customDnsEntries:
         - address=/basingse.ca/192.168.2.11
+        - address=/omashu.ca/192.168.11.5
+        - address=/mamaison.network/192.168.11.5
     ingress:
       enabled: true
       ingressClassName: nginx
