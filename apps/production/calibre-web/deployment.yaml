@@ -26,7 +26,7 @@ spec:
               value: linuxserver/mods:universal-calibre
               # https://github.com/linuxserver/docker-calibre-web/releases
               # https://github.com/janeczku/calibre-web/releases
-          image: lscr.io/linuxserver/calibre-web:latest@sha256:f9c692fba85ade1ce71b98364b860f72855055a59198894cc8c2ea49fc98a840
+          image: lscr.io/linuxserver/calibre-web:0.6.27-ls408@sha256:f9c692fba85ade1ce71b98364b860f72855055a59198894cc8c2ea49fc98a840
           resources:
             limits:
               memory: 768Mi
