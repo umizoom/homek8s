@@ -54,6 +54,18 @@
       ],
       "versioning": "regex:^(?<major>\\d{4})-(?<minor>\\d{2})-(?<patch>\\d{2})$",
       "sourceUrl": "https://github.com/homebridge/docker-homebridge"
+    },
+    {
+      "description": "nginx-ingress: releases are tagged by app version, so link to the release that references this chart version",
+      "matchDatasources": [
+        "helm"
+      ],
+      "matchPackageNames": [
+        "nginx-ingress"
+      ],
+      "prBodyNotes": [
+        "📝 [Release notes for chart {{{newVersion}}}](https://github.com/nginx/kubernetes-ingress/releases?q=%22version+{{{newVersion}}}+of+the+chart%22&expanded=true)"
+      ]
     }
   ]
 }
