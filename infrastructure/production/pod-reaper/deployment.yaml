@@ -14,6 +14,10 @@ spec:
     metadata:
       labels:
         app: pod-reaper
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: /metrics
     spec:
       serviceAccountName: pod-reaper-sa
       containers:
@@ -22,7 +26,23 @@ spec:
               value: "true"
             - name: TIMEZONE
               value: "EST"
-          image: ghcr.io/umizoom/pod-reaper:latest@sha256:c0502888729ae53c9ca2ccc06646ad8262d92a83311ea34f3c7c6c42208e349b
+            - name: WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: alertmanager-discord
+                  key: webhook_url
+                  optional: true
+          image: ghcr.io/umizoom/pod-reaper:latest@sha256:7ad7ac511bbaeb7fc4869b429ab1618636baff4ce454dc2f7fc6ec5c7cd62255
+          ports:
+            - name: metrics
+              containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: metrics
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            failureThreshold: 3
           resources:
             limits:
               memory: 256Mi
