@@ -22,7 +22,7 @@ spec:
               value: "true"
             - name: TIMEZONE
               value: "EST"
-          image: ghcr.io/umizoom/pod-reaper:latest@sha256:da71fb0535d6fa4971771c6a2632d649bc2aa5a309cdebb105c7a8843620761d
+          image: ghcr.io/umizoom/pod-reaper:latest@sha256:9bd6be7ba063af2a2b6af0598dbee2d899e525a30b9916ae70aa4026e602ac14
           resources:
             limits:
               memory: 256Mi
