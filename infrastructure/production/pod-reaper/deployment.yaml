@@ -32,7 +32,7 @@ spec:
                   name: alertmanager-discord
                   key: webhook_url
                   optional: true
-          image: ghcr.io/umizoom/pod-reaper:latest@sha256:7ad7ac511bbaeb7fc4869b429ab1618636baff4ce454dc2f7fc6ec5c7cd62255
+          image: ghcr.io/umizoom/pod-reaper:latest@sha256:49c08a18758ae091f3433a71accb338f5bb5e996a9c59191c6914e5c10f7559c
           ports:
             - name: metrics
               containerPort: 8080
