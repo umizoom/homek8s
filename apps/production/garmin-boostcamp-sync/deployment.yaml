@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: garmin-boostcamp-sync
+  labels:
+    app: garmin-boostcamp-sync
+spec:
+  # Kept at 0 until the PVC is seeded with the Garmin tokens and state from Unraid.
+  replicas: 0
+  selector:
+    matchLabels:
+      app: garmin-boostcamp-sync
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: garmin-boostcamp-sync
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        runAsNonRoot: true
+      containers:
+        # https://github.com/umizoom/garmin-boostcamp-sync
+        - name: sync
+          image: ghcr.io/umizoom/garmin-boostcamp-sync:latest@sha256:f2681232c2e23f1e0a3c6f0ee2c346a3884958fa1bd2ab6fa72f99c298137dd4
+          args: ["daemon"]
+          env:
+            - name: TZ
+              value: America/New_York
+            - name: GBSYNC_TIMEZONE
+              value: America/New_York
+            - name: HOME
+              value: /app/data
+            - name: GBSYNC_DATA_DIR
+              value: /app/data
+          envFrom:
+            - secretRef:
+                name: garmin-boostcamp-sync-external
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+          resources:
+            requests:
+              cpu: 10m
+              memory: 64Mi
+            limits:
+              memory: 256Mi
+          volumeMounts:
+            - name: data
+              mountPath: /app/data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: garmin-boostcamp-sync-data
