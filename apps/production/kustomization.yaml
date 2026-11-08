@@ -15,3 +15,4 @@ resources:
   - ./notifications
   - ./syslog-alloy
   - ./omada
+  - ./garmin-boostcamp-sync
