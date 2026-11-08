@@ -5,8 +5,7 @@ metadata:
   labels:
     app: garmin-boostcamp-sync
 spec:
-  # Kept at 0 until the PVC is seeded with the Garmin tokens and state from Unraid.
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: garmin-boostcamp-sync
@@ -51,8 +50,11 @@ spec:
             limits:
               memory: 256Mi
           volumeMounts:
+            # The volume root is owned by root, and the app chmods its data dir
+            # on start, so the data lives in a subdirectory owned by uid 1000.
             - name: data
               mountPath: /app/data
+              subPath: data
       volumes:
         - name: data
           persistentVolumeClaim:
