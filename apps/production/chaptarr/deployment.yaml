@@ -22,6 +22,9 @@ spec:
               value: "99"
             - name: TZ
               value: America/New_York
+            # .NET parses DOTNET_GC* values as hex: 0x5A = 90% of the 2Gi limit (default is 75%)
+            - name: DOTNET_GCHeapHardLimitPercent
+              value: "0x5A"
           image: chaptarr/chaptarr:0.9.1000
           resources:
             requests:
