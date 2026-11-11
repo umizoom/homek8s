@@ -50,9 +50,9 @@ spec:
                       - ls
                       - /data/
                   initialDelaySeconds: 10
-                  periodSeconds: 7200
-                  failureThreshold: 1
-                  timeoutSeconds: 5
+                  periodSeconds: 600
+                  failureThreshold: 3
+                  timeoutSeconds: 30
 
             # -- environment variables.
             # See [image docs](https://github.com/dani-garcia/vaultwarden/blob/main/.env.template) for more details.
