@@ -24,8 +24,10 @@ spec:
               value: America/New_York
           image: chaptarr/chaptarr:0.9.1000
           resources:
-            limits:
+            requests:
               memory: 1Gi
+            limits:
+              memory: 2Gi
           name: chaptarr
           ports:
             - containerPort: 8789
