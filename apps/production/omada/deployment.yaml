@@ -19,7 +19,7 @@ spec:
       containers:
         # https://github.com/mbentley/docker-omada-controller
         - name: omada
-          image: mbentley/omada-controller:6.3.0.111
+          image: mbentley/omada-controller:6.3.0.112
           env:
             - name: TZ
               value: America/New_York
